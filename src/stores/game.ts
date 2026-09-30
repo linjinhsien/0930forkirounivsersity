@@ -31,7 +31,13 @@ function createSlots(): ArchitectureSlot[] {
     { id: 'storage-1', position: { x: 1, y: 0 }, type: 'storage', card: null, required: true },
     { id: 'network-1', position: { x: 2, y: 0 }, type: 'network', card: null, required: true },
     { id: 'security-1', position: { x: 0, y: 1 }, type: 'security', card: null, required: true },
-    { id: 'governance-1', position: { x: 1, y: 1 }, type: 'governance', card: null, required: false },
+    {
+      id: 'governance-1',
+      position: { x: 1, y: 1 },
+      type: 'governance',
+      card: null,
+      required: false,
+    },
     { id: 'any-1', position: { x: 2, y: 1 }, type: 'any', card: null, required: false },
   ]
 }
