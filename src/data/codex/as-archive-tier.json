@@ -1,0 +1,27 @@
+{
+  "cardId": "as-archive-tier",
+  "examDefinition": "Blob Storage Archive Tier is a key Azure service within the azure-services domain. Lowest cost storage tier for rarely accessed data with hours of retrieval latency",
+  "useCases": [
+    "Deploying enterprise workloads requiring storage",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["as-blob-storage"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Blob Storage Archive Tier",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

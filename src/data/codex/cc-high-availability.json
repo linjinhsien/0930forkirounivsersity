@@ -1,0 +1,27 @@
+{
+  "cardId": "cc-high-availability",
+  "examDefinition": "High Availability (HA) ensures systems remain accessible and operational with minimal downtime, typically using redundancy, clustering, and automated failover across fault domains.",
+  "useCases": [
+    "Mission-critical applications requiring 99.99% uptime SLAs",
+    "Active-active multi-region web apps",
+    "Failover clusters for enterprise databases"
+  ],
+  "bestPractices": [
+    "Deploy workloads across Azure Availability Zones",
+    "Use health probes in load balancers to detect unhealthy nodes",
+    "Pair regional deployments for geographic redundancy"
+  ],
+  "relatedServices": ["as-vmss", "as-load-balancer", "as-app-gateway"],
+  "resources": [
+    {
+      "title": "AZ-900: High Availability Fundamentals",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    },
+    {
+      "title": "Reliability in Azure Architecture",
+      "url": "https://learn.microsoft.com/azure/well-architected/reliability/",
+      "type": "documentation"
+    }
+  ]
+}

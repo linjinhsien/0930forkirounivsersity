@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-public-cloud",
+  "examDefinition": "A Public Cloud is owned and operated by a third-party cloud service provider delivering computing resources like servers and storage over the Internet to multiple tenants.",
+  "useCases": [
+    "Consumer web and mobile applications with global reach",
+    "Rapid innovation testing without physical hardware constraints",
+    "Scalable analytics on elastic infrastructure"
+  ],
+  "bestPractices": [
+    "Implement defense-in-depth security using Entra ID, NSGs, and firewalls",
+    "Establish cost governance and alerts to prevent bill shock",
+    "Use resource locks to protect production resource groups"
+  ],
+  "relatedServices": ["as-app-service", "mg-azure-policy", "mg-budgets"],
+  "resources": [
+    {
+      "title": "AZ-900: Cloud Deployment Models",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

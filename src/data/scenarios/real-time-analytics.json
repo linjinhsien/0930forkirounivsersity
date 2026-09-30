@@ -1,0 +1,103 @@
+{
+  "scenarios": [
+    {
+      "id": "analytics-iot-fleet",
+      "title": "Connected Vehicle Fleet Telemetry",
+      "description": "Ingest and process telemetry from 500,000 IoT sensors simultaneously with low latency and serverless elasticity.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "streaming",
+          "weight": 100,
+          "description": "Ingest millions of sensor telemetry events per second reliably"
+        },
+        {
+          "type": "service",
+          "value": "serverless",
+          "weight": 85,
+          "description": "Serverless event handlers parsing stream data without dedicated VMs"
+        },
+        {
+          "type": "service",
+          "value": "nosql",
+          "weight": 90,
+          "description": "Write fast time-series telemetry with single-digit millisecond latency"
+        }
+      ],
+      "constraints": {
+        "maxCost": 25,
+        "minAvailability": 99.95,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "real-time-analytics"
+    },
+    {
+      "id": "analytics-modern-warehouse",
+      "title": "Enterprise Cloud Data Lake & Synapse Warehouse",
+      "description": "Unify relational enterprise databases with unstructured data lakes for petabyte-scale reporting and BI dashboards.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "warehouse",
+          "weight": 100,
+          "description": "Limitless enterprise SQL data warehousing and big data processing"
+        },
+        {
+          "type": "service",
+          "value": "blob",
+          "weight": 90,
+          "description": "Scalable unstructured data lake storage foundation"
+        },
+        {
+          "type": "governance",
+          "value": "encryption",
+          "weight": 80,
+          "description": "Centralize data encryption keys and credentials"
+        }
+      ],
+      "constraints": {
+        "maxCost": 27,
+        "minAvailability": 99.9,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "real-time-analytics"
+    },
+    {
+      "id": "analytics-stream-monitoring",
+      "title": "Mission-Critical Real-Time Observability",
+      "description": "Aggregate application metrics, server logs, and security telemetry into a unified real-time diagnostic pipeline.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "metrics",
+          "weight": 95,
+          "description": "Full-stack monitoring and alerting across resources"
+        },
+        {
+          "type": "governance",
+          "value": "kql",
+          "weight": 90,
+          "description": "Log Analytics workspace for fast Kusto investigative queries"
+        },
+        {
+          "type": "service",
+          "value": "network",
+          "weight": 75,
+          "description": "Private VNet communication between compute and log endpoints"
+        }
+      ],
+      "constraints": {
+        "maxCost": 20,
+        "minAvailability": 99.99,
+        "securityLevel": "premium"
+      },
+      "maxRounds": 6,
+      "difficulty": "advanced",
+      "category": "real-time-analytics"
+    }
+  ]
+}

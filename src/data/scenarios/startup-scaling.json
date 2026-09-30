@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "id": "startup-mvp",
+      "title": "Startup MVP Launch",
+      "description": "Deploy a cost-effective, scalable web app backend with automated scaling and database persistence.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "web",
+          "weight": 100,
+          "description": "Host a scalable web application frontend and API"
+        },
+        {
+          "type": "service",
+          "value": "database",
+          "weight": 80,
+          "description": "Store relational customer records with automated backups"
+        },
+        {
+          "type": "concept",
+          "value": "scalability",
+          "weight": 60,
+          "description": "Ensure horizontal elasticity during traffic spikes"
+        }
+      ],
+      "constraints": {
+        "maxCost": 18,
+        "minAvailability": 99.9,
+        "securityLevel": "basic"
+      },
+      "maxRounds": 5,
+      "difficulty": "beginner",
+      "category": "startup-scaling"
+    },
+    {
+      "id": "startup-serverless-burst",
+      "title": "Serverless Micro-Startup",
+      "description": "Build an event-driven architecture with zero idle compute cost for unpredictable viral traffic.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "serverless",
+          "weight": 100,
+          "description": "Implement event-driven compute with pay-as-you-go billing"
+        },
+        {
+          "type": "service",
+          "value": "storage",
+          "weight": 70,
+          "description": "Store static user uploads and assets"
+        },
+        {
+          "type": "concept",
+          "value": "cost",
+          "weight": 80,
+          "description": "Adopt consumption-based operational expenditure (OpEx)"
+        }
+      ],
+      "constraints": {
+        "maxCost": 12,
+        "minAvailability": 99.9,
+        "securityLevel": "basic"
+      },
+      "maxRounds": 5,
+      "difficulty": "beginner",
+      "category": "startup-scaling"
+    },
+    {
+      "id": "startup-global-reach",
+      "title": "Global E-Commerce Expansion",
+      "description": "Scale an established web store to international customers with low-latency data access worldwide.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "nosql",
+          "weight": 90,
+          "description": "Deploy multi-region distributed database for single-digit ms latency"
+        },
+        {
+          "type": "service",
+          "value": "web",
+          "weight": 85,
+          "description": "Deploy managed web application layer"
+        },
+        {
+          "type": "concept",
+          "value": "multi-region",
+          "weight": 75,
+          "description": "Implement high availability across paired regions"
+        }
+      ],
+      "constraints": {
+        "maxCost": 22,
+        "minAvailability": 99.95,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 5,
+      "difficulty": "beginner",
+      "category": "startup-scaling"
+    },
+    {
+      "id": "startup-cost-guardrail",
+      "title": "Bootstrapped Budget Guardrails",
+      "description": "Protect the seed runway by configuring cloud governance, budget alerts, and resource controls.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "budgets",
+          "weight": 100,
+          "description": "Implement proactive spending alerts before thresholds are reached"
+        },
+        {
+          "type": "governance",
+          "value": "cost",
+          "weight": 80,
+          "description": "Continuous monitoring and cost optimization"
+        },
+        {
+          "type": "service",
+          "value": "compute",
+          "weight": 60,
+          "description": "Deploy minimal essential compute resources"
+        }
+      ],
+      "constraints": {
+        "maxCost": 15,
+        "minAvailability": 99.5,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 5,
+      "difficulty": "beginner",
+      "category": "startup-scaling"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-capex-model",
+  "examDefinition": "Capital Expenditure (CapEx) involves spending money on physical hardware upfront and deducting that expense over its lifecycle, compared against cloud OpEx models.",
+  "useCases": [
+    "Comparing on-premises total cost of ownership against cloud migration",
+    "Reserved instances amortized over 1-3 years",
+    "Procuring dedicated physical datacenters"
+  ],
+  "bestPractices": [
+    "Use the Azure TCO Calculator to quantify CapEx to OpEx transitions",
+    "Factor in cooling, power, datacenter real estate, and IT labor into comparisons",
+    "Evaluate 1-year and 3-year Azure Reservations for fixed workloads"
+  ],
+  "relatedServices": ["mg-tco-calculator", "mg-pricing-calculator", "mg-cost-management"],
+  "resources": [
+    {
+      "title": "Compare CapEx vs. OpEx in Cloud",
+      "url": "https://learn.microsoft.com/azure/cloud-adoption-framework/strategy/financial-model",
+      "type": "documentation"
+    }
+  ]
+}

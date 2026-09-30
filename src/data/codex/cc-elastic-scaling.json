@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-elastic-scaling",
+  "examDefinition": "Elasticity is the ability of cloud computing to dynamically allocate and deallocate computing resources in real time to match fluctuating workloads.",
+  "useCases": [
+    "Handling sudden traffic surges during flash sales",
+    "Scaling down dev/test infrastructure outside business hours",
+    "Batch queue processing based on queue depth"
+  ],
+  "bestPractices": [
+    "Establish autoscale rules with cooldown periods to prevent thrashing",
+    "Design stateless applications for seamless horizontal scaling",
+    "Combine predictive and metric-based scaling rules"
+  ],
+  "relatedServices": ["as-app-service", "as-vmss", "as-functions"],
+  "resources": [
+    {
+      "title": "AZ-900: Cloud Scalability and Elasticity",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

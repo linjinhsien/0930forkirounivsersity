@@ -1,0 +1,27 @@
+{
+  "cardId": "as-dns",
+  "examDefinition": "Azure DNS is a key Azure service within the azure-services domain. Host DNS domains in Azure using global anycast name servers for ultra-fast query resolution",
+  "useCases": [
+    "Deploying enterprise workloads requiring network",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["mg-monitor", "mg-azure-policy"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Azure DNS",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

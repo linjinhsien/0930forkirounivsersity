@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-shared-responsibility",
+  "examDefinition": "The Shared Responsibility Model divides security and operational tasks between the cloud provider and the customer based on whether IaaS, PaaS, or SaaS is chosen.",
+  "useCases": [
+    "Auditing regulatory compliance certifications",
+    "Defining IT team responsibilities versus Microsoft responsibilities",
+    "Establishing security baseline checklists for cloud migration"
+  ],
+  "bestPractices": [
+    "Remember that data classification and identity are ALWAYS customer responsibilities",
+    "Understand that physical datacenter security is ALWAYS Microsoft responsibility",
+    "Verify patching responsibilities for guest OS in IaaS versus PaaS"
+  ],
+  "relatedServices": ["mg-rbac", "mg-azure-policy", "mg-defender"],
+  "resources": [
+    {
+      "title": "Shared Responsibility in the Cloud",
+      "url": "https://learn.microsoft.com/azure/security/fundamentals/shared-responsibility",
+      "type": "documentation"
+    }
+  ]
+}

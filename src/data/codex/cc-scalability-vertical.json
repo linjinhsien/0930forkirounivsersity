@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-scalability-vertical",
+  "examDefinition": "Vertical scaling (Scale Up) increases or decreases the capacity of an existing resource, such as upgrading a virtual machine from 4 vCPUs to 16 vCPUs.",
+  "useCases": [
+    "Upgrading database instances with heavier single-thread query loads",
+    "Increasing RAM for memory-intensive caching systems",
+    "Temporary compute boost for quarterly financial calculations"
+  ],
+  "bestPractices": [
+    "Account for necessary restarts when resizing VM sizes",
+    "Prefer horizontal scaling for stateless frontends to avoid upper hardware ceilings",
+    "Automate resizing during maintenance windows"
+  ],
+  "relatedServices": ["as-vm-windows", "as-vm-linux", "as-sql-database"],
+  "resources": [
+    {
+      "title": "Scale up and scale out in Azure",
+      "url": "https://learn.microsoft.com/azure/architecture/guide/design-principles/scale-out",
+      "type": "documentation"
+    }
+  ]
+}

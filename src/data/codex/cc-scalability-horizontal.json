@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-scalability-horizontal",
+  "examDefinition": "Horizontal scaling (Scale Out) adds or removes identical computing resources, such as adding more VM instances behind an Azure Load Balancer.",
+  "useCases": [
+    "Scaling web farm capacity to handle millions of simultaneous HTTP requests",
+    "Processing distributed task queues across multiple worker nodes",
+    "Microservices scaling independently based on individual service demand"
+  ],
+  "bestPractices": [
+    "Decouple application state using external databases or Redis cache",
+    "Place instances across multiple Availability Zones",
+    "Configure health probes to exclude unready instances from receiving traffic"
+  ],
+  "relatedServices": ["as-vmss", "as-app-service", "as-load-balancer"],
+  "resources": [
+    {
+      "title": "Design for Scaling Out",
+      "url": "https://learn.microsoft.com/azure/architecture/guide/design-principles/scale-out",
+      "type": "documentation"
+    }
+  ]
+}

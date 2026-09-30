@@ -1,0 +1,136 @@
+{
+  "scenarios": [
+    {
+      "id": "enterprise-lift-shift",
+      "title": "Datacenter Lift-and-Shift Migration",
+      "description": "Migrate core on-premises Windows enterprise line-of-business applications to Azure IaaS with dedicated network connectivity.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "iaas",
+          "weight": 95,
+          "description": "Provision full OS compatible virtual machines"
+        },
+        {
+          "type": "service",
+          "value": "network",
+          "weight": 90,
+          "description": "Establish dedicated high-speed hybrid connectivity"
+        },
+        {
+          "type": "governance",
+          "value": "rbac",
+          "weight": 80,
+          "description": "Enforce least privilege access management"
+        }
+      ],
+      "constraints": {
+        "maxCost": 28,
+        "minAvailability": 99.9,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "enterprise-migration"
+    },
+    {
+      "id": "enterprise-hybrid-identity",
+      "title": "Unified Enterprise Cloud Identity",
+      "description": "Establish centralized single sign-on (SSO) and multi-factor authentication across hybrid on-premises and Azure workloads.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "identity",
+          "weight": 100,
+          "description": "Centralize identity with cloud directory and SSO"
+        },
+        {
+          "type": "governance",
+          "value": "rbac",
+          "weight": 85,
+          "description": "Assign granular role-based permissions"
+        },
+        {
+          "type": "service",
+          "value": "network",
+          "weight": 70,
+          "description": "Secure network perimeter isolation"
+        }
+      ],
+      "constraints": {
+        "maxCost": 20,
+        "minAvailability": 99.95,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "enterprise-migration"
+    },
+    {
+      "id": "enterprise-sql-modernization",
+      "title": "Legacy SQL Database Modernization",
+      "description": "Modernize on-premises SQL Server instances into managed Azure PaaS with minimal downtime and 100% feature compatibility.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "migration",
+          "weight": 90,
+          "description": "Utilize dedicated database migration tooling"
+        },
+        {
+          "type": "service",
+          "value": "database",
+          "weight": 95,
+          "description": "Deploy managed SQL instance with native DB mail and CLR support"
+        },
+        {
+          "type": "concept",
+          "value": "paas",
+          "weight": 75,
+          "description": "Eliminate database OS maintenance overhead"
+        }
+      ],
+      "constraints": {
+        "maxCost": 26,
+        "minAvailability": 99.95,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "enterprise-migration"
+    },
+    {
+      "id": "enterprise-file-consolidation",
+      "title": "Distributed Branch Office File Consolidation",
+      "description": "Consolidate regional office file servers into cloud SMB shares accessible locally and in Azure.",
+      "requirements": [
+        {
+          "type": "service",
+          "value": "files",
+          "weight": 95,
+          "description": "Deploy managed cloud file shares with SMB protocol"
+        },
+        {
+          "type": "governance",
+          "value": "governance",
+          "weight": 80,
+          "description": "Apply organizational tags and resource group lifecycle policies"
+        },
+        {
+          "type": "concept",
+          "value": "backup",
+          "weight": 85,
+          "description": "Configure disaster recovery and snapshots"
+        }
+      ],
+      "constraints": {
+        "maxCost": 18,
+        "minAvailability": 99.9,
+        "securityLevel": "standard"
+      },
+      "maxRounds": 6,
+      "difficulty": "intermediate",
+      "category": "enterprise-migration"
+    }
+  ]
+}

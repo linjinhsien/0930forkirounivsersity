@@ -1,0 +1,279 @@
+{
+  "cards": [
+    {
+      "id": "as-vm-windows",
+      "name": "Windows Virtual Machine",
+      "domain": "azure-services",
+      "cost": 8,
+      "synergyTags": ["compute", "iaas", "windows", "vm"],
+      "az900ExamTip": "IaaS compute providing full operating system control and legacy application compatibility",
+      "description": "Windows-based virtual machine with dedicated compute and customizable OS configuration",
+      "power": 70,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-vm-linux",
+      "name": "Linux Virtual Machine",
+      "domain": "azure-services",
+      "cost": 7,
+      "synergyTags": ["compute", "iaas", "linux", "vm"],
+      "az900ExamTip": "Cost-effective IaaS compute supporting Ubuntu, Red Hat, SUSE, and other Linux distributions",
+      "description": "Linux-based virtual machine for open-source stacks, web servers, and container hosts",
+      "power": 70,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-vmss",
+      "name": "Virtual Machine Scale Sets",
+      "domain": "azure-services",
+      "cost": 9,
+      "synergyTags": ["compute", "auto-scaling", "availability", "iaas"],
+      "az900ExamTip": "VMSS deploys and manages identical load-balanced VMs with automatic horizontal scaling",
+      "description": "Automated group of load-balanced VMs that scale up or down based on metrics or schedule",
+      "power": 85,
+      "requirements": ["as-vnet", "as-load-balancer"]
+    },
+    {
+      "id": "as-app-service",
+      "name": "Azure App Service",
+      "domain": "azure-services",
+      "cost": 5,
+      "synergyTags": ["compute", "paas", "web", "scaling", "managed"],
+      "az900ExamTip": "PaaS for web apps and REST APIs with built-in auto-scaling, SSL, and zero-downtime deployment slots",
+      "description": "Fully managed platform for building, hosting, and auto-scaling modern web applications",
+      "power": 80
+    },
+    {
+      "id": "as-functions",
+      "name": "Azure Functions",
+      "domain": "azure-services",
+      "cost": 2,
+      "synergyTags": ["compute", "serverless", "event-driven", "scaling"],
+      "az900ExamTip": "Serverless compute that runs code in response to events with pay-per-execution consumption billing",
+      "description": "Event-driven serverless compute platform executing micro-logic without dedicated servers",
+      "power": 75
+    },
+    {
+      "id": "as-aks",
+      "name": "Azure Kubernetes Service (AKS)",
+      "domain": "azure-services",
+      "cost": 8,
+      "synergyTags": ["compute", "containers", "microservices", "scaling"],
+      "az900ExamTip": "Managed Kubernetes orchestrator with free cluster management plane and integrated Azure identity",
+      "description": "Enterprise-grade container orchestration platform for complex microservices topologies",
+      "power": 90,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-aci",
+      "name": "Azure Container Instances (ACI)",
+      "domain": "azure-services",
+      "cost": 3,
+      "synergyTags": ["compute", "containers", "serverless", "fast-start"],
+      "az900ExamTip": "Run containers without managing servers or orchestrators; fastest way to launch isolated containers",
+      "description": "Serverless container execution without VM provisioning or cluster setup overhead",
+      "power": 70
+    },
+    {
+      "id": "as-avd",
+      "name": "Azure Virtual Desktop",
+      "domain": "azure-services",
+      "cost": 6,
+      "synergyTags": ["compute", "desktop", "remote", "windows"],
+      "az900ExamTip": "Cloud-based desktop and app virtualization supporting multi-session Windows 10/11",
+      "description": "Secure remote desktop infrastructure accessible anywhere with central access control",
+      "power": 75,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-blob-storage",
+      "name": "Azure Blob Storage",
+      "domain": "azure-services",
+      "cost": 3,
+      "synergyTags": ["storage", "blob", "unstructured", "managed"],
+      "az900ExamTip": "Object storage optimized for massive amounts of unstructured data like images, logs, and backups",
+      "description": "Highly scalable object store supporting Hot, Cool, Cold, and Archive storage tiers",
+      "power": 75
+    },
+    {
+      "id": "as-files",
+      "name": "Azure Files",
+      "domain": "azure-services",
+      "cost": 3,
+      "synergyTags": ["storage", "files", "smb", "nfs", "shared"],
+      "az900ExamTip": "Fully managed file shares accessible via industry-standard SMB or NFS protocols",
+      "description": "Cloud file shares that can be mounted simultaneously by on-premise and cloud VMs",
+      "power": 70
+    },
+    {
+      "id": "as-disk-storage",
+      "name": "Azure Managed Disks",
+      "domain": "azure-services",
+      "cost": 4,
+      "synergyTags": ["storage", "disk", "iaas", "block"],
+      "az900ExamTip": "Block-level storage volumes attached to Azure VMs (Standard HDD, Standard SSD, Premium SSD, Ultra)",
+      "description": "Durable block storage for VMs with 99.999% availability and host-level caching",
+      "power": 70
+    },
+    {
+      "id": "as-archive-tier",
+      "name": "Blob Storage Archive Tier",
+      "domain": "azure-services",
+      "cost": 1,
+      "synergyTags": ["storage", "archive", "cost", "compliance"],
+      "az900ExamTip": "Lowest cost storage tier for rarely accessed data with hours of retrieval latency",
+      "description": "Cost-optimized cold data retention tier designed for multi-year regulatory compliance archives",
+      "power": 65,
+      "requirements": ["as-blob-storage"]
+    },
+    {
+      "id": "as-vnet",
+      "name": "Azure Virtual Network (VNet)",
+      "domain": "azure-services",
+      "cost": 1,
+      "synergyTags": ["network", "connectivity", "isolation", "foundation"],
+      "az900ExamTip": "Fundamental building block for private networking in Azure; isolates cloud resources securely",
+      "description": "Private network perimeter providing IP address allocation, subnets, and traffic routing",
+      "power": 85
+    },
+    {
+      "id": "as-vpn-gateway",
+      "name": "Azure VPN Gateway",
+      "domain": "azure-services",
+      "cost": 4,
+      "synergyTags": ["network", "hybrid", "vpn", "encrypted"],
+      "az900ExamTip": "Sends encrypted traffic between Azure VNet and on-premises datacenter over the public Internet",
+      "description": "Site-to-site and point-to-site encrypted tunneling gateway connecting hybrid locations",
+      "power": 75,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-expressroute",
+      "name": "Azure ExpressRoute",
+      "domain": "azure-services",
+      "cost": 9,
+      "synergyTags": ["network", "hybrid", "dedicated", "performance", "private"],
+      "az900ExamTip": "Private dedicated connection to Azure that does NOT travel over the public Internet",
+      "description": "High-throughput private connectivity with lower latency, higher reliability, and SLA guarantees",
+      "power": 90,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-nsg",
+      "name": "Network Security Group (NSG)",
+      "domain": "azure-services",
+      "cost": 1,
+      "synergyTags": ["network", "security", "firewall", "filtering"],
+      "az900ExamTip": "Filters network traffic to and from Azure resources in a VNet using 5-tuple security rules",
+      "description": "Stateful packet filtering rules based on source/dest IP, port, and protocol",
+      "power": 80,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-firewall",
+      "name": "Azure Firewall",
+      "domain": "azure-services",
+      "cost": 7,
+      "synergyTags": ["network", "security", "protection", "managed"],
+      "az900ExamTip": "Cloud-native stateful firewall-as-a-service with built-in high availability and unrestricted scalability",
+      "description": "Centralized network traffic inspection and threat intelligence filtering across VNets",
+      "power": 85,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-dns",
+      "name": "Azure DNS",
+      "domain": "azure-services",
+      "cost": 1,
+      "synergyTags": ["network", "dns", "resolution"],
+      "az900ExamTip": "Host DNS domains in Azure using global anycast name servers for ultra-fast query resolution",
+      "description": "Reliable and secure DNS hosting service using Microsoft global network infrastructure",
+      "power": 65
+    },
+    {
+      "id": "as-load-balancer",
+      "name": "Azure Load Balancer",
+      "domain": "azure-services",
+      "cost": 3,
+      "synergyTags": ["network", "load-balancing", "availability", "layer4"],
+      "az900ExamTip": "Layer 4 (TCP/UDP) ultra-low latency load balancer that distributes traffic across healthy VMs",
+      "description": "High-performance non-HTTP traffic distribution across backend VM pools",
+      "power": 80,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-app-gateway",
+      "name": "Azure Application Gateway",
+      "domain": "azure-services",
+      "cost": 5,
+      "synergyTags": ["network", "load-balancing", "waf", "web", "layer7"],
+      "az900ExamTip": "Layer 7 web traffic load balancer with Web Application Firewall (WAF), SSL termination, and URL routing",
+      "description": "Advanced HTTP/HTTPS application delivery controller with integrated OWASP rule protection",
+      "power": 85,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-sql-database",
+      "name": "Azure SQL Database",
+      "domain": "azure-services",
+      "cost": 6,
+      "synergyTags": ["database", "paas", "sql", "managed", "relational"],
+      "az900ExamTip": "Fully managed relational database engine with automated backups, patching, and 99.995% SLA",
+      "description": "Intelligent DBaaS powered by the SQL Server engine with built-in threat detection and tuning",
+      "power": 85,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-sql-mi",
+      "name": "Azure SQL Managed Instance",
+      "domain": "azure-services",
+      "cost": 8,
+      "synergyTags": ["database", "paas", "migration", "sql", "enterprise"],
+      "az900ExamTip": "Near 100% compatibility with on-prem SQL Server, ideal for lift-and-shift database migration",
+      "description": "Full-featured SQL Server instance hosted in a dedicated VNet subnet with native DB mail and CLR",
+      "power": 85,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-cosmos-db",
+      "name": "Azure Cosmos DB",
+      "domain": "azure-services",
+      "cost": 7,
+      "synergyTags": ["database", "nosql", "multi-region", "low-latency", "global"],
+      "az900ExamTip": "Globally distributed multi-model NoSQL database offering single-digit millisecond latency SLAs",
+      "description": "Turnkey global distribution with multi-region active-active writes and flexible consistency models",
+      "power": 90
+    },
+    {
+      "id": "as-dms",
+      "name": "Azure Database Migration Service",
+      "domain": "azure-services",
+      "cost": 3,
+      "synergyTags": ["database", "migration", "tools"],
+      "az900ExamTip": "Assists seamless offline or online database migration from on-prem SQL/Oracle to Azure databases",
+      "description": "Automated workflow service for minimal downtime database schema and data migration",
+      "power": 70,
+      "requirements": ["as-vnet"]
+    },
+    {
+      "id": "as-synapse",
+      "name": "Azure Synapse Analytics",
+      "domain": "azure-services",
+      "cost": 8,
+      "synergyTags": ["analytics", "big-data", "sql", "warehouse"],
+      "az900ExamTip": "Enterprise analytics service unifying data integration, enterprise data warehousing, and big data",
+      "description": "Limitless analytics platform combining SQL data warehouses with Apache Spark engines",
+      "power": 85
+    },
+    {
+      "id": "as-event-hubs",
+      "name": "Azure Event Hubs",
+      "domain": "azure-services",
+      "cost": 4,
+      "synergyTags": ["analytics", "streaming", "big-data", "real-time", "messaging"],
+      "az900ExamTip": "Big data streaming platform and event ingestion service capable of processing millions of events/sec",
+      "description": "High-throughput real-time telemetry streaming buffer for IoT and operational monitoring",
+      "power": 80
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-iaas",
+  "examDefinition": "Infrastructure as a Service (IaaS) provides raw virtualized computing resources (VMs, storage, network) where the customer manages the OS, middleware, and applications.",
+  "useCases": [
+    "Migrating legacy on-premise software requiring specific OS kernels",
+    "Hosting customized database engines or commercial off-the-shelf software",
+    "Full administrative control over network configuration and OS hardening"
+  ],
+  "bestPractices": [
+    "Apply security patches to OS regularly using Azure Update Manager",
+    "Hardening VM images using Center for Internet Security (CIS) benchmarks",
+    "Place VMs inside private subnets behind Network Security Groups"
+  ],
+  "relatedServices": ["as-vm-windows", "as-vm-linux", "as-vnet", "as-disk-storage"],
+  "resources": [
+    {
+      "title": "AZ-900: IaaS Service Model",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-service-types/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

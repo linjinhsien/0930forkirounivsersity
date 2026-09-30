@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-fault-tolerance",
+  "examDefinition": "Fault Tolerance is the ability of an architecture to remain completely uninterrupted in the event of hardware or subsystem failure through built-in active redundancy.",
+  "useCases": [
+    "Critical financial payment gateways requiring zero transaction interruption",
+    "Medical telemetry ingestion with zero packet loss",
+    "Telecommunication routing networks"
+  ],
+  "bestPractices": [
+    "Ensure no single point of failure (SPOF) exists in the data path",
+    "Use active-active load balancing across multiple fault domains",
+    "Implement managed services with built-in redundancy guarantees"
+  ],
+  "relatedServices": ["as-load-balancer", "as-vmss", "as-app-gateway"],
+  "resources": [
+    {
+      "title": "Fault Tolerance Architecture Principles",
+      "url": "https://learn.microsoft.com/azure/well-architected/reliability/redundancy",
+      "type": "documentation"
+    }
+  ]
+}

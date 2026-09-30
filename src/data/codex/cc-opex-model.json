@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-opex-model",
+  "examDefinition": "Operational Expenditure (OpEx) is a cloud consumption model where customers pay for services and computing as they are used without upfront infrastructure investments.",
+  "useCases": [
+    "Startups minimizing initial burn rate",
+    "Budget agility allowing cost adjustments monthly",
+    "Tax advantages deducting cloud costs in the year incurred"
+  ],
+  "bestPractices": [
+    "Leverage Azure Cost Management to track spending against forecasts",
+    "Rightsize resources continuously using Azure Advisor",
+    "Tag resources by department and cost center for chargebacks"
+  ],
+  "relatedServices": ["mg-cost-management", "mg-budgets", "mg-pricing-calculator"],
+  "resources": [
+    {
+      "title": "AZ-900: Cloud Financial Benefits",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

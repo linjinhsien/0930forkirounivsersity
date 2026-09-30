@@ -1,0 +1,148 @@
+{
+  "scenarios": [
+    {
+      "id": "compliance-banking-pci",
+      "title": "PCI-DSS Tier-1 Banking Core",
+      "description": "Design an audited financial transaction platform with strict cryptographic key management, automated policy enforcement, and network firewalls.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "compliance",
+          "weight": 100,
+          "description": "Enforce strict organizational compliance policies preventing public exposures"
+        },
+        {
+          "type": "governance",
+          "value": "encryption",
+          "weight": 95,
+          "description": "Safeguard cryptographic keys and secrets in hardware security modules"
+        },
+        {
+          "type": "service",
+          "value": "protection",
+          "weight": 90,
+          "description": "Deploy stateful firewall and threat inspection"
+        },
+        {
+          "type": "concept",
+          "value": "security",
+          "weight": 85,
+          "description": "Implement defense-in-depth security perimeter"
+        }
+      ],
+      "constraints": {
+        "maxCost": 35,
+        "minAvailability": 99.99,
+        "securityLevel": "premium"
+      },
+      "maxRounds": 7,
+      "difficulty": "advanced",
+      "category": "high-compliance"
+    },
+    {
+      "id": "compliance-healthcare-hipaa",
+      "title": "HIPAA Electronic Protected Health Information (ePHI)",
+      "description": "Architect a HIPAA-compliant medical records repository featuring multi-year immutable retention, tamper prevention, and end-to-end encryption.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "protection",
+          "weight": 100,
+          "description": "Prevent accidental or malicious resource deletion with management locks"
+        },
+        {
+          "type": "service",
+          "value": "archive",
+          "weight": 90,
+          "description": "Store cold records in compliant archive storage tiers"
+        },
+        {
+          "type": "governance",
+          "value": "secrets",
+          "weight": 90,
+          "description": "Manage database encryption certificates centrally"
+        },
+        {
+          "type": "governance",
+          "value": "logging",
+          "weight": 85,
+          "description": "Retain immutable access logs for compliance audits"
+        }
+      ],
+      "constraints": {
+        "maxCost": 28,
+        "minAvailability": 99.95,
+        "securityLevel": "premium"
+      },
+      "maxRounds": 7,
+      "difficulty": "advanced",
+      "category": "high-compliance"
+    },
+    {
+      "id": "compliance-zero-trust",
+      "title": "Federal Zero-Trust Security Perimeter",
+      "description": "Implement NIST 800-207 Zero-Trust architecture combining SIEM threat intelligence, posture assessments, and micro-segmentation.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "siem",
+          "weight": 100,
+          "description": "Deploy cloud-native SIEM and SOAR for real-time threat hunting"
+        },
+        {
+          "type": "governance",
+          "value": "posture",
+          "weight": 95,
+          "description": "Continuous cloud security posture management and vulnerability tracking"
+        },
+        {
+          "type": "service",
+          "value": "filtering",
+          "weight": 85,
+          "description": "Enforce strict NSG subnetwork isolation"
+        }
+      ],
+      "constraints": {
+        "maxCost": 34,
+        "minAvailability": 99.95,
+        "securityLevel": "premium"
+      },
+      "maxRounds": 7,
+      "difficulty": "advanced",
+      "category": "high-compliance"
+    },
+    {
+      "id": "compliance-automated-governance",
+      "title": "Sovereign Cloud Subscription Blueprints",
+      "description": "Standardize repeatable subscription deployments across international subsidiaries using declarative compliance blueprints.",
+      "requirements": [
+        {
+          "type": "governance",
+          "value": "automation",
+          "weight": 100,
+          "description": "Package policies, RBAC, and templates into declarative blueprints"
+        },
+        {
+          "type": "governance",
+          "value": "compliance",
+          "weight": 90,
+          "description": "Audit regulatory frameworks (ISO 27001, SOC2) automatically"
+        },
+        {
+          "type": "governance",
+          "value": "rbac",
+          "weight": 80,
+          "description": "Bind mandatory role assignments at subscription scope"
+        }
+      ],
+      "constraints": {
+        "maxCost": 22,
+        "minAvailability": 99.9,
+        "securityLevel": "premium"
+      },
+      "maxRounds": 7,
+      "difficulty": "advanced",
+      "category": "high-compliance"
+    }
+  ]
+}

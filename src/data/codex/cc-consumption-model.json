@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-consumption-model",
+  "examDefinition": "A Consumption Model charges customers only for the specific computing resources, bandwidth, or function executions actually consumed, with zero cost when idle.",
+  "useCases": [
+    "Serverless microservices with erratic event bursts",
+    "Nightly batch transformations executing for only 15 minutes",
+    "Proof-of-concept prototypes testing product-market fit"
+  ],
+  "bestPractices": [
+    "Use Azure Functions with consumption plan for event-driven workloads",
+    "Monitor execution durations to ensure functions complete efficiently",
+    "Combine with Azure Cost Management alerts to avoid unintended infinite loops"
+  ],
+  "relatedServices": ["as-functions", "as-aci", "mg-budgets"],
+  "resources": [
+    {
+      "title": "AZ-900: Cloud Economics and Billing",
+      "url": "https://learn.microsoft.com/training/modules/describe-cost-management-azure/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

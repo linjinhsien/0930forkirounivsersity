@@ -1,0 +1,27 @@
+{
+  "cardId": "as-aks",
+  "examDefinition": "Azure Kubernetes Service (AKS) is a key Azure service within the azure-services domain. Managed Kubernetes orchestrator with free cluster management plane and integrated Azure identity",
+  "useCases": [
+    "Deploying enterprise workloads requiring compute",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["as-vnet"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Azure Kubernetes Service (AKS)",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

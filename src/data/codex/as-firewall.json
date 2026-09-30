@@ -1,0 +1,27 @@
+{
+  "cardId": "as-firewall",
+  "examDefinition": "Azure Firewall is a key Azure service within the azure-services domain. Cloud-native stateful firewall-as-a-service with built-in high availability and unrestricted scalability",
+  "useCases": [
+    "Deploying enterprise workloads requiring network",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["as-vnet"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Azure Firewall",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

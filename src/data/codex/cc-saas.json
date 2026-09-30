@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-saas",
+  "examDefinition": "Software as a Service (SaaS) delivers complete applications over the Internet on a subscription basis, fully hosted and managed by the vendor (e.g. Microsoft 365).",
+  "useCases": [
+    "Enterprise email and collaboration (Microsoft 365, Teams)",
+    "Customer Relationship Management (Dynamics 365)",
+    "Cloud-based ticketing and ERP solutions"
+  ],
+  "bestPractices": [
+    "Enforce Multi-Factor Authentication (MFA) and Conditional Access on all SaaS logins",
+    "Audit SaaS data access through Microsoft Entra ID integration",
+    "Implement data loss prevention (DLP) policies on sensitive documents"
+  ],
+  "relatedServices": ["mg-entra-id", "mg-rbac", "mg-defender"],
+  "resources": [
+    {
+      "title": "AZ-900: SaaS Service Model",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-service-types/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

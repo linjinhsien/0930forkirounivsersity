@@ -1,0 +1,27 @@
+{
+  "cardId": "mg-log-analytics",
+  "examDefinition": "Log Analytics Workspace is a key Azure service within the management-governance domain. Central repository for log data supporting complex investigative queries using Kusto Query Language (KQL)",
+  "useCases": [
+    "Deploying enterprise workloads requiring monitoring",
+    "Optimizing architecture for management-governance",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["mg-monitor"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Log Analytics Workspace",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

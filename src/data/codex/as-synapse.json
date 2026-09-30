@@ -1,0 +1,27 @@
+{
+  "cardId": "as-synapse",
+  "examDefinition": "Azure Synapse Analytics is a key Azure service within the azure-services domain. Enterprise analytics service unifying data integration, enterprise data warehousing, and big data",
+  "useCases": [
+    "Deploying enterprise workloads requiring analytics",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["mg-monitor", "mg-azure-policy"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Azure Synapse Analytics",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

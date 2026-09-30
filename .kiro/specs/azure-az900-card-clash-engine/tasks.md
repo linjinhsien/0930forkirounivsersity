@@ -73,7 +73,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Add performance measurement interfaces for monitoring
   - _Requirements: 1.2, 1.3, 1.4_
 
-- [ ] 9. Generate initial card database (JSON data files)
+- [x] 9. Generate initial card database (JSON data files)
   - Create `src/data/cards/` directory structure
   - Generate and populate card JSON files for all three AZ-900 domains:
     - `cloud-concepts.json` (15-20 cards)
@@ -83,7 +83,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate card data against TypeScript types
   - _Requirements: 5.1, 5.2 (card library content)_
 
-- [ ] 10. Generate scenario database (JSON data files)
+- [x] 10. Generate scenario database (JSON data files)
   - Create `src/data/scenarios/` directory structure
   - Generate and populate scenario JSON files by category:
     - `startup-scaling.json` (4-6 scenarios, beginner difficulty)
@@ -94,14 +94,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate scenarios match requirements structure
   - _Requirements: 3.2, 6.4 (scenario content and difficulty)_
 
-- [ ] 11. Create Codex entry database (JSON data files)
+- [x] 11. Create Codex entry database (JSON data files)
   - Create `src/data/codex/` directory with entry JSON for each card
   - Each entry: `cardId`, `examDefinition`, `useCases[]`, `bestPractices[]`, `relatedServices[]`, `resources[]`
   - Validate all cards have corresponding codex entries
   - Ensure exam definitions align with AZ-900 official content
   - _Requirements: 5.2, 5.3 (codex content)_
 
-- [ ] 12. Create data loader utility and initialization
+- [x] 12. Create data loader utility and initialization
   - Create `src/utils/dataLoader.ts` to load all JSON data files
   - Implement lazy loading for card and scenario data
   - Add data validation function to verify schema compliance

@@ -1,0 +1,27 @@
+{
+  "cardId": "as-load-balancer",
+  "examDefinition": "Azure Load Balancer is a key Azure service within the azure-services domain. Layer 4 (TCP/UDP) ultra-low latency load balancer that distributes traffic across healthy VMs",
+  "useCases": [
+    "Deploying enterprise workloads requiring network",
+    "Optimizing architecture for azure-services",
+    "Ensuring AZ-900 best practice implementation"
+  ],
+  "bestPractices": [
+    "Follow the Microsoft Well-Architected Framework recommendations",
+    "Enforce least privilege access using RBAC",
+    "Monitor health and telemetry through Azure Monitor"
+  ],
+  "relatedServices": ["as-vnet"],
+  "resources": [
+    {
+      "title": "Azure Documentation: Azure Load Balancer",
+      "url": "https://learn.microsoft.com/azure/",
+      "type": "documentation"
+    },
+    {
+      "title": "Microsoft Learn: AZ-900 Fundamentals",
+      "url": "https://learn.microsoft.com/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

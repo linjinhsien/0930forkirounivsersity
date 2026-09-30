@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-economies-of-scale",
+  "examDefinition": "Economies of Scale refers to the cost advantages that enterprises obtain due to their scale of operation, allowing hyperscalers like Microsoft to offer lower prices.",
+  "useCases": [
+    "Accessing enterprise-grade hardware at pennies per hour",
+    "Global fiber optic backbone connectivity without capital investment",
+    "Continuous price reductions over cloud hardware generations"
+  ],
+  "bestPractices": [
+    "Evaluate pricing tiers periodically as newer hardware generations are released",
+    "Take advantage of shared multi-tenant service plans where appropriate",
+    "Use reserved instances to capture even deeper long-term volume discounts"
+  ],
+  "relatedServices": ["mg-cost-management", "mg-pricing-calculator", "mg-tco-calculator"],
+  "resources": [
+    {
+      "title": "AZ-900: Cloud Economics",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-agility",
+  "examDefinition": "Cloud Agility is the ability to provision, develop, test, and launch technological solutions rapidly, significantly reducing time-to-market.",
+  "useCases": [
+    "Spinning up complete sandbox environments in minutes via ARM/Bicep",
+    "Automated CI/CD deployments into staging deployment slots",
+    "Rapid prototyping and MVP validation without procurement delays"
+  ],
+  "bestPractices": [
+    "Adopt Infrastructure as Code (IaC) using Bicep or Terraform",
+    "Use deployment slots in App Service for zero-downtime testing",
+    "Standardize governance templates using Azure Blueprints"
+  ],
+  "relatedServices": ["as-app-service", "mg-blueprints", "mg-resource-groups"],
+  "resources": [
+    {
+      "title": "AZ-900: Benefits of Cloud Agility",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

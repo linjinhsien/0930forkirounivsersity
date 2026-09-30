@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-hybrid-cloud",
+  "examDefinition": "A Hybrid Cloud connects on-premises infrastructure or private clouds with public clouds, allowing data and apps to be shared between them securely.",
+  "useCases": [
+    "Gradual datacenter migration without downtime",
+    "Keeping sensitive customer records on-premises while running frontends in Azure",
+    "Cloud bursting during peak holiday seasonal retail volumes"
+  ],
+  "bestPractices": [
+    "Use ExpressRoute for reliable, low-latency private connectivity",
+    "Deploy Azure Arc to manage on-premises Kubernetes and servers from Azure portal",
+    "Ensure consistent RBAC and identity policies across both domains via Entra ID"
+  ],
+  "relatedServices": ["as-expressroute", "as-vpn-gateway", "mg-entra-id"],
+  "resources": [
+    {
+      "title": "AZ-900: Hybrid Cloud Architecture",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-compute/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

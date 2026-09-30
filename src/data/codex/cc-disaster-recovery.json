@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-disaster-recovery",
+  "examDefinition": "Disaster Recovery (DR) is the process and architecture designed to protect an organization from the effects of catastrophic events and restore operations within target RTO and RPO.",
+  "useCases": [
+    "Regional outage survivability via paired Azure regions",
+    "Automated geo-replicated database failover during environmental disasters",
+    "Restoring cold backup data to secondary regions"
+  ],
+  "bestPractices": [
+    "Deploy cross-region architectures into Azure paired regions to benefit from phased rollouts",
+    "Test failover scenarios regularly using Azure Site Recovery drills",
+    "Define measurable Recovery Time Objectives (RTO) and Recovery Point Objectives (RPO)"
+  ],
+  "relatedServices": ["as-cosmos-db", "as-sql-database", "as-blob-storage"],
+  "resources": [
+    {
+      "title": "Disaster Recovery in Azure",
+      "url": "https://learn.microsoft.com/azure/reliability/disaster-recovery-overview",
+      "type": "documentation"
+    }
+  ]
+}

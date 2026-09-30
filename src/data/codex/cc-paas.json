@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-paas",
+  "examDefinition": "Platform as a Service (PaaS) provides a managed environment for building, testing, and deploying software where the cloud provider manages servers, OS, and runtimes.",
+  "useCases": [
+    "Modern web application hosting with built-in auto-scaling",
+    "API backends connecting to managed relational databases",
+    "Microservices using managed container orchestrators"
+  ],
+  "bestPractices": [
+    "Focus engineering on application logic rather than OS maintenance",
+    "Use managed identities to connect securely to backing services without credentials",
+    "Implement deployment slots for safe blue-green production releases"
+  ],
+  "relatedServices": ["as-app-service", "as-sql-database", "as-aks"],
+  "resources": [
+    {
+      "title": "AZ-900: PaaS Service Model",
+      "url": "https://learn.microsoft.com/training/modules/describe-cloud-service-types/",
+      "type": "microsoft-learn"
+    }
+  ]
+}

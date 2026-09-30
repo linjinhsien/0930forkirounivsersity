@@ -1,0 +1,184 @@
+{
+  "cards": [
+    {
+      "id": "cc-high-availability",
+      "name": "High Availability Architecture",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["availability", "reliability", "multi-region"],
+      "az900ExamTip": "HA ensures service uptime through redundancy and automated failover across fault domains",
+      "description": "Design pattern for minimizing downtime through redundant components and health probes",
+      "power": 80
+    },
+    {
+      "id": "cc-elastic-scaling",
+      "name": "Elastic Scaling",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["scalability", "performance", "auto-scaling"],
+      "az900ExamTip": "Elasticity allows resources to dynamically allocate and deallocate based on fluctuating demand",
+      "description": "Automatic resource adjustment to match demand without over-provisioning",
+      "power": 75
+    },
+    {
+      "id": "cc-opex-model",
+      "name": "OpEx Advantage",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cost", "finance", "operational"],
+      "az900ExamTip": "OpEx shifts upfront CapEx into ongoing operational expense with pay-as-you-go billing",
+      "description": "Operational expenditure model enabling agile cloud cost management without initial hardware outlays",
+      "power": 65
+    },
+    {
+      "id": "cc-capex-model",
+      "name": "CapEx Planning",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cost", "finance", "reserved"],
+      "az900ExamTip": "CapEx involves upfront spending on physical infrastructure deducted over its lifecycle",
+      "description": "Capital expenditure planning relevant when comparing on-premises TCO with cloud migration",
+      "power": 55
+    },
+    {
+      "id": "cc-scalability-vertical",
+      "name": "Vertical Scaling (Scale Up)",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["scalability", "compute", "sizing"],
+      "az900ExamTip": "Scale up adds CPU or RAM to an existing virtual machine or service instance",
+      "description": "Increasing the processing power and memory capacity of existing resources",
+      "power": 60
+    },
+    {
+      "id": "cc-scalability-horizontal",
+      "name": "Horizontal Scaling (Scale Out)",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["scalability", "compute", "auto-scaling"],
+      "az900ExamTip": "Scale out adds more virtual machines or service instances to share the workload",
+      "description": "Adding additional identical instances behind load balancers for parallel throughput",
+      "power": 75
+    },
+    {
+      "id": "cc-agility",
+      "name": "Cloud Agility",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["devops", "deployment", "speed"],
+      "az900ExamTip": "Agility describes the rapid provisioning and deployment of software and cloud resources",
+      "description": "Accelerating time-to-market by spinning up dev/test environments in minutes",
+      "power": 70
+    },
+    {
+      "id": "cc-disaster-recovery",
+      "name": "Disaster Recovery Planning",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["backup", "availability", "multi-region", "reliability"],
+      "az900ExamTip": "DR focuses on restoring services after catastrophic failures using paired regions and backups",
+      "description": "Structured architecture for RTO and RPO business continuity across geographical regions",
+      "power": 85
+    },
+    {
+      "id": "cc-fault-tolerance",
+      "name": "Fault Tolerance Design",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["availability", "reliability", "redundancy"],
+      "az900ExamTip": "Fault tolerance guarantees zero downtime by operating redundant hardware concurrently",
+      "description": "Ensuring continuous operation without human intervention when hardware components fail",
+      "power": 80
+    },
+    {
+      "id": "cc-iaas",
+      "name": "Infrastructure as a Service (IaaS)",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["iaas", "compute", "control"],
+      "az900ExamTip": "IaaS provides raw compute/network/storage where the customer manages OS and software",
+      "description": "Maximum architectural control with customer responsibility for OS updates and patching",
+      "power": 65
+    },
+    {
+      "id": "cc-paas",
+      "name": "Platform as a Service (PaaS)",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["paas", "managed", "productivity"],
+      "az900ExamTip": "PaaS handles OS, runtime, and patching so developers focus strictly on application code",
+      "description": "Managed application platform delivering developer velocity without infrastructure toil",
+      "power": 75
+    },
+    {
+      "id": "cc-saas",
+      "name": "Software as a Service (SaaS)",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["saas", "software", "managed"],
+      "az900ExamTip": "SaaS delivers end-user software hosted and managed completely by the cloud vendor (e.g. M365)",
+      "description": "Complete cloud application consumed on a subscription basis with minimal administration",
+      "power": 60
+    },
+    {
+      "id": "cc-public-cloud",
+      "name": "Public Cloud Deployment",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cloud-model", "public", "scaling"],
+      "az900ExamTip": "Public cloud infrastructure is owned by the provider and shared across multiple tenants securely",
+      "description": "Standard multi-tenant public infrastructure with near-infinite on-demand elasticity",
+      "power": 65
+    },
+    {
+      "id": "cc-private-cloud",
+      "name": "Private Cloud Infrastructure",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cloud-model", "private", "isolation"],
+      "az900ExamTip": "Private cloud is dedicated to a single organization, either on-premise or hosted by third-party",
+      "description": "Dedicated single-tenant infrastructure providing full control and isolation",
+      "power": 60
+    },
+    {
+      "id": "cc-hybrid-cloud",
+      "name": "Hybrid Cloud Architecture",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cloud-model", "hybrid", "connectivity"],
+      "az900ExamTip": "Hybrid cloud connects on-premises datacenters with public cloud environments securely",
+      "description": "Seamless integration of on-premises workloads with Azure for burst capacity and migration",
+      "power": 75
+    },
+    {
+      "id": "cc-shared-responsibility",
+      "name": "Shared Responsibility Model",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["security", "governance", "compliance"],
+      "az900ExamTip": "Customer is always responsible for data and identity; provider responsibility increases from IaaS to SaaS",
+      "description": "Defines security and operational boundaries between customer and Microsoft across service models",
+      "power": 75
+    },
+    {
+      "id": "cc-consumption-model",
+      "name": "Consumption-Based Pricing",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cost", "serverless", "optimization"],
+      "az900ExamTip": "In a consumption model, you pay only for resources actively used with zero idle cost",
+      "description": "Pay-for-what-you-use billing ideal for sporadic workloads and serverless executions",
+      "power": 70
+    },
+    {
+      "id": "cc-economies-of-scale",
+      "name": "Economies of Scale",
+      "domain": "cloud-concepts",
+      "cost": 0,
+      "synergyTags": ["cost", "efficiency", "pricing"],
+      "az900ExamTip": "Cloud providers pass hardware volume purchasing savings directly to customers as lower unit prices",
+      "description": "Leveraging hyper-scale provider infrastructure to achieve lower per-unit computing costs",
+      "power": 65
+    }
+  ]
+}

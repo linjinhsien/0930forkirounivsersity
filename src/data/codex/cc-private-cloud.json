@@ -1,0 +1,22 @@
+{
+  "cardId": "cc-private-cloud",
+  "examDefinition": "A Private Cloud consists of computing resources used exclusively by one business or organization, physically located at the company on-site datacenter or hosted by a third-party.",
+  "useCases": [
+    "High-security defense or classified government workloads",
+    "Strict national data sovereignty requiring air-gapped hardware",
+    "Legacy workloads with non-virtualizable specialized mainframes"
+  ],
+  "bestPractices": [
+    "Evaluate Azure Stack Hub to run Azure-consistent cloud services on-premises",
+    "Connect private environments to Azure via ExpressRoute for hybrid bursting",
+    "Maintain dedicated physical security and hardware lifecycle governance"
+  ],
+  "relatedServices": ["as-expressroute", "as-vpn-gateway", "cc-hybrid-cloud"],
+  "resources": [
+    {
+      "title": "What is Private Cloud?",
+      "url": "https://azure.microsoft.com/overview/what-is-a-private-cloud/",
+      "type": "documentation"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "cards": [
+    {
+      "id": "mg-azure-policy",
+      "name": "Azure Policy",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "compliance", "enforcement"],
+      "az900ExamTip": "Enforce organizational standards, assess compliance, and prevent non-compliant deployments at scale",
+      "description": "Rules engine that evaluates resources and automatically remediates or denies non-compliant configurations",
+      "power": 85
+    },
+    {
+      "id": "mg-rbac",
+      "name": "Role-Based Access Control (RBAC)",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["security", "identity", "access-control", "rbac"],
+      "az900ExamTip": "Fine-grained access management enforcing the principle of least privilege through role assignments",
+      "description": "Grant granular access permissions to users, groups, and service principals on specific scopes",
+      "power": 90
+    },
+    {
+      "id": "mg-resource-groups",
+      "name": "Azure Resource Groups",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "lifecycle", "management"],
+      "az900ExamTip": "Logical container for resources that share the same lifecycle, permissions, and deployment boundaries",
+      "description": "Organizational unit that groups related cloud assets for unified administration and deletion",
+      "power": 75
+    },
+    {
+      "id": "mg-resource-locks",
+      "name": "Azure Resource Locks",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "protection", "compliance"],
+      "az900ExamTip": "CanNotDelete prevents accidental deletion; ReadOnly prevents both modification and deletion",
+      "description": "Management locks applied at subscription, resource group, or resource scope to safeguard critical assets",
+      "power": 80
+    },
+    {
+      "id": "mg-tags",
+      "name": "Resource Tags",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "cost", "organization"],
+      "az900ExamTip": "Name-value metadata pairs applied to resources to track cost centers, environments, and owners",
+      "description": "Taxonomy metadata facilitating automated chargeback billing, filtering, and governance reporting",
+      "power": 70
+    },
+    {
+      "id": "mg-entra-id",
+      "name": "Microsoft Entra ID",
+      "domain": "management-governance",
+      "cost": 1,
+      "synergyTags": ["security", "identity", "sso", "mfa"],
+      "az900ExamTip": "Cloud-based identity and access management service providing SSO, MFA, and Conditional Access",
+      "description": "Enterprise cloud directory securing user authentication, single sign-on, and hybrid directory sync",
+      "power": 90
+    },
+    {
+      "id": "mg-key-vault",
+      "name": "Azure Key Vault",
+      "domain": "management-governance",
+      "cost": 2,
+      "synergyTags": ["security", "encryption", "secrets", "keys"],
+      "az900ExamTip": "Secure centralized repository for safeguarding cryptographic keys, secrets, certificates, and tokens",
+      "description": "Hardware Security Module (HSM) backed store eliminating plain-text credentials from source code",
+      "power": 90
+    },
+    {
+      "id": "mg-cost-management",
+      "name": "Microsoft Cost Management",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["cost", "monitoring", "optimization"],
+      "az900ExamTip": "Analyzes cloud spend, tracks resource usage patterns, and provides cost-saving recommendations",
+      "description": "Suite of financial governance tools for visualizing, allocating, and forecasting Azure expenditures",
+      "power": 75
+    },
+    {
+      "id": "mg-budgets",
+      "name": "Azure Budgets & Alerts",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["cost", "alerts", "budgets"],
+      "az900ExamTip": "Configures spending thresholds that trigger automated email notifications or action groups when exceeded",
+      "description": "Proactive spending limit guardrails alerting stakeholders before budget overruns occur",
+      "power": 80
+    },
+    {
+      "id": "mg-pricing-calculator",
+      "name": "Azure Pricing Calculator",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["cost", "planning", "estimates"],
+      "az900ExamTip": "Web-based planning tool used to estimate expected monthly cloud consumption costs upfront",
+      "description": "Pre-deployment cost estimator allowing architectural design iteration against financial constraints",
+      "power": 65
+    },
+    {
+      "id": "mg-tco-calculator",
+      "name": "Total Cost of Ownership (TCO) Calculator",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["cost", "planning", "roi", "migration"],
+      "az900ExamTip": "Compares cost of running on-premises datacenter workloads against running in Azure over time",
+      "description": "Financial modeling tool analyzing server, storage, networking, and labor savings for migration",
+      "power": 70
+    },
+    {
+      "id": "mg-monitor",
+      "name": "Azure Monitor",
+      "domain": "management-governance",
+      "cost": 2,
+      "synergyTags": ["monitoring", "observability", "logging", "metrics"],
+      "az900ExamTip": "Comprehensive platform collecting metrics and logs from Azure resources, OS, and applications",
+      "description": "Unified observability engine driving alerts, autoscale triggers, and performance dashboards",
+      "power": 85
+    },
+    {
+      "id": "mg-log-analytics",
+      "name": "Log Analytics Workspace",
+      "domain": "management-governance",
+      "cost": 3,
+      "synergyTags": ["monitoring", "logging", "analytics", "kql"],
+      "az900ExamTip": "Central repository for log data supporting complex investigative queries using Kusto Query Language (KQL)",
+      "description": "Queryable big-data log sink powering deep diagnostic audits and security incident response",
+      "power": 85,
+      "requirements": ["mg-monitor"]
+    },
+    {
+      "id": "mg-advisor",
+      "name": "Azure Advisor",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "optimization", "recommendations"],
+      "az900ExamTip": "Personalized cloud consultant offering actionable advice across Reliability, Security, Cost, and Performance",
+      "description": "AI-guided recommendation engine inspecting deployed architectures to identify anti-patterns",
+      "power": 80
+    },
+    {
+      "id": "mg-service-health",
+      "name": "Azure Service Health",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["monitoring", "health", "sla", "incidents"],
+      "az900ExamTip": "Personalized dashboard notifying you of Azure service outages, planned maintenance, and health advisories",
+      "description": "Targeted notification portal tracking outages affecting your specific subscriptions and regions",
+      "power": 75
+    },
+    {
+      "id": "mg-defender",
+      "name": "Microsoft Defender for Cloud",
+      "domain": "management-governance",
+      "cost": 4,
+      "synergyTags": ["security", "compliance", "posture", "cspm"],
+      "az900ExamTip": "Cloud Security Posture Management (CSPM) and Cloud Workload Protection Platform (CWPP)",
+      "description": "Provides continuous security score assessments, regulatory compliance tracking, and threat protection",
+      "power": 90
+    },
+    {
+      "id": "mg-sentinel",
+      "name": "Microsoft Sentinel",
+      "domain": "management-governance",
+      "cost": 6,
+      "synergyTags": ["security", "siem", "soar", "monitoring"],
+      "az900ExamTip": "Scalable cloud-native SIEM and SOAR solution delivering intelligent security analytics across enterprise",
+      "description": "Next-gen security information event management detecting and responding to multi-stage cyberattacks",
+      "power": 90,
+      "requirements": ["mg-log-analytics"]
+    },
+    {
+      "id": "mg-blueprints",
+      "name": "Azure Blueprints",
+      "domain": "management-governance",
+      "cost": 0,
+      "synergyTags": ["governance", "compliance", "automation"],
+      "az900ExamTip": "Package of role assignments, policies, ARM templates, and resource groups for repeatable environment setup",
+      "description": "Declarative orchestration tool deploying fully governed subscriptions aligned with compliance standards",
+      "power": 85
+    }
+  ]
+}
