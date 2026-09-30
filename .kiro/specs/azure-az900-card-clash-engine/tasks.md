@@ -152,7 +152,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 4: Game Engine Implementation
 
-- [ ] 17. Implement ValidationEngine core logic
+- [x] 17. Implement ValidationEngine core logic
   - Create `src/engine/validator.ts` with `ValidationEngine` class:
     - Implement `validatePlacement()` method with <500ms target
     - Implement constraint checking: cost, requirements, conflicts, anti-patterns
