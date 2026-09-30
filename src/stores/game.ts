@@ -47,7 +47,11 @@ function cloneScore(score: ArchitectureScore): ArchitectureScore {
   }
 }
 
-function createInitialState(scenario: Scenario, cards: AzureCard[], mode: GameState['mode']): GameState {
+function createInitialState(
+  scenario: Scenario,
+  cards: AzureCard[],
+  mode: GameState['mode']
+): GameState {
   return {
     currentScenario: scenario,
     deck: cards,
