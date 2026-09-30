@@ -12,14 +12,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 1: Foundation & Project Setup
 
-- [ ] 1. Initialize Vue 3 + Vite project with TypeScript strict mode
+- [-] 1. Initialize Vue 3 + Vite project with TypeScript strict mode
   - Set up Vite project with Vue 3, TypeScript 5.0+, strict mode enabled
   - Configure absolute path aliases (`@/` → `src/`)
   - Install and configure ESLint, Prettier, and pre-commit hooks
   - Create `.env` templates for development/production
   - _Requirements: 8.1, 8.3 (setup for i18n and accessibility)_
 
-- [ ] 2. Configure Tailwind CSS and design tokens
+- [-] 2. Configure Tailwind CSS and design tokens
   - Install Tailwind CSS 3.x with Vue 3 plugin
   - Create custom theme configuration for AZ-900 card domains (domain colors)
   - Add custom utility classes for card styling and game board layout
@@ -27,27 +27,27 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create design token file for colors, spacing, typography
   - _Requirements: 8.2 (high-contrast mode support)_
 
-- [ ] 3. Set up Pinia state management and store directory structure
+- [-] 3. Set up Pinia state management and store directory structure
   - Install Pinia and integrate with Vue 3 app
   - Configure store auto-import (optional but recommended)
   - Create store directory structure: `src/stores/`
   - Initialize empty store files: `game.ts`, `player.ts`, `codex.ts`, `session.ts`
   - _Requirements: 1.1, 1.3 (state management for game and scores)_
 
-- [ ] 4. Configure testing framework (Vitest) and Vue Testing Library
+- [-] 4. Configure testing framework (Vitest) and Vue Testing Library
   - Install Vitest, Vue Test Utils, @testing-library/vue
   - Set up Vitest configuration with coverage reporting
   - Create test directory structure: `tests/unit/`, `tests/integration/`, `tests/e2e/`
   - Configure snapshot testing and mocking utilities
   - _Requirements: (testing infrastructure)_
 
-- [ ] 5. Set up Playwright for E2E testing
+- [-] 5. Set up Playwright for E2E testing
   - Install Playwright and configure for chromium browser
   - Create base test fixtures and utilities
   - Set up test configuration with timeout and retry settings
   - _Requirements: (E2E test infrastructure)_
 
-- [ ] 6. Initialize Git repository and GitHub Actions CI/CD
+- [~] 6. Initialize Git repository and GitHub Actions CI/CD
   - Initialize Git repo (or configure existing one)
   - Create `.github/workflows/` directory
   - Set up CI/CD pipeline: lint → type-check → test → build
@@ -58,7 +58,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 2: Core Data Models & TypeScript Definitions
 
-- [ ] 7. Define AZ-900 card and game type system
+- [~] 7. Define AZ-900 card and game type system
   - Create `src/types/game.ts` with all core interfaces:
     - `AzureCard`, `ArchitectureSlot`, `Scenario`, `GameState`, `PlayerProfile`, `SavedSession`, etc.
   - Export all domain types: `AZ900Domain`, `RequirementType`, `ValidationResult`, etc.
@@ -66,14 +66,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Ensure strict TypeScript compliance (no `any` types)
   - _Requirements: 1.1, 1.4, 4.1, 5.2_
 
-- [ ] 8. Create game engine interface layer
+- [~] 8. Create game engine interface layer
   - Create `src/types/engine.ts` with engine contract interfaces:
     - `IValidationEngine`, `IScoringEngine`, `IEvaluatorEngine`
   - Define validation violation and score breakdown interfaces
   - Add performance measurement interfaces for monitoring
   - _Requirements: 1.2, 1.3, 1.4_
 
-- [ ] 9. Generate initial card database (JSON data files)
+- [~] 9. Generate initial card database (JSON data files)
   - Create `src/data/cards/` directory structure
   - Generate and populate card JSON files for all three AZ-900 domains:
     - `cloud-concepts.json` (15-20 cards)
@@ -83,7 +83,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate card data against TypeScript types
   - _Requirements: 5.1, 5.2 (card library content)_
 
-- [ ] 10. Generate scenario database (JSON data files)
+- [~] 10. Generate scenario database (JSON data files)
   - Create `src/data/scenarios/` directory structure
   - Generate and populate scenario JSON files by category:
     - `startup-scaling.json` (4-6 scenarios, beginner difficulty)
@@ -94,14 +94,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate scenarios match requirements structure
   - _Requirements: 3.2, 6.4 (scenario content and difficulty)_
 
-- [ ] 11. Create Codex entry database (JSON data files)
+- [~] 11. Create Codex entry database (JSON data files)
   - Create `src/data/codex/` directory with entry JSON for each card
   - Each entry: `cardId`, `examDefinition`, `useCases[]`, `bestPractices[]`, `relatedServices[]`, `resources[]`
   - Validate all cards have corresponding codex entries
   - Ensure exam definitions align with AZ-900 official content
   - _Requirements: 5.2, 5.3 (codex content)_
 
-- [ ] 12. Create data loader utility and initialization
+- [~] 12. Create data loader utility and initialization
   - Create `src/utils/dataLoader.ts` to load all JSON data files
   - Implement lazy loading for card and scenario data
   - Add data validation function to verify schema compliance
@@ -112,7 +112,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 3: State Management (Pinia Stores)
 
-- [ ] 13. Implement game store (Pinia)
+- [~] 13. Implement game store (Pinia)
   - Create `src/stores/game.ts` with full game state and actions:
     - State: `gameState`, `validationResult`, `isValidating`
     - Computed: `currentScenario`, `placedCards`, `currentScore`, `isGameActive`
@@ -121,7 +121,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Add type-safe getters and setters
   - _Requirements: 1.1, 1.3, 7.1_
 
-- [ ] 14. Implement player store (Pinia)
+- [~] 14. Implement player store (Pinia)
   - Create `src/stores/player.ts` with player profile and progression:
     - State: `profile` with XP, difficulty tier, match stats, study deck
     - Computed: `currentDifficulty`, `totalMatches`, `winRate`
@@ -130,7 +130,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Maintain accessibility and language preferences
   - _Requirements: 4.5, 6.1, 6.2, 8.1_
 
-- [ ] 15. Implement codex store (Pinia)
+- [~] 15. Implement codex store (Pinia)
   - Create `src/stores/codex.ts` for card library and learning:
     - State: `cardLibrary`, `scenarioLibrary`, `codexEntries`, `searchResults`
     - Computed: `cardsByDomain`, `cardsByDifficulty`
@@ -139,7 +139,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Support filtering by domain, cost, synergy tags
   - _Requirements: 5.1, 5.2_
 
-- [ ] 16. Implement session store (Pinia) for persistence
+- [~] 16. Implement session store (Pinia) for persistence
   - Create `src/stores/session.ts` for save/load functionality:
     - State: `savedSession`
     - Actions: `saveSession()`, `loadSession()`, `clearSession()`, `hasValidSession()`
@@ -152,7 +152,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 4: Game Engine Implementation
 
-- [ ] 17. Implement ValidationEngine core logic
+- [~] 17. Implement ValidationEngine core logic
   - Create `src/engine/validator.ts` with `ValidationEngine` class:
     - Implement `validatePlacement()` method with <500ms target
     - Implement constraint checking: cost, requirements, conflicts, anti-patterns
@@ -163,7 +163,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Write implementation with performance optimization (early exit patterns)
   - _Requirements: 1.1, 1.2, 2.1, 2.2, 2.3_
 
-- [ ] 18.* Write property test for ValidationEngine
+- [~] 18.* Write property test for ValidationEngine
   - **Property 1: Validation completes within performance budget**
   - **Property 2: Invalid placements identify all constraint violations**
   - **Property 5: Budget violations are correctly calculated**
@@ -172,7 +172,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test violation detection for all constraint types
   - _Requirements: 1.1, 1.2, 2.1, 2.2_
 
-- [ ] 19. Implement ScoringEngine with three-dimensional scoring
+- [~] 19. Implement ScoringEngine with three-dimensional scoring
   - Create `src/engine/scoring.ts` with `ScoringEngine` class:
     - Implement `calculateScore()` method returning `ArchitectureScore`
     - Implement `calculateHighAvailabilityScore()` (0-100):
@@ -189,7 +189,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Implement `createBreakdown()` for detailed score metadata
   - _Requirements: 1.3, 1.4, 4.1_
 
-- [ ] 20.* Write property tests for ScoringEngine
+- [~] 20.* Write property tests for ScoringEngine
   - **Property 3: Valid placements trigger score updates**
   - **Property 4: Complete solutions provide score breakdown**
   - **Property 6: Conflicts prevent score updates**
@@ -200,7 +200,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test scores increase with valid card additions
   - _Requirements: 1.3, 1.4, 4.1_
 
-- [ ] 21. Implement EvaluatorEngine for multiplayer clash
+- [~] 21. Implement EvaluatorEngine for multiplayer clash
   - Create `src/engine/evaluator.ts` with `EvaluatorEngine` class:
     - Implement `evaluateClash()` method comparing two solutions
     - Implement winner determination logic (higher score wins, ties for equal scores)
@@ -208,7 +208,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Return detailed clash result with both scores and winner
   - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
-- [ ] 22.* Write property tests for EvaluatorEngine
+- [~] 22.* Write property tests for EvaluatorEngine
   - **Property 10: Higher score determines winner**
   - **Property 11: Identical scores result in tie**
   - **Property 12: XP calculation follows formula**
@@ -218,7 +218,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test tie handling with score equality
   - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
-- [ ] 23. Create performance monitoring utility
+- [~] 23. Create performance monitoring utility
   - Create `src/utils/performance.ts` with monitoring utilities:
     - `createDebouncedValidator()` for real-time validation debouncing
     - `createMemoizedScorer()` for score caching
@@ -227,7 +227,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Add logging for slow operations (>500ms validation)
   - _Requirements: 1.1, 1.2 (performance targets)_
 
-- [ ] 24. Create error handling composable
+- [~] 24. Create error handling composable
   - Create `src/composables/useErrorHandler.ts`:
     - `handleError()` method for error logging and user feedback
     - `handleValidationError()` for validation-specific errors
@@ -240,7 +240,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 5: UI Components - Foundational
 
-- [ ] 25. Create base UI components with accessibility
+- [~] 25. Create base UI components with accessibility
   - Create `src/components/ui/Button.vue` with:
     - TypeScript props with `<script setup>`
     - Full keyboard support (Enter/Space activation)
@@ -256,14 +256,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `src/components/ui/Toast.vue` for notifications
   - _Requirements: 8.1 (keyboard navigation)_
 
-- [ ] 26.* Write unit tests for base UI components
+- [~] 26.* Write unit tests for base UI components
   - Create `tests/unit/components/ui/Button.test.ts`
   - Test keyboard activation (Enter, Space keys)
   - Test focus management and aria-labels
   - Test high-contrast mode rendering
   - _Requirements: 8.1, 8.2_
 
-- [ ] 27. Create Card component (presentation)
+- [~] 27. Create Card component (presentation)
   - Create `src/components/cards/AzureCard.vue`:
     - Props: `card` (AzureCard), `isPlaced`, `isValid`, `isDraggable`
     - Emits: `dragStart`, `dragEnd`, `click`, `tooltipRequest`
@@ -275,7 +275,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Dynamic domain-specific styling (colors)
   - _Requirements: 1.1, 5.3, 8.1_
 
-- [ ] 28. Create CardTooltip component
+- [~] 28. Create CardTooltip component
   - Create `src/components/cards/CardTooltip.vue`:
     - Display quick-reference tooltip (<280 characters)
     - Show AZ-900 exam tip
@@ -284,7 +284,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Tooltip: `role="tooltip"` with ARIA
   - _Requirements: 5.3_
 
-- [ ] 29. Create ArchitectureSlot component (drop zone)
+- [~] 29. Create ArchitectureSlot component (drop zone)
   - Create `src/components/board/ArchitectureSlot.vue`:
     - Props: `slot` (ArchitectureSlot), `isValid`
     - Display slot type indicator and position
@@ -295,7 +295,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - ARIA labels for slot purpose
   - _Requirements: 1.1, 8.1_
 
-- [ ] 30. Create CardDeck component (hand display)
+- [~] 30. Create CardDeck component (hand display)
   - Create `src/components/game/CardDeck.vue`:
     - Props: `cards` (AzureCard[])
     - Display available cards in hand in grid layout
@@ -305,7 +305,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Accessible list structure with ARIA
   - _Requirements: 1.1_
 
-- [ ] 31. Create ScenarioPanel component
+- [~] 31. Create ScenarioPanel component
   - Create `src/components/game/ScenarioPanel.vue`:
     - Props: `scenario` (Scenario)
     - Display scenario title and description
@@ -315,7 +315,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Semantic HTML with ARIA descriptions
   - _Requirements: 1.1, 1.2_
 
-- [ ] 32. Create ScoreDisplay component
+- [~] 32. Create ScoreDisplay component
   - Create `src/components/game/ScoreDisplay.vue`:
     - Props: `score` (ArchitectureScore)
     - Display three score components (HA, Cost, Security) with progress bars
@@ -325,7 +325,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Accessible progress bars with aria-valuenow
   - _Requirements: 1.3, 1.4_
 
-- [ ] 33. Create ValidationFeedback component
+- [~] 33. Create ValidationFeedback component
   - Create `src/components/game/ValidationFeedback.vue`:
     - Props: `result` (ValidationResult)
     - Display violation list with icons
@@ -335,7 +335,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - ARIA alerts for error announcements
   - _Requirements: 1.2, 2.1, 2.3_
 
-- [ ] 34. Create TimerBar component
+- [~] 34. Create TimerBar component
   - Create `src/components/game/TimerBar.vue`:
     - Props: `timeRemaining` (seconds), `totalTime` (seconds)
     - Display animated progress bar
@@ -349,7 +349,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 6: UI Components - Complex/Smart
 
-- [ ] 35. Create GameBoard component (container)
+- [~] 35. Create GameBoard component (container)
   - Create `src/components/game/GameBoard.vue`:
     - Props: `mode` ('quick-match' | 'multiplayer'), `timeLimit?`
     - Emits: `cardPlaced`, `solutionSubmitted`, `matchComplete`
@@ -360,7 +360,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation between all zones
   - _Requirements: 1.1, 1.3, 8.1_
 
-- [ ] 36. Create CodexBrowser component (learning view)
+- [~] 36. Create CodexBrowser component (learning view)
   - Create `src/components/codex/CodexBrowser.vue`:
     - Display card library in filterable grid
     - Search functionality by card name or tag
@@ -371,7 +371,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Full keyboard navigation
   - _Requirements: 5.1, 5.2, 8.1_
 
-- [ ] 37. Create CodexEntry component (detail view)
+- [~] 37. Create CodexEntry component (detail view)
   - Create `src/components/codex/CodexEntry.vue`:
     - Props: `cardId`, `entry` (CodexEntry)
     - Display exam definition
@@ -382,7 +382,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Back to list button
   - _Requirements: 5.2, 5.4_
 
-- [ ] 38. Create StudyDeck component
+- [~] 38. Create StudyDeck component
   - Create `src/components/codex/StudyDeck.vue`:
     - Display player's collected cards
     - Sort and filter options
@@ -392,7 +392,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation through study cards
   - _Requirements: 5.5, 5.6_
 
-- [ ] 39.* Write component tests for game UI
+- [~] 39.* Write component tests for game UI
   - Create `tests/unit/components/GameBoard.test.ts`
   - Test card placement interactions
   - Test validation feedback display
@@ -403,7 +403,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 7: Game Views (Screens)
 
-- [ ] 40. Create HomeView (main menu)
+- [~] 40. Create HomeView (main menu)
   - Create `src/views/HomeView.vue`:
     - Display title and branding
     - Show two main buttons: "3-Minute Commute Mode", "Multiplayer Challenge"
@@ -414,7 +414,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard accessible navigation
   - _Requirements: 3.1, 4.1_
 
-- [ ] 41. Create QuickMatchView (single-player quick mode)
+- [~] 41. Create QuickMatchView (single-player quick mode)
   - Create `src/views/QuickMatchView.vue`:
     - Initialize quick-match mode (45-second timer, 3 scenarios)
     - Use GameBoard component
@@ -426,7 +426,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Exit confirmation dialog
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [ ] 42. Create MultiplayerView (two-player clash)
+- [~] 42. Create MultiplayerView (two-player clash)
   - Create `src/views/MultiplayerView.vue`:
     - Display match setup (player names, scenario display)
     - Two GameBoard instances side-by-side
@@ -437,7 +437,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Responsive layout (stack on mobile)
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 43. Create CodexView (learning library)
+- [~] 43. Create CodexView (learning library)
   - Create `src/views/CodexView.vue`:
     - Use CodexBrowser as main component
     - Full-page layout with side navigation
@@ -447,7 +447,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation through entire view
   - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 44. Create SettingsView (preferences)
+- [~] 44. Create SettingsView (preferences)
   - Create `src/views/SettingsView.vue`:
     - Language selector (en, zh-CN, ja, es, de, fr)
     - Accessibility options:
@@ -461,7 +461,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Back to Home button
   - _Requirements: 6.1, 8.1, 8.2, 8.3_
 
-- [ ] 45. Create AppLayout component (header/footer)
+- [~] 45. Create AppLayout component (header/footer)
   - Create `src/components/layout/AppHeader.vue`:
     - Navigation menu (Home, Game, Codex, Settings)
     - Player name and XP display
@@ -479,7 +479,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 8: Accessibility & Localization
 
-- [ ] 46. Set up Vue I18n configuration
+- [~] 46. Set up Vue I18n configuration
   - Create `src/i18n/index.ts`:
     - Initialize Vue I18n with lazy loading
     - Configure fallback locale (English)
@@ -488,7 +488,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `src/i18n/locales/` directory
   - _Requirements: 8.3, 8.5_
 
-- [ ] 47. Create translation files for all supported languages
+- [~] 47. Create translation files for all supported languages
   - Create JSON translation files for 6 languages:
     - `en.json` (English - base)
     - `zh-CN.json` (Simplified Chinese)
@@ -500,7 +500,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate all keys present in all files
   - _Requirements: 8.3, 8.4_
 
-- [ ] 48.* Write property test for translation completeness
+- [~] 48.* Write property test for translation completeness
   - **Property 22: Translation completeness per language**
   - **Property 23: Missing translations fallback to English**
   - Create `tests/unit/i18n/translations.test.ts`
@@ -508,7 +508,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test fallback behavior
   - _Requirements: 8.3, 8.5_
 
-- [ ] 49. Implement keyboard navigation system
+- [~] 49. Implement keyboard navigation system
   - Create `src/composables/useKeyboardNavigation.ts`:
     - `useTab()` for Tab key navigation
     - `useArrowKeys()` for arrow key navigation
@@ -519,7 +519,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test with screen reader (NVDA/JAWS conceptually)
   - _Requirements: 8.1_
 
-- [ ] 50. Implement high-contrast mode support
+- [~] 50. Implement high-contrast mode support
   - Create `src/composables/useHighContrast.ts`:
     - Detect system preference (prefers-contrast media query)
     - Toggle high-contrast class on document root
@@ -532,7 +532,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Use patterned backgrounds for color-blind support
   - _Requirements: 8.2_
 
-- [ ] 51. Create accessibility guide and test checklist
+- [~] 51. Create accessibility guide and test checklist
   - Document keyboard navigation patterns for all views
   - Create checklist for WCAG 2.1 AA compliance:
     - Color contrast ratios
@@ -547,7 +547,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 9: Session Persistence & Storage
 
-- [ ] 52. Implement LocalStorage adapter for session save
+- [~] 52. Implement LocalStorage adapter for session save
   - Create `src/utils/storageAdapter.ts`:
     - `saveToLocalStorage()` method
     - `loadFromLocalStorage()` method
@@ -557,7 +557,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Type-safe storage with TypeScript
   - _Requirements: 7.1, 7.2_
 
-- [ ] 53. Implement session expiration logic
+- [~] 53. Implement session expiration logic
   - Add expiration timestamp to `SavedSession` (7 days)
   - Create `src/utils/sessionExpiration.ts`:
     - `calculateExpirationTime()` method
@@ -566,7 +566,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test expiration edge cases (midnight boundary, timezone)
   - _Requirements: 7.3_
 
-- [ ] 54. Implement IndexedDB adapter for extended persistence
+- [~] 54. Implement IndexedDB adapter for extended persistence
   - Create `src/utils/indexedDbAdapter.ts`:
     - Set up IndexedDB database and object stores
     - Store game state, player profile, codex data
@@ -574,7 +574,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Async operations with Promise handling
   - _Requirements: 7.1, 7.2_
 
-- [ ] 55. Create session resume workflow
+- [~] 55. Create session resume workflow
   - Create `src/composables/useSessionResume.ts`:
     - Check for saved session on app load
     - Validate session data integrity
@@ -583,7 +583,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Handle expired or corrupted sessions gracefully
   - _Requirements: 7.1, 7.2, 7.3_
 
-- [ ] 56.* Write integration tests for persistence
+- [~] 56.* Write integration tests for persistence
   - Create `tests/integration/persistence.test.ts`
   - Test save/restore roundtrip
   - Test expiration detection
@@ -595,7 +595,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 10: Testing (Unit, Integration, E2E)
 
-- [ ] 57. Write comprehensive unit tests for game engines
+- [~] 57. Write comprehensive unit tests for game engines
   - Create `tests/unit/engine/validator.test.ts` (30-40 test cases):
     - Test each constraint type validation
     - Test cost calculation accuracy
@@ -615,7 +615,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 85% code coverage for game engine
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 4.1, 4.2, 4.3_
 
-- [ ] 58. Write unit tests for Pinia stores
+- [~] 58. Write unit tests for Pinia stores
   - Create `tests/unit/stores/game.test.ts`:
     - Test state initialization
     - Test card placement action
@@ -631,7 +631,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 80% coverage for store logic
   - _Requirements: 1.1, 1.3, 6.1, 6.2_
 
-- [ ] 59. Write component snapshot tests
+- [~] 59. Write component snapshot tests
   - Create `tests/unit/components/` test files for all major components:
     - CardComponent snapshot
     - ArchitectureSlot snapshot
@@ -640,7 +640,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Update snapshots on intentional UI changes
   - _Requirements: (visual regression prevention)_
 
-- [ ] 60. Write integration tests for game flow
+- [~] 60. Write integration tests for game flow
   - Create `tests/integration/game-flow.test.ts`:
     - Test complete quick-match flow (3 scenarios)
     - Test card placement and validation
@@ -650,7 +650,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 70% integration coverage
   - _Requirements: 1.1, 1.3, 3.1, 3.2, 6.1, 6.2, 7.1_
 
-- [ ] 61. Write E2E tests with Playwright
+- [~] 61. Write E2E tests with Playwright
   - Create `tests/e2e/quick-match.spec.ts`:
     - Complete quick-match game flow
     - Verify all three scenarios load
@@ -672,7 +672,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Missing translation handling
   - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 62. Create test utilities and fixtures
+- [~] 62. Create test utilities and fixtures
   - Create `tests/fixtures/cards.ts` with mock card data
   - Create `tests/fixtures/scenarios.ts` with mock scenarios
   - Create `tests/fixtures/gameState.ts` with mock game states
@@ -684,7 +684,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 11: Performance Optimization & Monitoring
 
-- [ ] 63. Implement performance monitoring
+- [~] 63. Implement performance monitoring
   - Create `src/utils/performanceMonitor.ts`:
     - Add timing around validation (<500ms target)
     - Add timing around scoring calculations
@@ -693,7 +693,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Export metrics for analysis
   - _Requirements: 1.1, 1.2_
 
-- [ ] 64. Optimize bundle size and code splitting
+- [~] 64. Optimize bundle size and code splitting
   - Configure Vite code splitting in `vite.config.ts`:
     - Manual chunks for game engine, UI components
     - Route-based splitting (Home, Game, Codex views)
@@ -701,7 +701,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: <500KB initial bundle
   - _Requirements: (performance)_
 
-- [ ] 65. Implement lazy loading for images and data
+- [~] 65. Implement lazy loading for images and data
   - Create `src/utils/lazyLoader.ts`:
     - Lazy load card images
     - Lazy load scenario descriptions
@@ -709,7 +709,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Use dynamic imports for large components
   - _Requirements: (performance)_
 
-- [ ] 66. Set up error tracking and logging
+- [~] 66. Set up error tracking and logging
   - Create `src/utils/errorTracking.ts`:
     - Log errors to LocalStorage (last 50)
     - Categorize errors by type
@@ -722,7 +722,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 12: Build & Deployment Configuration
 
-- [ ] 67. Configure production build and optimization
+- [~] 67. Configure production build and optimization
   - Create `vite.config.ts`:
     - Minification settings
     - Source maps for production
@@ -733,7 +733,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `.env` templates for environments
   - _Requirements: (deployment infrastructure)_
 
-- [ ] 68. Set up Azure Static Web Apps configuration
+- [~] 68. Set up Azure Static Web Apps configuration
   - Create `staticwebapp.config.json`:
     - Route configuration for SPA
     - API rewrite rules
@@ -742,7 +742,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Cache control for assets
   - _Requirements: (deployment)_
 
-- [ ] 69. Configure GitHub Actions CI/CD pipeline
+- [~] 69. Configure GitHub Actions CI/CD pipeline
   - Create `.github/workflows/build-deploy.yml`:
     - Lint step (ESLint)
     - Type check step (tsc)
@@ -752,7 +752,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Preview deployment on PRs
   - _Requirements: (deployment infrastructure)_
 
-- [ ] 70. Create deployment documentation
+- [~] 70. Create deployment documentation
   - Write deployment guide: environment setup, secrets, deployment process
   - Create rollback procedures
   - Document monitoring and error tracking
@@ -763,7 +763,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 13: Documentation & Quality Assurance
 
-- [ ] 71. Create comprehensive code documentation
+- [~] 71. Create comprehensive code documentation
   - Add JSDoc comments to all exported functions and classes
   - Create README.md for project setup and development
   - Document store APIs and usage patterns
@@ -771,7 +771,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create style guide for Vue components
   - _Requirements: (documentation)_
 
-- [ ] 72. Create user-facing documentation
+- [~] 72. Create user-facing documentation
   - Game tutorial/onboarding guide
   - How to play quick-match mode
   - How to use the Architecture Codex
@@ -779,7 +779,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Keyboard shortcuts reference
   - _Requirements: (user documentation)_
 
-- [ ] 73. Conduct final QA and regression testing
+- [~] 73. Conduct final QA and regression testing
   - Run full test suite with coverage reporting
   - Manual testing of all game flows
   - Test on multiple browsers (Chrome, Firefox, Safari, Edge)
@@ -788,7 +788,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Accessibility audit (axe DevTools, WAVE)
   - _Requirements: (quality assurance)_
 
-- [ ] 74. Fix critical bugs and accessibility issues
+- [~] 74. Fix critical bugs and accessibility issues
   - Address any bugs found during QA
   - Fix accessibility violations (WCAG 2.1 AA)
   - Optimize performance bottlenecks

@@ -1,0 +1,548 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Initialize Vue 3 + Vite project with TypeScript strict mode": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778763790
+      },
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778791533
+      }
+    ],
+    "2. Configure Tailwind CSS and design tokens": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778764154
+      },
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778792572
+      }
+    ],
+    "3. Set up Pinia state management and store directory structure": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778764335
+      },
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778793273
+      }
+    ],
+    "4. Configure testing framework (Vitest) and Vue Testing Library": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778764560
+      },
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778794178
+      }
+    ],
+    "5. Set up Playwright for E2E testing": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778764719
+      },
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778795187
+      }
+    ],
+    "6. Initialize Git repository and GitHub Actions CI/CD": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778764903
+      }
+    ],
+    "7. Define AZ-900 card and game type system": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765123
+      }
+    ],
+    "8. Create game engine interface layer": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765304
+      }
+    ],
+    "9. Generate initial card database (JSON data files)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765483
+      }
+    ],
+    "10. Generate scenario database (JSON data files)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765632
+      }
+    ],
+    "11. Create Codex entry database (JSON data files)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765776
+      }
+    ],
+    "12. Create data loader utility and initialization": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778765956
+      }
+    ],
+    "13. Implement game store (Pinia)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778766162
+      }
+    ],
+    "14. Implement player store (Pinia)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778766319
+      }
+    ],
+    "15. Implement codex store (Pinia)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778766571
+      }
+    ],
+    "16. Implement session store (Pinia) for persistence": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778766785
+      }
+    ],
+    "17. Implement ValidationEngine core logic": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778766966
+      }
+    ],
+    "18.* Write property test for ValidationEngine": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778767127
+      }
+    ],
+    "19. Implement ScoringEngine with three-dimensional scoring": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778767287
+      }
+    ],
+    "20.* Write property tests for ScoringEngine": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778767489
+      }
+    ],
+    "21. Implement EvaluatorEngine for multiplayer clash": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778767689
+      }
+    ],
+    "22.* Write property tests for EvaluatorEngine": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778767836
+      }
+    ],
+    "23. Create performance monitoring utility": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768004
+      }
+    ],
+    "24. Create error handling composable": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768238
+      }
+    ],
+    "25. Create base UI components with accessibility": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768371
+      }
+    ],
+    "26.* Write unit tests for base UI components": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768511
+      }
+    ],
+    "27. Create Card component (presentation)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768659
+      }
+    ],
+    "28. Create CardTooltip component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768797
+      }
+    ],
+    "29. Create ArchitectureSlot component (drop zone)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778768942
+      }
+    ],
+    "30. Create CardDeck component (hand display)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778769088
+      }
+    ],
+    "31. Create ScenarioPanel component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778769253
+      }
+    ],
+    "32. Create ScoreDisplay component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778769508
+      }
+    ],
+    "33. Create ValidationFeedback component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778769707
+      }
+    ],
+    "34. Create TimerBar component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778769941
+      }
+    ],
+    "35. Create GameBoard component (container)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770091
+      }
+    ],
+    "36. Create CodexBrowser component (learning view)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770241
+      }
+    ],
+    "37. Create CodexEntry component (detail view)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770443
+      }
+    ],
+    "38. Create StudyDeck component": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770590
+      }
+    ],
+    "39.* Write component tests for game UI": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770788
+      }
+    ],
+    "40. Create HomeView (main menu)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778770942
+      }
+    ],
+    "41. Create QuickMatchView (single-player quick mode)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771087
+      }
+    ],
+    "42. Create MultiplayerView (two-player clash)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771243
+      }
+    ],
+    "43. Create CodexView (learning library)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771398
+      }
+    ],
+    "44. Create SettingsView (preferences)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771557
+      }
+    ],
+    "45. Create AppLayout component (header/footer)": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771705
+      }
+    ],
+    "46. Set up Vue I18n configuration": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778771888
+      }
+    ],
+    "47. Create translation files for all supported languages": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778772093
+      }
+    ],
+    "48.* Write property test for translation completeness": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778772297
+      }
+    ],
+    "49. Implement keyboard navigation system": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778772482
+      }
+    ],
+    "50. Implement high-contrast mode support": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778772722
+      }
+    ],
+    "51. Create accessibility guide and test checklist": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778772893
+      }
+    ],
+    "52. Implement LocalStorage adapter for session save": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773170
+      }
+    ],
+    "53. Implement session expiration logic": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773310
+      }
+    ],
+    "54. Implement IndexedDB adapter for extended persistence": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773453
+      }
+    ],
+    "55. Create session resume workflow": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773595
+      }
+    ],
+    "56.* Write integration tests for persistence": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773750
+      }
+    ],
+    "57. Write comprehensive unit tests for game engines": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778773907
+      }
+    ],
+    "58. Write unit tests for Pinia stores": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774064
+      }
+    ],
+    "59. Write component snapshot tests": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774205
+      }
+    ],
+    "60. Write integration tests for game flow": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774357
+      }
+    ],
+    "61. Write E2E tests with Playwright": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774511
+      }
+    ],
+    "62. Create test utilities and fixtures": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774674
+      }
+    ],
+    "63. Implement performance monitoring": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778774869
+      }
+    ],
+    "64. Optimize bundle size and code splitting": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775030
+      }
+    ],
+    "65. Implement lazy loading for images and data": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775165
+      }
+    ],
+    "66. Set up error tracking and logging": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775291
+      }
+    ],
+    "67. Configure production build and optimization": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775411
+      }
+    ],
+    "68. Set up Azure Static Web Apps configuration": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775561
+      }
+    ],
+    "69. Configure GitHub Actions CI/CD pipeline": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775717
+      }
+    ],
+    "70. Create deployment documentation": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778775860
+      }
+    ],
+    "71. Create comprehensive code documentation": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778776039
+      }
+    ],
+    "72. Create user-facing documentation": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778776218
+      }
+    ],
+    "73. Conduct final QA and regression testing": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778776393
+      }
+    ],
+    "74. Fix critical bugs and accessibility issues": [
+      {
+        "executionId": "0e7f2564-6344-4bae-9dcb-f1abdaa95af1",
+        "chatSessionId": "sess_e3a75e7a-5a53-4d46-a021-c3051be2a58b",
+        "timestamp": 1790778776548
+      }
+    ]
+  }
+}
