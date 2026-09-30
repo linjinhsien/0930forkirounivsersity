@@ -1,0 +1,337 @@
+/**
+ * Design Tokens for Azure AZ-900 Card Clash Engine
+ * Defines reusable design values for colors, spacing, typography, and animation
+ * Aligned with AZ-900 domain colors and accessibility requirements (WCAG 2.1 AA)
+ */
+
+/* ──────────────────────────────────────────
+   Color Tokens
+────────────────────────────────────────── */
+:root {
+  /* ─── AZ-900 Domain Colors ─── */
+  --domain-concepts-50: #eff6ff;
+  --domain-concepts-100: #dbeafe;
+  --domain-concepts-200: #bfdbfe;
+  --domain-concepts-300: #93c5fd;
+  --domain-concepts-400: #60a5fa;
+  --domain-concepts-500: #3b82f6;
+  --domain-concepts-600: #2563eb;
+  --domain-concepts-700: #1d4ed8;
+  --domain-concepts-800: #1e40af;
+  --domain-concepts-900: #1e3a8a;
+
+  --domain-services-50: #f0fdf4;
+  --domain-services-100: #dcfce7;
+  --domain-services-200: #bbf7d0;
+  --domain-services-300: #86efac;
+  --domain-services-400: #4ade80;
+  --domain-services-500: #22c55e;
+  --domain-services-600: #16a34a;
+  --domain-services-700: #15803d;
+  --domain-services-800: #166534;
+  --domain-services-900: #14532d;
+
+  --domain-governance-50: #fdf4ff;
+  --domain-governance-100: #fae8ff;
+  --domain-governance-200: #f5d0fe;
+  --domain-governance-300: #f0abfc;
+  --domain-governance-400: #e879f9;
+  --domain-governance-500: #d946ef;
+  --domain-governance-600: #c026d3;
+  --domain-governance-700: #a21caf;
+  --domain-governance-800: #86198f;
+  --domain-governance-900: #701a75;
+
+  /* ─── Azure Brand Colors ─── */
+  --azure-50: #e6f3fb;
+  --azure-100: #cce6f7;
+  --azure-200: #99cdef;
+  --azure-300: #66b3e7;
+  --azure-400: #3399df;
+  --azure-500: #0078d4;
+  --azure-600: #0062ad;
+  --azure-700: #004d87;
+  --azure-800: #003860;
+  --azure-900: #003366;
+
+  /* ─── Semantic Colors (Light Mode) ─── */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  --color-surface-elevated: #ffffff;
+  --color-surface-overlay: rgba(255, 255, 255, 0.95);
+
+  --color-border-default: #e5e7eb;
+  --color-border-emphasis: #d1d5db;
+  --color-border-interactive: #0078d4;
+
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverted: #ffffff;
+
+  --color-success: #22c55e;
+  --color-success-bg: #dcfce7;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-bg: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-bg: #dbeafe;
+
+  /* ─── Score Level Colors ─── */
+  --score-low: #ef4444;
+  --score-low-bg: #fee2e2;
+  --score-mid: #f59e0b;
+  --score-mid-bg: #fef3c7;
+  --score-high: #22c55e;
+  --score-high-bg: #dcfce7;
+
+  /* ─── Interactive States ─── */
+  --color-interactive-hover: #0062ad;
+  --color-interactive-active: #004d87;
+  --color-interactive-disabled: #d1d5db;
+  --color-focus-ring: #0078d4;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* ─── Spacing Tokens ─── */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
+  /* ─── Card & Slot Dimensions ─── */
+  --card-width: 180px;
+  --card-height: 240px;
+  --card-border-radius: 12px;
+  --card-border-width: 2px;
+
+  --slot-width: 200px;
+  --slot-height: 260px;
+  --slot-border-radius: 8px;
+  --slot-border-width: 2px;
+
+  --board-gap: 1.25rem; /* 20px */
+  --board-padding: 1.5rem; /* 24px */
+
+  /* ─── Typography Tokens ─── */
+  --font-family-base: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto',
+    'Helvetica Neue', sans-serif;
+  --font-family-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+
+  --font-size-xs: 0.6875rem; /* 11px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ─── Z-Index Layers ─── */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 900;
+  --z-modal: 1000;
+  --z-popover: 1100;
+  --z-toast: 1200;
+  --z-tooltip: 1300;
+
+  /* ─── Animation Durations ─── */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* ─── Easing Functions ─── */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ─── Shadow Tokens ─── */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ──────────────────────────────────────────
+   Dark Mode Color Tokens
+────────────────────────────────────────── */
+.dark {
+  /* ─── Semantic Colors (Dark Mode) ─── */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-surface-elevated: #1e293b;
+  --color-surface-overlay: rgba(30, 41, 59, 0.95);
+
+  --color-border-default: #334155;
+  --color-border-emphasis: #475569;
+  --color-border-interactive: #3399df;
+
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverted: #0f172a;
+
+  --color-success: #4ade80;
+  --color-success-bg: #14532d;
+  --color-warning: #fbbf24;
+  --color-warning-bg: #78350f;
+  --color-error: #f87171;
+  --color-error-bg: #7f1d1d;
+  --color-info: #60a5fa;
+  --color-info-bg: #1e3a8a;
+
+  /* ─── Score Level Colors (Dark Mode) ─── */
+  --score-low: #f87171;
+  --score-low-bg: #7f1d1d;
+  --score-mid: #fbbf24;
+  --score-mid-bg: #78350f;
+  --score-high: #4ade80;
+  --score-high-bg: #14532d;
+
+  /* ─── Interactive States (Dark Mode) ─── */
+  --color-interactive-hover: #60a5fa;
+  --color-interactive-active: #93c5fd;
+  --color-interactive-disabled: #475569;
+  --color-focus-ring: #60a5fa;
+
+  /* ─── Shadows (Dark Mode) ─── */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6),
+    0 10px 10px -5px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* ──────────────────────────────────────────
+   High-Contrast Mode Tokens (WCAG AAA)
+   Minimum 4.5:1 contrast ratio for normal text
+   Minimum 3:1 contrast ratio for large text
+────────────────────────────────────────── */
+.high-contrast {
+  /* ─── High Contrast Colors ─── */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #111111;
+  --color-bg-tertiary: #1a1a1a;
+  --color-surface-elevated: #1a1a1a;
+  --color-surface-overlay: rgba(26, 26, 26, 0.98);
+
+  --color-border-default: #ffffff;
+  --color-border-emphasis: #ffffff;
+  --color-border-interactive: #ffff00;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #ffffff;
+  --color-text-tertiary: #dddddd;
+  --color-text-inverted: #000000;
+
+  /* High contrast domain colors */
+  --domain-concepts-500: #00ccff; /* Bright cyan for concepts */
+  --domain-services-500: #00ff00; /* Bright green for services */
+  --domain-governance-500: #ff00ff; /* Bright magenta for governance */
+
+  --color-success: #00ff00;
+  --color-success-bg: #003300;
+  --color-warning: #ffff00;
+  --color-warning-bg: #333300;
+  --color-error: #ff0000;
+  --color-error-bg: #330000;
+  --color-info: #00ccff;
+  --color-info-bg: #003333;
+
+  /* ─── Score Colors (High Contrast) ─── */
+  --score-low: #ff0000;
+  --score-low-bg: #330000;
+  --score-mid: #ffff00;
+  --score-mid-bg: #333300;
+  --score-high: #00ff00;
+  --score-high-bg: #003300;
+
+  /* ─── Interactive States (High Contrast) ─── */
+  --color-interactive-hover: #ffff00;
+  --color-interactive-active: #ffff66;
+  --color-interactive-disabled: #666666;
+  --color-focus-ring: #ffff00;
+  --focus-ring-width: 3px; /* Thicker focus ring */
+  --focus-ring-offset: 3px;
+
+  /* ─── Increased Border Widths ─── */
+  --card-border-width: 3px;
+  --slot-border-width: 3px;
+
+  /* ─── Enhanced Shadows ─── */
+  --shadow-sm: 0 1px 3px 0 rgba(255, 255, 255, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(255, 255, 255, 0.4),
+    0 2px 4px -1px rgba(255, 255, 255, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(255, 255, 255, 0.5),
+    0 4px 6px -2px rgba(255, 255, 255, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(255, 255, 255, 0.6),
+    0 10px 10px -5px rgba(255, 255, 255, 0.5);
+  --shadow-card: 0 4px 12px rgba(255, 255, 255, 0.3);
+  --shadow-card-hover: 0 8px 24px rgba(255, 255, 255, 0.4);
+}
+
+/* ──────────────────────────────────────────
+   Reduced Motion Support (Accessibility)
+────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ──────────────────────────────────────────
+   Large Text Support (Accessibility)
+────────────────────────────────────────── */
+@media screen and (min-width: 1536px) {
+  :root {
+    --font-size-xs: 0.75rem; /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem; /* 16px */
+    --font-size-md: 1.125rem; /* 18px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-xl: 1.5rem; /* 24px */
+    --font-size-2xl: 1.75rem; /* 28px */
+    --font-size-3xl: 2rem; /* 32px */
+    --font-size-4xl: 2.5rem; /* 40px */
+  }
+}

@@ -12,14 +12,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 1: Foundation & Project Setup
 
-- [ ] 1. Initialize Vue 3 + Vite project with TypeScript strict mode
+- [x] 1. Initialize Vue 3 + Vite project with TypeScript strict mode
   - Set up Vite project with Vue 3, TypeScript 5.0+, strict mode enabled
   - Configure absolute path aliases (`@/` → `src/`)
   - Install and configure ESLint, Prettier, and pre-commit hooks
   - Create `.env` templates for development/production
   - _Requirements: 8.1, 8.3 (setup for i18n and accessibility)_
 
-- [ ] 2. Configure Tailwind CSS and design tokens
+- [-] 2. Configure Tailwind CSS and design tokens
   - Install Tailwind CSS 3.x with Vue 3 plugin
   - Create custom theme configuration for AZ-900 card domains (domain colors)
   - Add custom utility classes for card styling and game board layout
@@ -27,27 +27,27 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create design token file for colors, spacing, typography
   - _Requirements: 8.2 (high-contrast mode support)_
 
-- [ ] 3. Set up Pinia state management and store directory structure
+- [-] 3. Set up Pinia state management and store directory structure
   - Install Pinia and integrate with Vue 3 app
   - Configure store auto-import (optional but recommended)
   - Create store directory structure: `src/stores/`
   - Initialize empty store files: `game.ts`, `player.ts`, `codex.ts`, `session.ts`
   - _Requirements: 1.1, 1.3 (state management for game and scores)_
 
-- [ ] 4. Configure testing framework (Vitest) and Vue Testing Library
+- [-] 4. Configure testing framework (Vitest) and Vue Testing Library
   - Install Vitest, Vue Test Utils, @testing-library/vue
   - Set up Vitest configuration with coverage reporting
   - Create test directory structure: `tests/unit/`, `tests/integration/`, `tests/e2e/`
   - Configure snapshot testing and mocking utilities
   - _Requirements: (testing infrastructure)_
 
-- [ ] 5. Set up Playwright for E2E testing
+- [-] 5. Set up Playwright for E2E testing
   - Install Playwright and configure for chromium browser
   - Create base test fixtures and utilities
   - Set up test configuration with timeout and retry settings
   - _Requirements: (E2E test infrastructure)_
 
-- [ ] 6. Initialize Git repository and GitHub Actions CI/CD
+- [-] 6. Initialize Git repository and GitHub Actions CI/CD
   - Initialize Git repo (or configure existing one)
   - Create `.github/workflows/` directory
   - Set up CI/CD pipeline: lint → type-check → test → build

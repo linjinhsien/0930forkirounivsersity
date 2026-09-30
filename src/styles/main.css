@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────
+   Custom base styles
+────────────────────────────────────────── */
+@layer base {
+  :root {
+    --color-bg: theme('colors.white');
+    --color-surface: theme('colors.gray.50');
+    --color-border: theme('colors.gray.200');
+    --color-text: theme('colors.gray.900');
+    --color-text-muted: theme('colors.gray.500');
+    --color-accent: theme('colors.azure.500');
+  }
+
+  .dark {
+    --color-bg: theme('colors.gray.950');
+    --color-surface: theme('colors.gray.900');
+    --color-border: theme('colors.gray.700');
+    --color-text: theme('colors.gray.50');
+    --color-text-muted: theme('colors.gray.400');
+    --color-accent: theme('colors.azure.200');
+  }
+
+  /* High-contrast overrides */
+  .high-contrast {
+    --color-bg: #000000;
+    --color-surface: #111111;
+    --color-border: #ffffff;
+    --color-text: #ffffff;
+    --color-text-muted: #dddddd;
+    --color-accent: #ffff00;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-50;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus visible for keyboard users */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-azure-500;
+  }
+
+  /* Skip to main content link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
+    @apply bg-azure-600 text-white px-4 py-2 rounded font-semibold;
+  }
+}
+
+/* ──────────────────────────────────────────
+   Component utilities
+────────────────────────────────────────── */
+@layer components {
+  /* Card domain styles */
+  .card-domain-concepts {
+    @apply border-domain-concepts-500 bg-domain-concepts-50 dark:bg-domain-concepts-900/20;
+  }
+  .card-domain-services {
+    @apply border-domain-services-500 bg-domain-services-50 dark:bg-domain-services-900/20;
+  }
+  .card-domain-governance {
+    @apply border-domain-governance-500 bg-domain-governance-50 dark:bg-domain-governance-900/20;
+  }
+
+  /* Drag states */
+  .dragging {
+    @apply opacity-60 rotate-3 scale-105 cursor-grabbing shadow-2xl z-50;
+  }
+  .drag-over {
+    @apply ring-2 ring-azure-500 ring-offset-2 bg-azure-50 dark:bg-azure-900/20;
+  }
+  .drop-valid {
+    @apply ring-2 ring-green-500;
+  }
+  .drop-invalid {
+    @apply ring-2 ring-red-500;
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800 rounded;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded;
+  }
+
+  /* Glass effect for panels */
+  .glass {
+    backdrop-filter: blur(8px);
+    @apply bg-white/80 dark:bg-gray-900/80 border border-white/20;
+  }
+}
