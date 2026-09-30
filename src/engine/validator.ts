@@ -17,6 +17,8 @@ const SLOT_COMPATIBLE_TAGS: Record<ArchitectureSlot['type'], readonly string[]> 
 }
 
 export class ValidationEngine implements IValidationEngine {
+  constructor(private readonly availableCards: AzureCard[] = []) {}
+
   validatePlacement(
     card: AzureCard,
     slot: ArchitectureSlot,
@@ -76,7 +78,7 @@ export class ValidationEngine implements IValidationEngine {
       violations,
       suggestions:
         violations.length > 0
-          ? this.getSuggestions(card, scenario, placedCards, currentSlots.flatMap((item) => item.card ? [] : []))
+          ? this.getSuggestions(card, scenario, placedCards, this.availableCards)
           : undefined,
     }
   }
