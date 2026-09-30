@@ -112,7 +112,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 3: State Management (Pinia Stores)
 
-- [ ] 13. Implement game store (Pinia)
+- [x] 13. Implement game store (Pinia)
   - Create `src/stores/game.ts` with full game state and actions:
     - State: `gameState`, `validationResult`, `isValidating`
     - Computed: `currentScenario`, `placedCards`, `currentScore`, `isGameActive`
@@ -121,7 +121,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Add type-safe getters and setters
   - _Requirements: 1.1, 1.3, 7.1_
 
-- [ ] 14. Implement player store (Pinia)
+- [x] 14. Implement player store (Pinia)
   - Create `src/stores/player.ts` with player profile and progression:
     - State: `profile` with XP, difficulty tier, match stats, study deck
     - Computed: `currentDifficulty`, `totalMatches`, `winRate`
@@ -130,7 +130,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Maintain accessibility and language preferences
   - _Requirements: 4.5, 6.1, 6.2, 8.1_
 
-- [ ] 15. Implement codex store (Pinia)
+- [x] 15. Implement codex store (Pinia)
   - Create `src/stores/codex.ts` for card library and learning:
     - State: `cardLibrary`, `scenarioLibrary`, `codexEntries`, `searchResults`
     - Computed: `cardsByDomain`, `cardsByDifficulty`
@@ -139,7 +139,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Support filtering by domain, cost, synergy tags
   - _Requirements: 5.1, 5.2_
 
-- [ ] 16. Implement session store (Pinia) for persistence
+- [x] 16. Implement session store (Pinia) for persistence
   - Create `src/stores/session.ts` for save/load functionality:
     - State: `savedSession`
     - Actions: `saveSession()`, `loadSession()`, `clearSession()`, `hasValidSession()`
