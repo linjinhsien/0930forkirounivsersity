@@ -5,7 +5,7 @@
  * It sets up global test utilities, mocks, and custom matchers.
  */
 
-import { expect, vi } from 'vitest'
+import { expect, vi, beforeEach, afterEach } from 'vitest'
 import { config } from '@vue/test-utils'
 
 /**

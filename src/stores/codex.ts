@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 
 /**
  * Codex Store
  * Manages the Architecture Codex, card library, study deck, and learning progress
- * 
+ *
  * Responsibilities:
  * - Card library data management
  * - Study deck (player's collected cards)

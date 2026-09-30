@@ -14,10 +14,14 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['vue', 'vue-router', 'pinia'],
-          i18n: ['vue-i18n'],
-          engine: ['./src/engine/validator', './src/engine/scoring', './src/engine/evaluator'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('vue-i18n')) return 'i18n'
+            if (id.includes('vue') || id.includes('pinia')) return 'vendor'
+          }
+          if (id.includes('/src/engine/')) {
+            return 'engine'
+          }
         },
       },
     },

@@ -42,7 +42,11 @@
 
   body {
     @apply bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-50;
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family:
+      'Segoe UI',
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 

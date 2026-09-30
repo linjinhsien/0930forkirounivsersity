@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 
 /**
  * Player Store
  * Manages player profile, XP, difficulty tier, match history, and preferences
- * 
+ *
  * Responsibilities:
  * - Player profile data (displayName, id)
  * - XP and progression tracking

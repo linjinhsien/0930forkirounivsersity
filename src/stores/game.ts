@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 
 /**
  * Game Store
  * Manages current match state, deployed cards, active scenario, and game board state
- * 
+ *
  * Responsibilities:
  * - Current scenario tracking
  * - Card deck and hand management

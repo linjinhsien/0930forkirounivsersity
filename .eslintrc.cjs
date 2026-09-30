@@ -9,7 +9,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:vue/vue3-essential',
+    'plugin:vue/essential',
     'prettier',
   ],
   parser: 'vue-eslint-parser',
@@ -26,4 +26,14 @@ module.exports = {
     'vue/component-api-style': ['error', ['script-setup']],
     'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
+  overrides: [
+    {
+      files: ['tests/**/*', 'scripts/**/*'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+        'no-empty-pattern': 'off',
+        'no-console': 'off',
+      },
+    },
+  ],
 }

@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 
 /**
  * Session Store
  * Manages session persistence, save/load operations, and resume state
- * 
+ *
  * Responsibilities:
  * - Session save/load operations
  * - LocalStorage/IndexedDB persistence

@@ -95,7 +95,7 @@ export function renderComponent<T extends Component>(
   }
 
   return mount(component, {
-    props,
+    props: props as any,
     slots,
     global: {
       plugins: globalPlugins,

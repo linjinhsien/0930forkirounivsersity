@@ -5,7 +5,7 @@
  * assertions, and test setup operations.
  */
 
-import { Page, expect, Locator } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
 
 /**
  * Mock card data for testing
@@ -287,7 +287,7 @@ export class MockDataHelpers {
   /**
    * Create a complete mock game state
    */
-  static createMockGameState(overrides?: unknown): unknown {
+  static createMockGameState(overrides?: Record<string, unknown>): unknown {
     return {
       currentScenario: this.createMockScenario(),
       deck: [this.createMockCard(), this.createMockCard()],

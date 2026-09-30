@@ -19,7 +19,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `.env` templates for development/production
   - _Requirements: 8.1, 8.3 (setup for i18n and accessibility)_
 
-- [-] 2. Configure Tailwind CSS and design tokens
+- [x] 2. Configure Tailwind CSS and design tokens
   - Install Tailwind CSS 3.x with Vue 3 plugin
   - Create custom theme configuration for AZ-900 card domains (domain colors)
   - Add custom utility classes for card styling and game board layout
@@ -27,27 +27,27 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create design token file for colors, spacing, typography
   - _Requirements: 8.2 (high-contrast mode support)_
 
-- [-] 3. Set up Pinia state management and store directory structure
+- [x] 3. Set up Pinia state management and store directory structure
   - Install Pinia and integrate with Vue 3 app
   - Configure store auto-import (optional but recommended)
   - Create store directory structure: `src/stores/`
   - Initialize empty store files: `game.ts`, `player.ts`, `codex.ts`, `session.ts`
   - _Requirements: 1.1, 1.3 (state management for game and scores)_
 
-- [-] 4. Configure testing framework (Vitest) and Vue Testing Library
+- [x] 4. Configure testing framework (Vitest) and Vue Testing Library
   - Install Vitest, Vue Test Utils, @testing-library/vue
   - Set up Vitest configuration with coverage reporting
   - Create test directory structure: `tests/unit/`, `tests/integration/`, `tests/e2e/`
   - Configure snapshot testing and mocking utilities
   - _Requirements: (testing infrastructure)_
 
-- [-] 5. Set up Playwright for E2E testing
+- [x] 5. Set up Playwright for E2E testing
   - Install Playwright and configure for chromium browser
   - Create base test fixtures and utilities
   - Set up test configuration with timeout and retry settings
   - _Requirements: (E2E test infrastructure)_
 
-- [-] 6. Initialize Git repository and GitHub Actions CI/CD
+- [x] 6. Initialize Git repository and GitHub Actions CI/CD
   - Initialize Git repo (or configure existing one)
   - Create `.github/workflows/` directory
   - Set up CI/CD pipeline: lint → type-check → test → build
@@ -58,7 +58,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 2: Core Data Models & TypeScript Definitions
 
-- [ ] 7. Define AZ-900 card and game type system
+- [x] 7. Define AZ-900 card and game type system
   - Create `src/types/game.ts` with all core interfaces:
     - `AzureCard`, `ArchitectureSlot`, `Scenario`, `GameState`, `PlayerProfile`, `SavedSession`, etc.
   - Export all domain types: `AZ900Domain`, `RequirementType`, `ValidationResult`, etc.
@@ -66,7 +66,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Ensure strict TypeScript compliance (no `any` types)
   - _Requirements: 1.1, 1.4, 4.1, 5.2_
 
-- [ ] 8. Create game engine interface layer
+- [x] 8. Create game engine interface layer
   - Create `src/types/engine.ts` with engine contract interfaces:
     - `IValidationEngine`, `IScoringEngine`, `IEvaluatorEngine`
   - Define validation violation and score breakdown interfaces
