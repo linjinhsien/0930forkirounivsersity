@@ -178,7 +178,8 @@ export class ValidationEngine implements IValidationEngine {
     availableCards: AzureCard[]
   ): AzureCard[] {
     const candidates = availableCards.filter(
-      (candidate) => candidate.id !== card.id && !placedCards.some(({ id }) => id === candidate.id)
+      (candidate) =>
+        candidate.id !== card.id && !placedCards.some(({ id }) => id === candidate.id)
     )
 
     const hasCustomOsRequirement = scenario.requirements.some(
