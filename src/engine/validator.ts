@@ -201,14 +201,19 @@ export class ValidationEngine implements IValidationEngine {
           candidate.synergyTags.includes('iaas') &&
           !hasCustomOsRequirement
         ) {
-          return candidate.synergyTags.includes('paas') || candidate.synergyTags.includes('serverless')
+          return (
+            candidate.synergyTags.includes('paas') || candidate.synergyTags.includes('serverless')
+          )
         }
 
         if (
           scenario.constraints.securityLevel === 'premium' &&
           card.synergyTags.includes('storage')
         ) {
-          return candidate.synergyTags.includes('security') || candidate.synergyTags.includes('encryption')
+          return (
+            candidate.synergyTags.includes('security') ||
+            candidate.synergyTags.includes('encryption')
+          )
         }
 
         if (
