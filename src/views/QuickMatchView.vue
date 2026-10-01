@@ -44,8 +44,7 @@ async function startGame(): Promise<void> {
     scenarios.value = [...(atTier.length ? atTier : allScenarios)].slice(0, 3)
     if (scenarios.value.length === 0) throw new Error('No scenarios are available.')
 
-    const savedSession =
-      route.query.resume === '1' ? sessionResume.checkForSavedSession() : null
+    const savedSession = route.query.resume === '1' ? sessionResume.checkForSavedSession() : null
     if (savedSession) {
       const restored = await sessionResume.resumeSession(savedSession)
       if (restored) {
