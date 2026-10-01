@@ -547,7 +547,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 9: Session Persistence & Storage
 
-- [ ] 52. Implement LocalStorage adapter for session save
+- [x] 52. Implement LocalStorage adapter for session save
   - Create `src/utils/storageAdapter.ts`:
     - `saveToLocalStorage()` method
     - `loadFromLocalStorage()` method
@@ -557,7 +557,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Type-safe storage with TypeScript
   - _Requirements: 7.1, 7.2_
 
-- [ ] 53. Implement session expiration logic
+- [x] 53. Implement session expiration logic
   - Add expiration timestamp to `SavedSession` (7 days)
   - Create `src/utils/sessionExpiration.ts`:
     - `calculateExpirationTime()` method
@@ -566,7 +566,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test expiration edge cases (midnight boundary, timezone)
   - _Requirements: 7.3_
 
-- [ ] 54. Implement IndexedDB adapter for extended persistence
+- [x] 54. Implement IndexedDB adapter for extended persistence
   - Create `src/utils/indexedDbAdapter.ts`:
     - Set up IndexedDB database and object stores
     - Store game state, player profile, codex data
@@ -574,7 +574,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Async operations with Promise handling
   - _Requirements: 7.1, 7.2_
 
-- [ ] 55. Create session resume workflow
+- [x] 55. Create session resume workflow
   - Create `src/composables/useSessionResume.ts`:
     - Check for saved session on app load
     - Validate session data integrity
@@ -583,7 +583,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Handle expired or corrupted sessions gracefully
   - _Requirements: 7.1, 7.2, 7.3_
 
-- [ ] 56.* Write integration tests for persistence
+- [x] 56.* Write integration tests for persistence
   - Create `tests/integration/persistence.test.ts`
   - Test save/restore roundtrip
   - Test expiration detection
