@@ -11,9 +11,7 @@ export function calculateExpirationTime(
   ttlMs: number = SESSION_TTL_MS
 ): number {
   if (!Number.isFinite(savedAt) || !Number.isFinite(ttlMs) || ttlMs < 0) {
-    throw new Error(
-      'savedAt and ttlMs must be finite numbers, and ttlMs must be non-negative'
-    )
+    throw new Error('savedAt and ttlMs must be finite numbers, and ttlMs must be non-negative')
   }
 
   return savedAt + ttlMs
