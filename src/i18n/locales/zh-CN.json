@@ -1,1 +1,62 @@
-{"app":{"title":"Azure AZ-900 架构卡牌对战","home":"首页","game":"游戏","codex":"架构图鉴","settings":"设置","skipToContent":"跳转到主要内容"},"home":{"welcome":"欢迎，{name}","xp":"经验值：{xp}","quickMatch":"3 分钟通勤模式","multiplayer":"多人挑战","tutorial":"教学与帮助"},"game":{"round":"回合 {current} / {total}","submit":"提交方案","save":"稍后保存","newGame":"新游戏","exit":"退出","confirmExit":"确定要退出吗？"},"codex":{"title":"架构图鉴","search":"搜索卡牌","filter":"筛选","studyDeck":"学习牌组","addToStudyDeck":"加入学习牌组"},"settings":{"title":"设置","language":"语言","accessibility":"无障碍","highContrast":"高对比度模式","keyboardOnly":"仅键盘模式","reducedMotion":"减少动态效果","difficulty":"难度","playerName":"玩家名称","save":"保存更改","clearData":"清除数据","resume":"继续游戏"},"accessibility":{"on":"开启","off":"关闭","focusHelp":"使用 Tab 在控件之间移动，按 Enter 或空格键执行操作。"},"errors":{"loadLocale":"无法加载所选语言，将使用英文。","missingTranslation":"缺少翻译"},"languages":{"en":"英语","zh-CN":"简体中文","ja":"日语","es":"西班牙语","de":"德语","fr":"法语"}}
+{
+  "app": {
+    "title": "Azure AZ-900 架构卡牌对战",
+    "home": "首页",
+    "game": "游戏",
+    "codex": "架构图鉴",
+    "settings": "设置",
+    "skipToContent": "跳转到主要内容"
+  },
+  "home": {
+    "welcome": "欢迎，{name}",
+    "xp": "经验值：{xp}",
+    "quickMatch": "3 分钟通勤模式",
+    "multiplayer": "多人挑战",
+    "tutorial": "教学与帮助"
+  },
+  "game": {
+    "round": "回合 {current} / {total}",
+    "submit": "提交方案",
+    "save": "稍后保存",
+    "newGame": "新游戏",
+    "exit": "退出",
+    "confirmExit": "确定要退出吗？"
+  },
+  "codex": {
+    "title": "架构图鉴",
+    "search": "搜索卡牌",
+    "filter": "筛选",
+    "studyDeck": "学习牌组",
+    "addToStudyDeck": "加入学习牌组"
+  },
+  "settings": {
+    "title": "设置",
+    "language": "语言",
+    "accessibility": "无障碍",
+    "highContrast": "高对比度模式",
+    "keyboardOnly": "仅键盘模式",
+    "reducedMotion": "减少动态效果",
+    "difficulty": "难度",
+    "playerName": "玩家名称",
+    "save": "保存更改",
+    "clearData": "清除数据",
+    "resume": "继续游戏"
+  },
+  "accessibility": {
+    "on": "开启",
+    "off": "关闭",
+    "focusHelp": "使用 Tab 在控件之间移动，按 Enter 或空格键执行操作。"
+  },
+  "errors": {
+    "loadLocale": "无法加载所选语言，将使用英文。",
+    "missingTranslation": "缺少翻译"
+  },
+  "languages": {
+    "en": "英语",
+    "zh-CN": "简体中文",
+    "ja": "日语",
+    "es": "西班牙语",
+    "de": "德语",
+    "fr": "法语"
+  }
+}
