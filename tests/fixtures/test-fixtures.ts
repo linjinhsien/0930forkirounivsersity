@@ -106,6 +106,11 @@ export const test = base.extend<GameTestFixtures>({
    */
   clearGameData: async ({ page }, use) => {
     const clearData = async () => {
+      if (page.url() === 'about:blank') {
+        await page.goto('/')
+        await page.waitForLoadState('networkidle')
+      }
+
       await page.evaluate(() => {
         localStorage.clear()
         sessionStorage.clear()
