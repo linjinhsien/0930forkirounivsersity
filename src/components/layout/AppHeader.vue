@@ -35,7 +35,7 @@ const navigation = [
       <RouterLink
         to="/"
         class="font-bold tracking-tight text-blue-900"
-         :aria-label="`${t('app.title')} home`"
+        :aria-label="`${t('app.title')} home`"
       >
         Azure AZ-900 Card Clash
       </RouterLink>
