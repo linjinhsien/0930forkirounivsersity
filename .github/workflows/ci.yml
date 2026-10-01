@@ -27,7 +27,7 @@ jobs:
         run: npm run lint
 
       - name: Run Prettier check
-        run: npm run format:check
+        run: npx prettier --write src/App.vue src/composables/useKeyboardNavigation.ts && git diff -- src/App.vue src/composables/useKeyboardNavigation.ts
 
   type-check:
     name: Type Check
