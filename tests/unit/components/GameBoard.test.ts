@@ -193,13 +193,13 @@ describe('GameBoard', () => {
     expect(asides[0].getAttribute('aria-label')).toBe('Scenario details')
   })
 
-  it('renders the main game board landmark', () => {
-    const { getByRole } = render(GameBoard, {
+  it('renders a labelled game board container', () => {
+    const { getByLabelText } = render(GameBoard, {
       props: { mode: 'quick-match' },
     })
-    const main = getByRole('main')
-    expect(main).toBeTruthy()
-    expect(main.id).toBe('main-content')
+    const board = getByLabelText('Game board')
+    expect(board).toBeTruthy()
+    expect(board.tagName).toBe('DIV')
   })
 
   it('does not show submit button when game is NOT active', () => {

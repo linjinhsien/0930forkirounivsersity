@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import type { GameState, SavedSession } from '@/types/game'
 
@@ -29,7 +29,7 @@ export const useSessionStore = defineStore('session', () => {
       id: createSessionId(),
       timestamp: now,
       expiresAt: now + SESSION_TTL_MS,
-      gameState: structuredClone(gameState),
+      gameState: JSON.parse(JSON.stringify(toRaw(gameState))) as GameState,
       playerId,
     }
 

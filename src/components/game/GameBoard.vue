@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { ArchitectureScore, AzureCard } from '@/types/game'
 import { useGameStore } from '@/stores/game'
 import { useCodexStore } from '@/stores/codex'
@@ -17,6 +17,7 @@ import TimerBar from '@/components/game/TimerBar.vue'
 interface Props {
   mode: 'quick-match' | 'multiplayer'
   timeLimit?: number
+  compact?: boolean
 }
 
 const props = defineProps<Props>()
@@ -47,6 +48,13 @@ const totalTime = ref<number>(timeRemaining.value)
 
 const timerActive = ref<boolean>(false)
 const timerInterval = ref<ReturnType<typeof setInterval> | null>(null)
+let completionEmitted = false
+
+watch(timeRemaining, (time) => {
+  if (gameStore.gameState?.status === 'playing') {
+    gameStore.gameState.timeRemaining = time
+  }
+})
 
 // ---------------------------------------------------------------------------
 // Derived game state
@@ -88,6 +96,8 @@ function stopTimer(): void {
 }
 
 function handleTimeExpired(): void {
+  if (completionEmitted) return
+  completionEmitted = true
   stopTimer()
   gameStore.submitSolution()
   emit('solutionSubmitted', currentScore.value)
@@ -172,6 +182,8 @@ function handleCardRemoved(slotId: string): void {
 // ---------------------------------------------------------------------------
 
 function handleSubmit(): void {
+  if (completionEmitted) return
+  completionEmitted = true
   stopTimer()
   gameStore.submitSolution()
   emit('solutionSubmitted', currentScore.value)
@@ -180,16 +192,9 @@ function handleSubmit(): void {
 </script>
 
 <template>
-  <!-- Skip-link for keyboard users -->
-  <a
-    href="#main-content"
-    class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-blue-700 focus:rounded focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-  >
-    Skip to main content
-  </a>
-
   <div
-    class="grid grid-cols-1 lg:grid-cols-[280px_1fr_260px] gap-4 p-4 min-h-screen bg-gray-50 dark:bg-gray-950"
+    class="grid grid-cols-1 gap-4 bg-gray-50 p-4 dark:bg-gray-950"
+    :class="compact ? 'min-h-0' : 'min-h-screen lg:grid-cols-[280px_1fr_260px]'"
   >
     <!-- ------------------------------------------------------------------ -->
     <!-- Left: Scenario panel                                                -->
@@ -217,7 +222,7 @@ function handleSubmit(): void {
     <!-- ------------------------------------------------------------------ -->
     <!-- Center: Timer + Board + Deck                                        -->
     <!-- ------------------------------------------------------------------ -->
-    <main id="main-content" class="flex flex-col gap-4" aria-label="Game board">
+    <div class="flex flex-col gap-4" aria-label="Game board">
       <!-- Timer bar -->
       <TimerBar
         :time-remaining="timeRemaining"
@@ -273,7 +278,7 @@ function handleSubmit(): void {
           @card-drag-start="handleCardDragStart"
         />
       </section>
-    </main>
+    </div>
 
     <!-- ------------------------------------------------------------------ -->
     <!-- Right: Score + Validation                                           -->

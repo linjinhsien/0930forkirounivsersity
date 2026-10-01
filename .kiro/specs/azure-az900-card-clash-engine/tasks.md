@@ -403,7 +403,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 7: Game Views (Screens)
 
-- [ ] 40. Create HomeView (main menu)
+- [x] 40. Create HomeView (main menu)
   - Create `src/views/HomeView.vue`:
     - Display title and branding
     - Show two main buttons: "3-Minute Commute Mode", "Multiplayer Challenge"
@@ -414,7 +414,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard accessible navigation
   - _Requirements: 3.1, 4.1_
 
-- [ ] 41. Create QuickMatchView (single-player quick mode)
+- [x] 41. Create QuickMatchView (single-player quick mode)
   - Create `src/views/QuickMatchView.vue`:
     - Initialize quick-match mode (45-second timer, 3 scenarios)
     - Use GameBoard component
@@ -426,7 +426,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Exit confirmation dialog
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [ ] 42. Create MultiplayerView (two-player clash)
+- [x] 42. Create MultiplayerView (two-player clash)
   - Create `src/views/MultiplayerView.vue`:
     - Display match setup (player names, scenario display)
     - Two GameBoard instances side-by-side
@@ -437,7 +437,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Responsive layout (stack on mobile)
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 43. Create CodexView (learning library)
+- [x] 43. Create CodexView (learning library)
   - Create `src/views/CodexView.vue`:
     - Use CodexBrowser as main component
     - Full-page layout with side navigation
@@ -447,7 +447,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation through entire view
   - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 44. Create SettingsView (preferences)
+- [x] 44. Create SettingsView (preferences)
   - Create `src/views/SettingsView.vue`:
     - Language selector (en, zh-CN, ja, es, de, fr)
     - Accessibility options:
@@ -461,7 +461,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Back to Home button
   - _Requirements: 6.1, 8.1, 8.2, 8.3_
 
-- [ ] 45. Create AppLayout component (header/footer)
+- [x] 45. Create AppLayout component (header/footer)
   - Create `src/components/layout/AppHeader.vue`:
     - Navigation menu (Home, Game, Codex, Settings)
     - Player name and XP display
@@ -1007,4 +1007,3 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 - ✅ 7-day session persistence working
 - ✅ Multiplayer clash evaluation accurate
 - ✅ Lighthouse score >90 all categories
-

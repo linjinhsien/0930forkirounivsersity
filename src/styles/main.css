@@ -34,6 +34,20 @@
     --color-accent: #ffff00;
   }
 
+  .keyboard-only :focus {
+    outline: 3px solid #005fcc;
+    outline-offset: 3px;
+  }
+
+  .reduced-motion *,
+  .reduced-motion *::before,
+  .reduced-motion *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   *,
   *::before,
   *::after {
