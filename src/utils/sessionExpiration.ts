@@ -1,46 +1,49 @@
 import type { SavedSession } from '@/types/game'
 
 export const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000
-export const SESSION_STORAGE_KEY = 'az900-saved-session'
 
-export function calculateExpirationTime(timestamp: number, ttlMs = SESSION_TTL_MS): number {
-  if (!Number.isFinite(timestamp) || timestamp < 0) {
-    throw new RangeError('Session timestamp must be a non-negative finite number.')
+/**
+ * Calculates the expiration timestamp for a saved session.
+ * The default lifetime is seven days.
+ */
+export function calculateExpirationTime(
+  savedAt: number = Date.now(),
+  ttlMs: number = SESSION_TTL_MS
+): number {
+  if (!Number.isFinite(savedAt) || !Number.isFinite(ttlMs) || ttlMs < 0) {
+    throw new Error('savedAt and ttlMs must be finite numbers, and ttlMs must be non-negative')
   }
-  if (!Number.isFinite(ttlMs) || ttlMs < 0) {
-    throw new RangeError('Session TTL must be a non-negative finite number.')
-  }
-  return timestamp + ttlMs
+
+  return savedAt + ttlMs
 }
 
+/**
+ * Returns true when a session has expired at the supplied point in time.
+ */
 export function isSessionExpired(
-  session: Pick<SavedSession, 'expiresAt'>,
-  now = Date.now()
+  session: Pick<SavedSession, 'expiresAt'> | number,
+  now: number = Date.now()
 ): boolean {
-  return !Number.isFinite(session.expiresAt) || session.expiresAt <= now
-}
+  const expiresAt = typeof session === 'number' ? session : session.expiresAt
 
-export function cleanupExpiredSessions(
-  storage: Storage | null =
-    typeof localStorage === 'undefined' ? null : localStorage,
-  key = SESSION_STORAGE_KEY,
-  now = Date.now()
-): boolean {
-  if (!storage) return false
-
-  const raw = storage.getItem(key)
-  if (!raw) return false
-
-  try {
-    const session = JSON.parse(raw) as Partial<SavedSession>
-    if (typeof session.expiresAt === 'number' && isSessionExpired(session, now)) {
-      storage.removeItem(key)
-      return true
-    }
-  } catch {
-    storage.removeItem(key)
+  if (!Number.isFinite(expiresAt) || !Number.isFinite(now)) {
     return true
   }
 
-  return false
+  return now >= expiresAt
+}
+
+/**
+ * Removes an expired session from storage when a storage adapter is supplied.
+ * The function is intentionally side-effect free when no storage is supplied.
+ */
+export function cleanupExpiredSessions(
+  session: SavedSession | null | undefined,
+  remove: () => void = () => undefined,
+  now: number = Date.now()
+): boolean {
+  if (!session || !isSessionExpired(session, now)) return false
+
+  remove()
+  return true
 }
