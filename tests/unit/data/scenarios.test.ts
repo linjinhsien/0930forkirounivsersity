@@ -3,7 +3,7 @@ import startup from '@/data/scenarios/startup-scaling.json'
 import enterprise from '@/data/scenarios/enterprise-migration.json'
 import compliance from '@/data/scenarios/high-compliance.json'
 import analytics from '@/data/scenarios/real-time-analytics.json'
-import { assertValidScenario } from '@/helpers/assertions'
+import { assertValidScenario } from '../../helpers/assertions'
 
 describe('scenario database', () => {
   it('contains the four Phase 2 scenario categories', () => {
