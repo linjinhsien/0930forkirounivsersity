@@ -16,7 +16,7 @@ watch(
     document.documentElement.classList.toggle('keyboard-only', preferences.keyboardOnly)
     document.documentElement.classList.toggle('reduced-motion', preferences.reducedMotion)
   },
-  { deep: true, immediate: true },
+  { deep: true, immediate: true }
 )
 
 watch(
@@ -24,7 +24,7 @@ watch(
   async (language) => {
     if (language && isSupportedLocale(language)) await setLocale(language)
   },
-  { immediate: true },
+  { immediate: true }
 )
 
 onMounted(() => {
