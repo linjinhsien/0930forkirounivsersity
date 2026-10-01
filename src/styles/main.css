@@ -122,3 +122,57 @@
     @apply bg-white/80 dark:bg-gray-900/80 border border-white/20;
   }
 }
+
+/* ──────────────────────────────────────────
+   High-contrast accessibility overrides
+────────────────────────────────────────── */
+@layer base {
+  .high-contrast body,
+  .high-contrast #app {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .high-contrast a,
+  .high-contrast button,
+  .high-contrast input,
+  .high-contrast select,
+  .high-contrast textarea {
+    border-color: #ffffff !important;
+  }
+
+  .high-contrast a {
+    color: #ffff00 !important;
+  }
+
+  .high-contrast button {
+    background: #000000 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .high-contrast button:focus-visible,
+  .high-contrast a:focus-visible,
+  .high-contrast input:focus-visible,
+  .high-contrast select:focus-visible,
+  .high-contrast textarea:focus-visible {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 3px;
+  }
+
+  .high-contrast [class*='bg-white'],
+  .high-contrast [class*='bg-gray-50'],
+  .high-contrast [class*='bg-blue-50'],
+  .high-contrast [class*='bg-green-50'],
+  .high-contrast [class*='bg-red-50'] {
+    background: #111111 !important;
+    color: #ffffff !important;
+  }
+
+  .high-contrast [class*='text-gray-'],
+  .high-contrast [class*='text-blue-'],
+  .high-contrast [class*='text-green-'],
+  .high-contrast [class*='text-red-'] {
+    color: #ffffff !important;
+  }
+}
