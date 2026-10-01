@@ -7,6 +7,7 @@
 
 import type { AzureCard, Scenario, ArchitectureScore, ScoreBreakdown } from '@/types/game'
 import type { IScoringEngine } from '@/types/engine'
+import { performanceMetrics } from '@/utils/performanceMonitor'
 
 /** Clamps a numeric value to the inclusive [min, max] range. */
 function clamp(value: number, min: number, max: number): number {
@@ -198,19 +199,27 @@ export class ScoringEngine implements IScoringEngine {
   // ─── Aggregate Score ─────────────────────────────────────────────────────────
 
   calculateScore(placedCards: AzureCard[], scenario: Scenario): ArchitectureScore {
+    const startTime = performance.now()
     const { score: haScore } = this.calculateHighAvailabilityScore(placedCards, scenario)
     const { score: costScore } = this.calculateCostEffectivenessScore(placedCards, scenario)
     const { score: secScore } = this.calculateSecurityComplianceScore(placedCards, scenario)
 
     const breakdown = this.createBreakdown(placedCards, scenario, haScore, costScore, secScore)
 
-    return {
+    const score = {
       highAvailability: haScore,
       costEffectiveness: costScore,
       securityCompliance: secScore,
       total: haScore + costScore + secScore,
       breakdown,
     }
+
+    performanceMetrics.record('calculateScore', performance.now() - startTime, 'scoring', {
+      scenarioId: scenario.id,
+      cardCount: placedCards.length,
+    })
+
+    return score
   }
 
   // ─── Breakdown ───────────────────────────────────────────────────────────────
