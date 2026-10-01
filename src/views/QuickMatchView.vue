@@ -6,6 +6,7 @@ import { ScoringEngine } from '@/engine/scoring'
 import { useGameStore } from '@/stores/game'
 import { usePlayerStore } from '@/stores/player'
 import { useSessionStore } from '@/stores/session'
+import { useSessionResume } from '@/composables/useSessionResume'
 import type { ArchitectureScore, Scenario } from '@/types/game'
 import { loadAllScenarios } from '@/utils/dataLoader'
 
@@ -14,6 +15,7 @@ const route = useRoute()
 const gameStore = useGameStore()
 const playerStore = usePlayerStore()
 const sessionStore = useSessionStore()
+const sessionResume = useSessionResume()
 const scenarios = ref<Scenario[]>([])
 const currentIndex = ref(0)
 const roundFinished = ref(false)
@@ -42,17 +44,19 @@ async function startGame(): Promise<void> {
     scenarios.value = [...(atTier.length ? atTier : allScenarios)].slice(0, 3)
     if (scenarios.value.length === 0) throw new Error('No scenarios are available.')
 
-    const savedSession = route.query.resume === '1' ? sessionStore.loadSession() : null
-    if (
-      savedSession?.gameState.mode === 'quick-match' &&
-      savedSession.gameState.status === 'playing'
-    ) {
-      const savedScenario = savedSession.gameState.currentScenario
-      scenarios.value = [
-        savedScenario,
-        ...scenarios.value.filter((item) => item.id !== savedScenario.id),
-      ]
-      await gameStore.restoreGame(savedSession.gameState)
+    const savedSession =
+      route.query.resume === '1' ? sessionResume.checkForSavedSession() : null
+    if (savedSession) {
+      const restored = await sessionResume.resumeSession(savedSession)
+      if (restored) {
+        const savedScenario = restored.currentScenario
+        scenarios.value = [
+          savedScenario,
+          ...scenarios.value.filter((item) => item.id !== savedScenario.id),
+        ]
+      } else {
+        await gameStore.initializeGame(scenarios.value[0].id, 'quick-match')
+      }
     } else {
       await gameStore.initializeGame(scenarios.value[0].id, 'quick-match')
     }
