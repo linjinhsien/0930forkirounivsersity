@@ -60,7 +60,9 @@ export async function lazyLoadData<T>(
   loader: () => Promise<{ default: T } | T>
 ): Promise<T> {
   const module = await loader()
-  return 'default' in module ? module.default : module
+  return typeof module === 'object' && module !== null && 'default' in module
+    ? module.default
+    : module
 }
 
 /** Dynamically import a large component only when it is requested. */
