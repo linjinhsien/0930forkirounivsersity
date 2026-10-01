@@ -4,7 +4,7 @@ import type { ArchitectureSlot as ArchitectureSlotType } from '@/types/game'
 import AzureCard from '@/components/cards/AzureCard.vue'
 
 interface Props {
-  slot: ArchitectureSlotType
+  architectureSlot: ArchitectureSlotType
   isValid?: boolean
   isHighlighted?: boolean
 }
@@ -29,18 +29,20 @@ const SLOT_ICONS: Record<ArchitectureSlotType['type'], string> = {
   any: '✨',
 }
 
-const slotIcon = computed<string>(() => SLOT_ICONS[props.slot.type] ?? '✨')
+const slotIcon = computed<string>(() => SLOT_ICONS[props.architectureSlot.type] ?? '✨')
 
 const ariaLabel = computed<string>(() => {
-  const occupied = props.slot.card ? `occupied by ${props.slot.card.name}` : 'empty'
-  return `${props.slot.type} slot, ${occupied}`
+  const occupied = props.architectureSlot.card
+    ? `occupied by ${props.architectureSlot.card.name}`
+    : 'empty'
+  return `${props.architectureSlot.type} slot, ${occupied}`
 })
 
 const slotClasses = computed<string>(() => {
   const base =
     'relative rounded-xl border-2 border-dashed w-44 min-h-32 flex flex-col items-center justify-center transition-all'
 
-  if (props.slot.card) {
+  if (props.architectureSlot.card) {
     // Occupied — neutral wrapper; AzureCard inside handles its own border/ring
     return `${base} border-transparent bg-transparent p-0`
   }
@@ -64,18 +66,18 @@ const slotClasses = computed<string>(() => {
 function handleDrop(event: DragEvent): void {
   const cardId = event.dataTransfer?.getData('cardId')
   if (cardId) {
-    emit('cardDropped', props.slot.id, cardId)
+    emit('cardDropped', props.architectureSlot.id, cardId)
   }
 }
 
 function handleClick(): void {
-  emit('slotClicked', props.slot.id)
+  emit('slotClicked', props.architectureSlot.id)
 }
 
 function handleKeyActivate(event: KeyboardEvent): void {
   if (event.key === 'Enter') {
     event.preventDefault()
-    emit('slotClicked', props.slot.id)
+    emit('slotClicked', props.architectureSlot.id)
   }
 }
 </script>
@@ -92,20 +94,22 @@ function handleKeyActivate(event: KeyboardEvent): void {
     @keydown="handleKeyActivate"
   >
     <!-- Empty state -->
-    <template v-if="!slot.card">
+    <template v-if="!architectureSlot.card">
       <span class="text-3xl mb-1" aria-hidden="true">{{ slotIcon }}</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ slot.type }}</span>
-      <span v-if="slot.required" class="text-xs text-red-400 mt-1">Required</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{
+        architectureSlot.type
+      }}</span>
+      <span v-if="architectureSlot.required" class="text-xs text-red-400 mt-1">Required</span>
     </template>
 
     <!-- Occupied: render AzureCard -->
     <AzureCard
       v-else
-      :card="slot.card"
+      :card="architectureSlot.card"
       :is-placed="true"
       :is-valid="isValid"
       :is-draggable="false"
-      @click="emit('cardRemoved', slot.id)"
+      @click="emit('cardRemoved', architectureSlot.id)"
     />
   </div>
 </template>
