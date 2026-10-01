@@ -479,7 +479,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 8: Accessibility & Localization
 
-- [ ] 46. Set up Vue I18n configuration
+- [x] 46. Set up Vue I18n configuration
   - Create `src/i18n/index.ts`:
     - Initialize Vue I18n with lazy loading
     - Configure fallback locale (English)
@@ -488,7 +488,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `src/i18n/locales/` directory
   - _Requirements: 8.3, 8.5_
 
-- [ ] 47. Create translation files for all supported languages
+- [x] 47. Create translation files for all supported languages
   - Create JSON translation files for 6 languages:
     - `en.json` (English - base)
     - `zh-CN.json` (Simplified Chinese)
@@ -500,7 +500,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate all keys present in all files
   - _Requirements: 8.3, 8.4_
 
-- [ ] 48.* Write property test for translation completeness
+- [x] 48.* Write property test for translation completeness
   - **Property 22: Translation completeness per language**
   - **Property 23: Missing translations fallback to English**
   - Create `tests/unit/i18n/translations.test.ts`
@@ -508,7 +508,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test fallback behavior
   - _Requirements: 8.3, 8.5_
 
-- [ ] 49. Implement keyboard navigation system
+- [x] 49. Implement keyboard navigation system
   - Create `src/composables/useKeyboardNavigation.ts`:
     - `useTab()` for Tab key navigation
     - `useArrowKeys()` for arrow key navigation
@@ -519,7 +519,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test with screen reader (NVDA/JAWS conceptually)
   - _Requirements: 8.1_
 
-- [ ] 50. Implement high-contrast mode support
+- [x] 50. Implement high-contrast mode support
   - Create `src/composables/useHighContrast.ts`:
     - Detect system preference (prefers-contrast media query)
     - Toggle high-contrast class on document root
@@ -532,7 +532,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Use patterned backgrounds for color-blind support
   - _Requirements: 8.2_
 
-- [ ] 51. Create accessibility guide and test checklist
+- [x] 51. Create accessibility guide and test checklist
   - Document keyboard navigation patterns for all views
   - Create checklist for WCAG 2.1 AA compliance:
     - Color contrast ratios
