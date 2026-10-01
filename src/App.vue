@@ -4,6 +4,7 @@ import { RouterView } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { usePlayerStore } from '@/stores/player'
+import { isSupportedLocale, setLocale } from '@/i18n'
 
 const playerStore = usePlayerStore()
 
@@ -16,6 +17,14 @@ watch(
     document.documentElement.classList.toggle('reduced-motion', preferences.reducedMotion)
   },
   { deep: true, immediate: true }
+)
+
+watch(
+  () => playerStore.profile?.language,
+  async (language) => {
+    if (language && isSupportedLocale(language)) await setLocale(language)
+  },
+  { immediate: true },
 )
 
 onMounted(() => {
