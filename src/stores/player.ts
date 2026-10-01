@@ -1,143 +1,202 @@
-import { computed, ref } from 'vue'
+/**
+ * Player Store (Pinia) — Task 14
+ *
+ * Manages player profile, XP, difficulty tier, match statistics,
+ * accessibility preferences, and language selection.
+ *
+ * Difficulty tier auto-adjusts after 3 consecutive wins (promote) or
+ * 3 consecutive losses (demote) as specified in requirements.
+ */
+
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 import type { PlayerProfile } from '@/types/game'
 
-const STORAGE_KEY = 'az900-player-profile'
-
-const DEFAULT_PROFILE: PlayerProfile = {
-  id: '',
-  displayName: 'Azure Learner',
-  xp: 0,
-  difficultyTier: 'beginner',
-  stats: {
-    matchesPlayed: 0,
-    matchesWon: 0,
-    consecutiveWins: 0,
-    consecutiveLosses: 0,
-  },
-  studyDeck: [],
-  language: 'en',
-  accessibility: { highContrast: false, keyboardOnly: false, reducedMotion: false },
-}
-
-function cloneDefaultProfile(): PlayerProfile {
-  return JSON.parse(JSON.stringify(DEFAULT_PROFILE)) as PlayerProfile
-}
-
-function createPlayerId(): string {
-  return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-    ? crypto.randomUUID()
-    : `player-${Date.now()}`
-}
+// ─── Store ───────────────────────────────────────────────────────────────────
 
 export const usePlayerStore = defineStore('player', () => {
+  // ── State ────────────────────────────────────────────────────────────────
   const profile = ref<PlayerProfile | null>(null)
 
-  const currentDifficulty = computed(() => profile.value?.difficultyTier ?? 'beginner')
-  const totalMatches = computed(() => profile.value?.stats.matchesPlayed ?? 0)
-  const winRate = computed(() => {
-    const stats = profile.value?.stats
-    return stats && stats.matchesPlayed > 0 ? stats.matchesWon / stats.matchesPlayed : 0
+  // ── Computed ─────────────────────────────────────────────────────────────
+
+  /** Active difficulty tier, defaults to 'beginner' before init */
+  const currentDifficulty = computed<PlayerProfile['difficultyTier']>(
+    () => profile.value?.difficultyTier ?? 'beginner'
+  )
+
+  /** Total matches played */
+  const totalMatches = computed<number>(() => profile.value?.stats.matchesPlayed ?? 0)
+
+  /** Win rate as a percentage (0–100) */
+  const winRate = computed<number>(() => {
+    if (!profile.value || profile.value.stats.matchesPlayed === 0) return 0
+    return Math.round((profile.value.stats.matchesWon / profile.value.stats.matchesPlayed) * 100)
   })
 
-  function initializeProfile(savedProfile?: Partial<PlayerProfile>): PlayerProfile {
-    let storedProfile: PlayerProfile | null = null
-    if (typeof localStorage !== 'undefined') {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY)
-        storedProfile = raw ? (JSON.parse(raw) as PlayerProfile) : null
-      } catch {
-        storedProfile = null
-      }
-    }
+  /** Number of cards in the study deck */
+  const studyDeckSize = computed<number>(() => profile.value?.studyDeck.length ?? 0)
 
-    const base = storedProfile ?? cloneDefaultProfile()
+  // ── Actions ──────────────────────────────────────────────────────────────
+
+  /**
+   * Create (or reset) a player profile with default values.
+   * @param id        Unique player identifier
+   * @param displayName Human-readable name shown in UI
+   */
+  function initializeProfile(id: string, displayName: string): void {
     profile.value = {
-      ...base,
-      ...savedProfile,
-      id: savedProfile?.id || base.id || createPlayerId(),
-      stats: { ...base.stats, ...(savedProfile?.stats ?? {}) },
-      accessibility: { ...base.accessibility, ...(savedProfile?.accessibility ?? {}) },
+      id,
+      displayName,
+      xp: 0,
+      difficultyTier: 'beginner',
+      stats: {
+        matchesPlayed: 0,
+        matchesWon: 0,
+        consecutiveWins: 0,
+        consecutiveLosses: 0,
+      },
+      studyDeck: [],
+      language: 'en',
+      accessibility: {
+        highContrast: false,
+        keyboardOnly: false,
+        reducedMotion: false,
+      },
     }
-    persist()
-    return profile.value
   }
 
-  function recordMatchResult(won: boolean): void {
-    if (!profile.value) initializeProfile()
+  /**
+   * Record the outcome of a completed match.
+   * Updates stats, awards XP, adds cards to the study deck, and
+   * triggers an automatic difficulty check.
+   *
+   * @param won       Whether the player won the match
+   * @param xpAwarded XP points earned this match
+   * @param cardsUsed Card IDs played during the match (added to study deck)
+   */
+  function recordMatchResult(won: boolean, xpAwarded: number, cardsUsed: string[]): void {
+    if (!profile.value) return
 
-    const stats = profile.value!.stats
-    stats.matchesPlayed += 1
+    profile.value.stats.matchesPlayed++
+    profile.value.xp += xpAwarded
+
     if (won) {
-      stats.matchesWon += 1
-      stats.consecutiveWins += 1
-      stats.consecutiveLosses = 0
+      profile.value.stats.matchesWon++
+      profile.value.stats.consecutiveWins++
+      profile.value.stats.consecutiveLosses = 0
     } else {
-      stats.consecutiveLosses += 1
-      stats.consecutiveWins = 0
+      profile.value.stats.consecutiveLosses++
+      profile.value.stats.consecutiveWins = 0
     }
+
+    // Merge new cards into study deck (no duplicates)
+    cardsUsed.forEach((cardId) => {
+      if (!profile.value!.studyDeck.includes(cardId)) {
+        profile.value!.studyDeck.push(cardId)
+      }
+    })
+
     adjustDifficulty()
-    persist()
   }
 
-  function adjustDifficulty(): PlayerProfile['difficultyTier'] {
-    if (!profile.value) return 'beginner'
+  /**
+   * Check consecutive win/loss streaks and promote or demote the
+   * difficulty tier accordingly (requirement: 3 consecutive = tier change).
+   * Can also be called manually to force a re-evaluation.
+   */
+  function adjustDifficulty(): void {
+    if (!profile.value) return
 
-    const tiers: PlayerProfile['difficultyTier'][] = ['beginner', 'intermediate', 'advanced']
-    const stats = profile.value.stats
-    let index = tiers.indexOf(profile.value.difficultyTier)
+    const { consecutiveWins, consecutiveLosses } = profile.value.stats
 
-    if (stats.consecutiveWins >= 3 && index < tiers.length - 1) {
-      index += 1
-      stats.consecutiveWins = 0
-    } else if (stats.consecutiveLosses >= 3 && index > 0) {
-      index -= 1
-      stats.consecutiveLosses = 0
+    // Promote after 3 consecutive wins
+    if (consecutiveWins >= 3) {
+      if (profile.value.difficultyTier === 'beginner') {
+        profile.value.difficultyTier = 'intermediate'
+      } else if (profile.value.difficultyTier === 'intermediate') {
+        profile.value.difficultyTier = 'advanced'
+      }
+      profile.value.stats.consecutiveWins = 0
     }
 
-    profile.value.difficultyTier = tiers[index]
-    return profile.value.difficultyTier
+    // Demote after 3 consecutive losses
+    if (consecutiveLosses >= 3) {
+      if (profile.value.difficultyTier === 'advanced') {
+        profile.value.difficultyTier = 'intermediate'
+      } else if (profile.value.difficultyTier === 'intermediate') {
+        profile.value.difficultyTier = 'beginner'
+      }
+      profile.value.stats.consecutiveLosses = 0
+    }
   }
 
+  /**
+   * Toggle an accessibility preference.
+   * @param key   One of 'highContrast' | 'keyboardOnly' | 'reducedMotion'
+   * @param value New boolean value
+   */
   function updateAccessibilityPreference(
-    preference: keyof PlayerProfile['accessibility'],
+    key: keyof PlayerProfile['accessibility'],
     value: boolean
   ): void {
-    if (!profile.value) initializeProfile()
-    profile.value!.accessibility[preference] = value
-    persist()
+    if (!profile.value) return
+    profile.value.accessibility[key] = value
   }
 
-  function setLanguage(language: PlayerProfile['language']): void {
-    if (!profile.value) initializeProfile()
-    profile.value!.language = language
-    persist()
+  /**
+   * Change the player's preferred UI language.
+   * @param lang Language code from the allowed set
+   */
+  function setLanguage(lang: PlayerProfile['language']): void {
+    if (!profile.value) return
+    profile.value.language = lang
   }
 
-  function addStudyCard(cardId: string): void {
-    if (!profile.value) initializeProfile()
-    if (!profile.value!.studyDeck.includes(cardId)) {
-      profile.value!.studyDeck.push(cardId)
-      persist()
+  /**
+   * Add a card to the study deck (idempotent).
+   * @param cardId Card ID to add
+   */
+  function addToStudyDeck(cardId: string): void {
+    if (!profile.value) return
+    if (!profile.value.studyDeck.includes(cardId)) {
+      profile.value.studyDeck.push(cardId)
     }
   }
 
-  function persist(): void {
-    if (profile.value && typeof localStorage !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(profile.value))
-    }
+  /**
+   * Remove a card from the study deck.
+   * @param cardId Card ID to remove
+   */
+  function removeFromStudyDeck(cardId: string): void {
+    if (!profile.value) return
+    const idx = profile.value.studyDeck.indexOf(cardId)
+    if (idx !== -1) profile.value.studyDeck.splice(idx, 1)
+  }
+
+  /**
+   * Clear profile (e.g. on logout).
+   */
+  function clearProfile(): void {
+    profile.value = null
   }
 
   return {
+    // State
     profile,
+    // Computed
     currentDifficulty,
     totalMatches,
     winRate,
+    studyDeckSize,
+    // Actions
     initializeProfile,
     recordMatchResult,
     adjustDifficulty,
     updateAccessibilityPreference,
     setLanguage,
-    addStudyCard,
+    addToStudyDeck,
+    removeFromStudyDeck,
+    clearProfile,
   }
 })
