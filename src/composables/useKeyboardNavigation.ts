@@ -10,11 +10,7 @@ export function useKeyboardNavigation() {
     }
   }
 
-  function useArrowKeys(
-    event: KeyboardEvent,
-    items: HTMLElement[],
-    currentIndex: number,
-  ): number {
+  function useArrowKeys(event: KeyboardEvent, items: HTMLElement[], currentIndex: number): number {
     if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
       return currentIndex
     }
@@ -51,7 +47,7 @@ export function useKeyboardNavigation() {
   function focusFirst(container: HTMLElement): void {
     container
       .querySelector<HTMLElement>(
-        'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]',
+        'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]'
       )
       ?.focus()
   }
