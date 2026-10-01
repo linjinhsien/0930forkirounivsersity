@@ -2,8 +2,10 @@
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { usePlayerStore } from '@/stores/player'
+import { useI18n } from 'vue-i18n'
 
 const playerStore = usePlayerStore()
+const { t } = useI18n()
 const menuOpen = ref(false)
 const languageNames = {
   en: 'English',
@@ -16,16 +18,16 @@ const languageNames = {
 const currentLanguage = computed(() => languageNames[playerStore.profile?.language ?? 'en'])
 
 const navigation = [
-  { label: 'Home', to: '/' },
-  { label: 'Game', to: '/quick-match' },
-  { label: 'Codex', to: '/codex' },
-  { label: 'Settings', to: '/settings' },
+  { labelKey: 'app.home', to: '/' },
+  { labelKey: 'app.game', to: '/quick-match' },
+  { labelKey: 'app.codex', to: '/codex' },
+  { labelKey: 'app.settings', to: '/settings' },
 ]
 </script>
 
 <template>
   <header data-testid="app-header" class="border-b border-gray-200 bg-white">
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">{{ t('app.skipToContent') }}</a>
     <nav
       aria-label="Main navigation"
       class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8"
@@ -33,7 +35,7 @@ const navigation = [
       <RouterLink
         to="/"
         class="font-bold tracking-tight text-blue-900"
-        aria-label="Azure AZ-900 Card Clash home"
+        :aria-label="`${t('app.title')} home`"
       >
         Azure AZ-900 Card Clash
       </RouterLink>
@@ -65,12 +67,12 @@ const navigation = [
                   : undefined
           "
           role="link"
-          :aria-label="item.label"
+          :aria-label="t(item.labelKey)"
           class="rounded px-2 py-1 text-sm font-medium text-gray-700 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
           active-class="text-blue-700 underline underline-offset-4"
           @click="menuOpen = false"
         >
-          {{ item.label }}
+          {{ t(item.labelKey) }}
         </RouterLink>
         <span class="border-t border-gray-200 pt-2 text-sm text-gray-600 md:border-0 md:pt-0">
           {{ playerStore.profile?.displayName ?? 'Azure Learner' }} ·

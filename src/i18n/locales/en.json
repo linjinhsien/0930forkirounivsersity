@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "Azure AZ-900 Card Clash",
+    "home": "Home",
+    "game": "Game",
+    "codex": "Codex",
+    "settings": "Settings",
+    "skipToContent": "Skip to main content"
+  },
+  "home": {
+    "welcome": "Welcome, {name}",
+    "xp": "XP: {xp}",
+    "quickMatch": "3-Minute Commute Mode",
+    "multiplayer": "Multiplayer Challenge",
+    "tutorial": "Tutorial & Help"
+  },
+  "game": {
+    "round": "Round {current} / {total}",
+    "submit": "Submit Solution",
+    "save": "Save for Later",
+    "newGame": "New Game",
+    "exit": "Exit",
+    "confirmExit": "Are you sure you want to exit?"
+  },
+  "codex": {
+    "title": "Architecture Codex",
+    "search": "Search cards",
+    "filter": "Filter",
+    "studyDeck": "Study Deck",
+    "addToStudyDeck": "Add to Study Deck"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "accessibility": "Accessibility",
+    "highContrast": "High contrast mode",
+    "keyboardOnly": "Keyboard-only mode",
+    "reducedMotion": "Reduced motion",
+    "difficulty": "Difficulty",
+    "playerName": "Player name",
+    "save": "Save changes",
+    "clearData": "Clear data",
+    "resume": "Resume Game"
+  },
+  "accessibility": {
+    "on": "On",
+    "off": "Off",
+    "focusHelp": "Use Tab to move between controls and Enter or Space to activate them."
+  },
+  "errors": {
+    "loadLocale": "Unable to load the selected language. English will be used.",
+    "missingTranslation": "Translation unavailable"
+  },
+  "languages": {
+    "en": "English",
+    "zh-CN": "Simplified Chinese",
+    "ja": "Japanese",
+    "es": "Spanish",
+    "de": "German",
+    "fr": "French"
+  }
+}
