@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "Azure AZ-900 アーキテクチャカード対戦",
+    "home": "ホーム",
+    "game": "ゲーム",
+    "codex": "アーキテクチャ図鑑",
+    "settings": "設定",
+    "skipToContent": "メインコンテンツへ移動"
+  },
+  "home": {
+    "welcome": "ようこそ、{name}",
+    "xp": "XP: {xp}",
+    "quickMatch": "3分通勤モード",
+    "multiplayer": "マルチプレイヤーチャレンジ",
+    "tutorial": "チュートリアルとヘルプ"
+  },
+  "game": {
+    "round": "ラウンド {current} / {total}",
+    "submit": "ソリューションを提出",
+    "save": "後で保存",
+    "newGame": "新しいゲーム",
+    "exit": "終了",
+    "confirmExit": "終了してもよろしいですか？"
+  },
+  "codex": {
+    "title": "アーキテクチャ図鑑",
+    "search": "カードを検索",
+    "filter": "絞り込み",
+    "studyDeck": "学習デッキ",
+    "addToStudyDeck": "学習デッキに追加"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "言語",
+    "accessibility": "アクセシビリティ",
+    "highContrast": "ハイコントラストモード",
+    "keyboardOnly": "キーボードのみのモード",
+    "reducedMotion": "モーションを減らす",
+    "difficulty": "難易度",
+    "playerName": "プレイヤー名",
+    "save": "変更を保存",
+    "clearData": "データを消去",
+    "resume": "ゲームを再開"
+  },
+  "accessibility": {
+    "on": "オン",
+    "off": "オフ",
+    "focusHelp": "Tab でコントロール間を移動し、Enter または Space で操作します。"
+  },
+  "errors": {
+    "loadLocale": "選択した言語を読み込めません。英語を使用します。",
+    "missingTranslation": "翻訳なし"
+  },
+  "languages": {
+    "en": "英語",
+    "zh-CN": "中国語（簡体字）",
+    "ja": "日本語",
+    "es": "スペイン語",
+    "de": "ドイツ語",
+    "fr": "フランス語"
+  }
+}

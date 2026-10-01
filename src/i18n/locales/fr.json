@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "Azure AZ-900 Duel de cartes d’architecture",
+    "home": "Accueil",
+    "game": "Jeu",
+    "codex": "Codex",
+    "settings": "Paramètres",
+    "skipToContent": "Aller au contenu principal"
+  },
+  "home": {
+    "welcome": "Bienvenue, {name}",
+    "xp": "XP : {xp}",
+    "quickMatch": "Mode trajet de 3 minutes",
+    "multiplayer": "Défi multijoueur",
+    "tutorial": "Tutoriel et aide"
+  },
+  "game": {
+    "round": "Manche {current} / {total}",
+    "submit": "Envoyer la solution",
+    "save": "Enregistrer pour plus tard",
+    "newGame": "Nouvelle partie",
+    "exit": "Quitter",
+    "confirmExit": "Voulez-vous vraiment quitter ?"
+  },
+  "codex": {
+    "title": "Codex d’architecture",
+    "search": "Rechercher des cartes",
+    "filter": "Filtrer",
+    "studyDeck": "Paquet d’étude",
+    "addToStudyDeck": "Ajouter au paquet d’étude"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "accessibility": "Accessibilité",
+    "highContrast": "Mode contraste élevé",
+    "keyboardOnly": "Mode clavier uniquement",
+    "reducedMotion": "Réduire les animations",
+    "difficulty": "Difficulté",
+    "playerName": "Nom du joueur",
+    "save": "Enregistrer les modifications",
+    "clearData": "Effacer les données",
+    "resume": "Reprendre la partie"
+  },
+  "accessibility": {
+    "on": "Activé",
+    "off": "Désactivé",
+    "focusHelp": "Utilisez Tab pour parcourir les contrôles et Entrée ou Espace pour les activer."
+  },
+  "errors": {
+    "loadLocale": "Impossible de charger la langue sélectionnée. L’anglais sera utilisé.",
+    "missingTranslation": "Traduction indisponible"
+  },
+  "languages": {
+    "en": "Anglais",
+    "zh-CN": "Chinois simplifié",
+    "ja": "Japonais",
+    "es": "Espagnol",
+    "de": "Allemand",
+    "fr": "Français"
+  }
+}

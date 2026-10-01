@@ -81,6 +81,7 @@ export const useGameStore = defineStore('game', () => {
   const gameState = ref<GameState | null>(null)
   const validationResult = ref<ValidationResult | null>(null)
   const isValidating = ref(false)
+  const sessionStore = useSessionStore()
 
   const currentScenario = computed(() => gameState.value?.currentScenario ?? null)
   const placedCards = computed(
@@ -98,7 +99,9 @@ export const useGameStore = defineStore('game', () => {
     stopPersistence = watch(
       gameState,
       (state) => {
-        if (state) useSessionStore().saveSession(state)
+        if (state?.mode !== 'quick-match') return
+        if (state.status === 'playing') sessionStore.saveSession(state)
+        else if (state.status === 'complete') sessionStore.clearSession()
       },
       { deep: true, immediate: true }
     )
@@ -118,6 +121,13 @@ export const useGameStore = defineStore('game', () => {
     isValidating.value = false
     persistOnChange()
     return gameState.value
+  }
+
+  function restoreGame(state: GameState): void {
+    gameState.value = structuredClone(state)
+    validationResult.value = null
+    isValidating.value = false
+    persistOnChange()
   }
 
   function placeCard(cardId: string, slotId: string): boolean {
@@ -171,6 +181,7 @@ export const useGameStore = defineStore('game', () => {
     currentScore,
     isGameActive,
     initializeGame,
+    restoreGame,
     placeCard,
     removeCard,
     updateScore,

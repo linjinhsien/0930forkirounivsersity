@@ -1,13 +1,14 @@
-import { computed, ref } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import type { GameState, SavedSession } from '@/types/game'
+import {
+  SESSION_STORAGE_KEY,
+  isValidSavedSession,
+  loadFromLocalStorage,
+  saveToLocalStorage,
+  clearFromLocalStorage,
+} from '@/utils/storageAdapter'
 import { calculateExpirationTime, isSessionExpired } from '@/utils/sessionExpiration'
-
-const STORAGE_KEY = 'az900-saved-session'
-
-function isBrowser(): boolean {
-  return typeof localStorage !== 'undefined'
-}
 
 function createSessionId(): string {
   return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
@@ -20,7 +21,7 @@ export const useSessionStore = defineStore('session', () => {
 
   const hasValidSession = computed(() => {
     const session = savedSession.value
-    return Boolean(session && session.expiresAt > Date.now())
+    return Boolean(session && !isSessionExpired(session))
   })
 
   function saveSession(gameState: GameState, playerId = 'local-player'): SavedSession {
@@ -29,50 +30,35 @@ export const useSessionStore = defineStore('session', () => {
       id: createSessionId(),
       timestamp: now,
       expiresAt: calculateExpirationTime(now),
-      gameState: JSON.parse(JSON.stringify(gameState)) as GameState,
+      gameState: JSON.parse(JSON.stringify(toRaw(gameState))) as GameState,
       playerId,
     }
 
     savedSession.value = session
-    if (isBrowser()) localStorage.setItem(STORAGE_KEY, JSON.stringify(session))
+    saveToLocalStorage(SESSION_STORAGE_KEY, session, isValidSavedSession)
     return session
   }
 
   function loadSession(): SavedSession | null {
-    if (!isBrowser()) return savedSession.value
-
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) {
-      savedSession.value = null
-      return null
-    }
-
     try {
-      const parsed = JSON.parse(raw) as SavedSession
-      if (
-        !parsed ||
-        typeof parsed.id !== 'string' ||
-        typeof parsed.playerId !== 'string' ||
-        typeof parsed.timestamp !== 'number' ||
-        typeof parsed.expiresAt !== 'number' ||
-        isSessionExpired(parsed) ||
-        !parsed.gameState ||
-        typeof parsed.gameState !== 'object'
-      ) {
-        clearSession()
+      const parsed = loadFromLocalStorage(SESSION_STORAGE_KEY, isValidSavedSession)
+      if (!parsed || isSessionExpired(parsed)) {
+        savedSession.value = null
+        if (parsed) clearFromLocalStorage(SESSION_STORAGE_KEY)
         return null
       }
+
       savedSession.value = parsed
       return parsed
     } catch {
-      clearSession()
+      savedSession.value = null
       return null
     }
   }
 
   function clearSession(): void {
     savedSession.value = null
-    if (isBrowser()) localStorage.removeItem(STORAGE_KEY)
+    clearFromLocalStorage(SESSION_STORAGE_KEY)
   }
 
   return { savedSession, hasValidSession, saveSession, loadSession, clearSession }

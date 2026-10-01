@@ -403,7 +403,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 7: Game Views (Screens)
 
-- [ ] 40. Create HomeView (main menu)
+- [x] 40. Create HomeView (main menu)
   - Create `src/views/HomeView.vue`:
     - Display title and branding
     - Show two main buttons: "3-Minute Commute Mode", "Multiplayer Challenge"
@@ -414,7 +414,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard accessible navigation
   - _Requirements: 3.1, 4.1_
 
-- [ ] 41. Create QuickMatchView (single-player quick mode)
+- [x] 41. Create QuickMatchView (single-player quick mode)
   - Create `src/views/QuickMatchView.vue`:
     - Initialize quick-match mode (45-second timer, 3 scenarios)
     - Use GameBoard component
@@ -426,7 +426,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Exit confirmation dialog
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [ ] 42. Create MultiplayerView (two-player clash)
+- [x] 42. Create MultiplayerView (two-player clash)
   - Create `src/views/MultiplayerView.vue`:
     - Display match setup (player names, scenario display)
     - Two GameBoard instances side-by-side
@@ -437,7 +437,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Responsive layout (stack on mobile)
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 43. Create CodexView (learning library)
+- [x] 43. Create CodexView (learning library)
   - Create `src/views/CodexView.vue`:
     - Use CodexBrowser as main component
     - Full-page layout with side navigation
@@ -447,7 +447,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation through entire view
   - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 44. Create SettingsView (preferences)
+- [x] 44. Create SettingsView (preferences)
   - Create `src/views/SettingsView.vue`:
     - Language selector (en, zh-CN, ja, es, de, fr)
     - Accessibility options:
@@ -461,7 +461,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Back to Home button
   - _Requirements: 6.1, 8.1, 8.2, 8.3_
 
-- [ ] 45. Create AppLayout component (header/footer)
+- [x] 45. Create AppLayout component (header/footer)
   - Create `src/components/layout/AppHeader.vue`:
     - Navigation menu (Home, Game, Codex, Settings)
     - Player name and XP display
@@ -479,7 +479,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 8: Accessibility & Localization
 
-- [ ] 46. Set up Vue I18n configuration
+- [x] 46. Set up Vue I18n configuration
   - Create `src/i18n/index.ts`:
     - Initialize Vue I18n with lazy loading
     - Configure fallback locale (English)
@@ -488,7 +488,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `src/i18n/locales/` directory
   - _Requirements: 8.3, 8.5_
 
-- [ ] 47. Create translation files for all supported languages
+- [x] 47. Create translation files for all supported languages
   - Create JSON translation files for 6 languages:
     - `en.json` (English - base)
     - `zh-CN.json` (Simplified Chinese)
@@ -500,7 +500,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Validate all keys present in all files
   - _Requirements: 8.3, 8.4_
 
-- [ ] 48.* Write property test for translation completeness
+- [x] 48.* Write property test for translation completeness
   - **Property 22: Translation completeness per language**
   - **Property 23: Missing translations fallback to English**
   - Create `tests/unit/i18n/translations.test.ts`
@@ -508,7 +508,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test fallback behavior
   - _Requirements: 8.3, 8.5_
 
-- [ ] 49. Implement keyboard navigation system
+- [x] 49. Implement keyboard navigation system
   - Create `src/composables/useKeyboardNavigation.ts`:
     - `useTab()` for Tab key navigation
     - `useArrowKeys()` for arrow key navigation
@@ -519,7 +519,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test with screen reader (NVDA/JAWS conceptually)
   - _Requirements: 8.1_
 
-- [ ] 50. Implement high-contrast mode support
+- [x] 50. Implement high-contrast mode support
   - Create `src/composables/useHighContrast.ts`:
     - Detect system preference (prefers-contrast media query)
     - Toggle high-contrast class on document root
@@ -532,7 +532,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Use patterned backgrounds for color-blind support
   - _Requirements: 8.2_
 
-- [ ] 51. Create accessibility guide and test checklist
+- [x] 51. Create accessibility guide and test checklist
   - Document keyboard navigation patterns for all views
   - Create checklist for WCAG 2.1 AA compliance:
     - Color contrast ratios
@@ -547,7 +547,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 9: Session Persistence & Storage
 
-- [ ] 52. Implement LocalStorage adapter for session save
+- [x] 52. Implement LocalStorage adapter for session save
   - Create `src/utils/storageAdapter.ts`:
     - `saveToLocalStorage()` method
     - `loadFromLocalStorage()` method
@@ -566,7 +566,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Test expiration edge cases (midnight boundary, timezone)
   - _Requirements: 7.3_
 
-- [ ] 54. Implement IndexedDB adapter for extended persistence
+- [x] 54. Implement IndexedDB adapter for extended persistence
   - Create `src/utils/indexedDbAdapter.ts`:
     - Set up IndexedDB database and object stores
     - Store game state, player profile, codex data
@@ -574,7 +574,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Async operations with Promise handling
   - _Requirements: 7.1, 7.2_
 
-- [ ] 55. Create session resume workflow
+- [x] 55. Create session resume workflow
   - Create `src/composables/useSessionResume.ts`:
     - Check for saved session on app load
     - Validate session data integrity
@@ -583,7 +583,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Handle expired or corrupted sessions gracefully
   - _Requirements: 7.1, 7.2, 7.3_
 
-- [ ] 56.* Write integration tests for persistence
+- [x] 56.* Write integration tests for persistence
   - Create `tests/integration/persistence.test.ts`
   - Test save/restore roundtrip
   - Test expiration detection
@@ -1007,4 +1007,3 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 - ✅ 7-day session persistence working
 - ✅ Multiplayer clash evaluation accurate
 - ✅ Lighthouse score >90 all categories
-

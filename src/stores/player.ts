@@ -3,6 +3,8 @@ import { defineStore } from 'pinia'
 import type { PlayerProfile } from '@/types/game'
 
 const STORAGE_KEY = 'az900-player-profile'
+const LANGUAGE_KEY = 'az900-language'
+const SUPPORTED_LANGUAGES: PlayerProfile['language'][] = ['en', 'zh-CN', 'ja', 'es', 'de', 'fr']
 
 const DEFAULT_PROFILE: PlayerProfile = {
   id: '',
@@ -30,6 +32,10 @@ function createPlayerId(): string {
     : `player-${Date.now()}`
 }
 
+function isSupportedLanguage(value: string | null): value is PlayerProfile['language'] {
+  return SUPPORTED_LANGUAGES.some((language) => language === value)
+}
+
 export const usePlayerStore = defineStore('player', () => {
   const profile = ref<PlayerProfile | null>(null)
 
@@ -52,12 +58,23 @@ export const usePlayerStore = defineStore('player', () => {
     }
 
     const base = storedProfile ?? cloneDefaultProfile()
+    let savedLanguage: string | null = null
+    if (typeof localStorage !== 'undefined') {
+      try {
+        savedLanguage = localStorage.getItem(LANGUAGE_KEY)
+      } catch {
+        savedLanguage = null
+      }
+    }
     profile.value = {
       ...base,
       ...savedProfile,
       id: savedProfile?.id || base.id || createPlayerId(),
       stats: { ...base.stats, ...(savedProfile?.stats ?? {}) },
       accessibility: { ...base.accessibility, ...(savedProfile?.accessibility ?? {}) },
+      language:
+        savedProfile?.language ??
+        (isSupportedLanguage(savedLanguage) ? savedLanguage : base.language),
     }
     persist()
     return profile.value
@@ -122,6 +139,21 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
+  function setDisplayName(displayName: string): void {
+    if (!profile.value) initializeProfile()
+    profile.value!.displayName = displayName.trim().slice(0, 32)
+    persist()
+  }
+
+  function awardExperience(amount: number): void {
+    if (!Number.isFinite(amount) || amount < 0) {
+      throw new RangeError('Experience amount must be a non-negative finite number.')
+    }
+    if (!profile.value) initializeProfile()
+    profile.value!.xp += Math.floor(amount)
+    persist()
+  }
+
   function persist(): void {
     if (profile.value && typeof localStorage !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(profile.value))
@@ -139,5 +171,7 @@ export const usePlayerStore = defineStore('player', () => {
     updateAccessibilityPreference,
     setLanguage,
     addStudyCard,
+    setDisplayName,
+    awardExperience,
   }
 })

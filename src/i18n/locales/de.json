@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "Azure AZ-900 Architektur-Karten-Duell",
+    "home": "Startseite",
+    "game": "Spiel",
+    "codex": "Codex",
+    "settings": "Einstellungen",
+    "skipToContent": "Zum Hauptinhalt springen"
+  },
+  "home": {
+    "welcome": "Willkommen, {name}",
+    "xp": "XP: {xp}",
+    "quickMatch": "3-Minuten-Pendler-Modus",
+    "multiplayer": "Mehrspieler-Herausforderung",
+    "tutorial": "Tutorial und Hilfe"
+  },
+  "game": {
+    "round": "Runde {current} / {total}",
+    "submit": "Lösung einreichen",
+    "save": "Für später speichern",
+    "newGame": "Neues Spiel",
+    "exit": "Beenden",
+    "confirmExit": "Möchtest du wirklich beenden?"
+  },
+  "codex": {
+    "title": "Architektur-Codex",
+    "search": "Karten suchen",
+    "filter": "Filtern",
+    "studyDeck": "Lernstapel",
+    "addToStudyDeck": "Zum Lernstapel hinzufügen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "accessibility": "Barrierefreiheit",
+    "highContrast": "Hoher Kontrast",
+    "keyboardOnly": "Nur-Tastatur-Modus",
+    "reducedMotion": "Weniger Bewegung",
+    "difficulty": "Schwierigkeit",
+    "playerName": "Spielername",
+    "save": "Änderungen speichern",
+    "clearData": "Daten löschen",
+    "resume": "Spiel fortsetzen"
+  },
+  "accessibility": {
+    "on": "Ein",
+    "off": "Aus",
+    "focusHelp": "Mit Tab zwischen Steuerelementen wechseln und mit Enter oder Leertaste aktivieren."
+  },
+  "errors": {
+    "loadLocale": "Die ausgewählte Sprache konnte nicht geladen werden. Englisch wird verwendet.",
+    "missingTranslation": "Übersetzung nicht verfügbar"
+  },
+  "languages": {
+    "en": "Englisch",
+    "zh-CN": "Chinesisch (vereinfacht)",
+    "ja": "Japanisch",
+    "es": "Spanisch",
+    "de": "Deutsch",
+    "fr": "Französisch"
+  }
+}
