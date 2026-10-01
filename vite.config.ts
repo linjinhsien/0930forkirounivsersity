@@ -11,6 +11,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    chunkSizeWarningLimit: 500,
     sourcemap: true,
     rollupOptions: {
       output: {
@@ -19,9 +20,11 @@ export default defineConfig({
             if (id.includes('vue-i18n')) return 'i18n'
             if (id.includes('vue') || id.includes('pinia')) return 'vendor'
           }
-          if (id.includes('/src/engine/')) {
-            return 'engine'
-          }
+          if (id.includes('/src/engine/')) return 'engine'
+          if (id.includes('/src/components/ui/')) return 'ui'
+          if (id.includes('/src/components/game/')) return 'game-ui'
+          if (id.includes('/src/components/codex/')) return 'codex-ui'
+          if (id.includes('/src/data/')) return 'game-data'
         },
       },
     },
