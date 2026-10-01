@@ -48,6 +48,8 @@ test.describe('Application Setup Validation', () => {
   })
 
   test('should clear game data successfully', async ({ page, clearGameData }) => {
+    await page.goto('/')
+
     // Add some data to storage
     await page.evaluate(() => {
       localStorage.setItem('test-key', 'test-value')
