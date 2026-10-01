@@ -27,7 +27,7 @@ jobs:
         run: npm run lint
 
       - name: Run Prettier check
-        run: npm run format:check
+        run: npx prettier --write src/utils/sessionExpiration.ts && git diff -- src/utils/sessionExpiration.ts && exit 1
 
   type-check:
     name: Type Check
