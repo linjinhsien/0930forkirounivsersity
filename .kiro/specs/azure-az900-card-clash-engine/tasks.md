@@ -631,7 +631,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 80% coverage for store logic
   - _Requirements: 1.1, 1.3, 6.1, 6.2_
 
-- [ ] 59. Write component snapshot tests
+- [x] 59. Write component snapshot tests
   - Create `tests/unit/components/` test files for all major components:
     - CardComponent snapshot
     - ArchitectureSlot snapshot
@@ -640,7 +640,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Update snapshots on intentional UI changes
   - _Requirements: (visual regression prevention)_
 
-- [ ] 60. Write integration tests for game flow
+- [x] 60. Write integration tests for game flow
   - Create `tests/integration/game-flow.test.ts`:
     - Test complete quick-match flow (3 scenarios)
     - Test card placement and validation
@@ -650,7 +650,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 70% integration coverage
   - _Requirements: 1.1, 1.3, 3.1, 3.2, 6.1, 6.2, 7.1_
 
-- [ ] 61. Write E2E tests with Playwright
+- [x] 61. Write E2E tests with Playwright
   - Create `tests/e2e/quick-match.spec.ts`:
     - Complete quick-match game flow
     - Verify all three scenarios load

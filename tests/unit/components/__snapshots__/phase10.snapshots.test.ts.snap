@@ -1,0 +1,97 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Phase 10 component snapshots > matches the Azure card snapshot 1`] = `
+"<div class="relative flex flex-col w-36 min-h-48 rounded-xl border-2 p-3 cursor-pointer select-none bg-white dark:bg-gray-800 shadow-sm transition-all duration-150 border-sky-400 hover:-translate-y-0.5 hover:shadow-md" draggable="true" aria-selected="false" aria-label="High Availability Architecture, Cloud Concepts, power 80, cost 0" role="button" tabindex="0">
+  <!-- Domain badge --><span class="self-start text-xs font-medium px-1.5 py-0.5 rounded mb-2 bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200">Cloud Concepts</span><!-- Card name -->
+  <p class="font-bold text-sm text-gray-900 dark:text-gray-100 leading-tight mb-1">High Availability Architecture</p><!-- Description -->
+  <p class="text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-3 flex-1">Design pattern for minimizing downtime through redundant components</p><!-- Stats row -->
+  <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-200 dark:border-gray-700"><span class="text-xs text-gray-500 dark:text-gray-400" aria-label="Cost: 0"> 💰 0</span><span class="text-xs text-gray-500 dark:text-gray-400" aria-label="Power: 80"> ⚡ 80</span></div><!-- Synergy tags -->
+  <div class="flex flex-wrap gap-1 mt-2"><span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded px-1">availability</span><span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded px-1">reliability</span></div>
+</div>"
+`;
+
+exports[`Phase 10 component snapshots > matches the architecture slot snapshot 1`] = `
+"<div class="relative rounded-xl border-2 border-dashed w-44 min-h-32 flex flex-col items-center justify-center transition-all border-gray-300 bg-gray-50 dark:bg-gray-800/50 dark:border-gray-600 hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" role="button" tabindex="0" aria-label="compute slot, empty">
+  <!-- Empty state --><span class="text-3xl mb-1" aria-hidden="true">⚙️</span><span class="text-xs text-gray-500 dark:text-gray-400 capitalize">compute</span><span class="text-xs text-red-400 mt-1">Required</span>
+</div>"
+`;
+
+exports[`Phase 10 component snapshots > matches the game board snapshot 1`] = `
+"<div class="grid grid-cols-1 gap-4 bg-gray-50 p-4 dark:bg-gray-950 min-h-screen lg:grid-cols-[280px_1fr_260px]">
+  <!-- ------------------------------------------------------------------ -->
+  <!-- Left: Scenario panel                                                -->
+  <!-- ------------------------------------------------------------------ -->
+  <aside aria-label="Scenario details">
+    <scenario-panel-stub scenario="[object Object]" placedcardcount="0"></scenario-panel-stub>
+  </aside><!-- ------------------------------------------------------------------ -->
+  <!-- Center: Timer + Board + Deck                                        -->
+  <!-- ------------------------------------------------------------------ -->
+  <div class="flex flex-col gap-4" aria-label="Game board">
+    <!-- Timer bar -->
+    <timer-bar-stub timeremaining="45" totaltime="45"></timer-bar-stub><!-- Architecture slots grid -->
+    <section aria-label="Architecture slots" class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub>
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub>
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub>
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub>
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub>
+      <architecture-slot-component-stub architectureslot="[object Object]" ishighlighted="false"></architecture-slot-component-stub><!-- Empty-board placeholder when no slots are loaded yet -->
+      <!--v-if-->
+    </section><!-- Submit solution button -->
+    <div class="flex justify-center mt-2"><button type="button" class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-sm shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled="" aria-disabled="true"> Submit Solution </button></div><!-- Card deck -->
+    <section aria-label="Cards in hand" class="mt-auto">
+      <card-deck-stub cards="[object Object],[object Object],[object Object],[object Object]"></card-deck-stub>
+    </section>
+  </div><!-- ------------------------------------------------------------------ -->
+  <!-- Right: Score + Validation                                           -->
+  <!-- ------------------------------------------------------------------ -->
+  <aside class="flex flex-col gap-4" aria-label="Score and validation">
+    <score-display-stub score="[object Object]"></score-display-stub>
+    <validation-feedback-stub isvalidating="false"></validation-feedback-stub>
+  </aside>
+</div>"
+`;
+
+exports[`Phase 10 component snapshots > matches the score display snapshot 1`] = `
+"<div class="bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+  <!-- Total score -->
+  <div class="flex items-baseline justify-between mb-4">
+    <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide"> Architecture Score </h2>
+    <div class="flex items-baseline gap-1"><span class="text-4xl font-extrabold tabular-nums text-red-500 dark:text-red-400" aria-label="Total score: 0 out of 300">0</span><span class="text-sm text-gray-400 dark:text-gray-500">/ 300</span></div>
+  </div><!-- Individual score components -->
+  <div class="space-y-3 mb-4">
+    <!-- High Availability -->
+    <div>
+      <div class="flex justify-between items-center mb-1"><span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1"> 🔄 <span>High Availability</span></span><span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">0</span></div>
+      <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="High Availability: 0 out of 100" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+        <div class="bg-red-400 h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div><!-- Cost Effectiveness -->
+    <div>
+      <div class="flex justify-between items-center mb-1"><span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1"> 💰 <span>Cost Effectiveness</span></span><span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">0</span></div>
+      <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Cost Effectiveness: 0 out of 100" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+        <div class="bg-red-400 h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div><!-- Security Compliance -->
+    <div>
+      <div class="flex justify-between items-center mb-1"><span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1"> 🔒 <span>Security Compliance</span></span><span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">0</span></div>
+      <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Security Compliance: 0 out of 100" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+        <div class="bg-red-400 h-2 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div><!-- Collapsible breakdown -->
+  <details class="group">
+    <summary class="cursor-pointer text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide select-none hover:text-gray-700 dark:hover:text-gray-200 transition-colors"> Score Breakdown ▾ </summary>
+    <div class="mt-3 space-y-2 text-sm">
+      <!-- Requirements met -->
+      <div class="flex justify-between text-gray-600 dark:text-gray-300"><span>Requirements met</span><span class="font-medium tabular-nums">0 / 2</span></div><!-- Cost utilization -->
+      <div class="flex justify-between text-gray-600 dark:text-gray-300"><span>Cost utilization</span><span class="font-medium tabular-nums">0%</span></div><!-- Synergy bonuses -->
+      <!--v-if-->
+      <!-- Penalties -->
+      <!--v-if-->
+      <!-- Empty state for bonuses and penalties -->
+      <p class="text-xs text-gray-400 dark:text-gray-500 italic"> No synergies or penalties applied. </p>
+    </div>
+  </details>
+</div>"
+`;
