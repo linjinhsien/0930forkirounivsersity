@@ -5,7 +5,9 @@ export const SUPPORTED_LOCALES = ['en', 'zh-CN', 'ja', 'es', 'de', 'fr'] as cons
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
 export const FALLBACK_LOCALE: SupportedLocale = 'en'
 
-const localeLoaders: Record<SupportedLocale, () => Promise<Record<string, unknown>>> = {
+type LocaleMessages = typeof en
+
+const localeLoaders: Record<SupportedLocale, () => Promise<LocaleMessages>> = {
   en: async () => en,
   'zh-CN': () => import('./locales/zh-CN.json').then((module) => module.default),
   ja: () => import('./locales/ja.json').then((module) => module.default),
@@ -18,7 +20,7 @@ export const i18n = createI18n({
   legacy: false,
   locale: FALLBACK_LOCALE,
   fallbackLocale: FALLBACK_LOCALE,
-  messages: { en },
+  messages: { en } as Record<SupportedLocale, LocaleMessages>,
   missingWarn: false,
   fallbackWarn: false,
 })
