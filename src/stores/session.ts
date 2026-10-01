@@ -1,9 +1,9 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { GameState, SavedSession } from '@/types/game'
+import { calculateExpirationTime, isSessionExpired } from '@/utils/sessionExpiration'
 
 const STORAGE_KEY = 'az900-saved-session'
-const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000
 
 function isBrowser(): boolean {
   return typeof localStorage !== 'undefined'
@@ -28,7 +28,7 @@ export const useSessionStore = defineStore('session', () => {
     const session: SavedSession = {
       id: createSessionId(),
       timestamp: now,
-      expiresAt: now + SESSION_TTL_MS,
+      expiresAt: calculateExpirationTime(now),
       gameState: structuredClone(gameState),
       playerId,
     }
@@ -55,7 +55,7 @@ export const useSessionStore = defineStore('session', () => {
         typeof parsed.playerId !== 'string' ||
         typeof parsed.timestamp !== 'number' ||
         typeof parsed.expiresAt !== 'number' ||
-        parsed.expiresAt <= Date.now() ||
+        isSessionExpired(parsed) ||
         !parsed.gameState ||
         typeof parsed.gameState !== 'object'
       ) {
