@@ -349,7 +349,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 6: UI Components - Complex/Smart
 
-- [ ] 35. Create GameBoard component (container)
+- [x] 35. Create GameBoard component (container)
   - Create `src/components/game/GameBoard.vue`:
     - Props: `mode` ('quick-match' | 'multiplayer'), `timeLimit?`
     - Emits: `cardPlaced`, `solutionSubmitted`, `matchComplete`
@@ -360,7 +360,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation between all zones
   - _Requirements: 1.1, 1.3, 8.1_
 
-- [ ] 36. Create CodexBrowser component (learning view)
+- [x] 36. Create CodexBrowser component (learning view)
   - Create `src/components/codex/CodexBrowser.vue`:
     - Display card library in filterable grid
     - Search functionality by card name or tag
@@ -371,7 +371,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Full keyboard navigation
   - _Requirements: 5.1, 5.2, 8.1_
 
-- [ ] 37. Create CodexEntry component (detail view)
+- [x] 37. Create CodexEntry component (detail view)
   - Create `src/components/codex/CodexEntry.vue`:
     - Props: `cardId`, `entry` (CodexEntry)
     - Display exam definition
@@ -382,7 +382,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Back to list button
   - _Requirements: 5.2, 5.4_
 
-- [ ] 38. Create StudyDeck component
+- [x] 38. Create StudyDeck component
   - Create `src/components/codex/StudyDeck.vue`:
     - Display player's collected cards
     - Sort and filter options
@@ -392,7 +392,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Keyboard navigation through study cards
   - _Requirements: 5.5, 5.6_
 
-- [ ] 39.* Write component tests for game UI
+- [x] 39.* Write component tests for game UI
   - Create `tests/unit/components/GameBoard.test.ts`
   - Test card placement interactions
   - Test validation feedback display
