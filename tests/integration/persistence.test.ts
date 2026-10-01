@@ -88,4 +88,19 @@ describe('Phase 9 persistence', () => {
       saveToLocalStorage(SESSION_STORAGE_KEY, { expiresAt: 123 }, () => false)
     ).toThrowError(/failed validation/i)
   })
+
+  it('reports LocalStorage quota errors', () => {
+    const original = Storage.prototype.setItem
+    Storage.prototype.setItem = () => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError')
+    }
+
+    try {
+      expect(() =>
+        saveToLocalStorage(SESSION_STORAGE_KEY, { ok: true })
+      ).toThrowError(/quota exceeded/i)
+    } finally {
+      Storage.prototype.setItem = original
+    }
+  })
 })
