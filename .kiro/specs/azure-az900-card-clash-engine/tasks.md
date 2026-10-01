@@ -595,7 +595,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 10: Testing (Unit, Integration, E2E)
 
-- [ ] 57. Write comprehensive unit tests for game engines
+- [x] 57. Write comprehensive unit tests for game engines
   - Create `tests/unit/engine/validator.test.ts` (30-40 test cases):
     - Test each constraint type validation
     - Test cost calculation accuracy
@@ -615,7 +615,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 85% code coverage for game engine
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 4.1, 4.2, 4.3_
 
-- [ ] 58. Write unit tests for Pinia stores
+- [x] 58. Write unit tests for Pinia stores
   - Create `tests/unit/stores/game.test.ts`:
     - Test state initialization
     - Test card placement action
@@ -631,7 +631,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 80% coverage for store logic
   - _Requirements: 1.1, 1.3, 6.1, 6.2_
 
-- [ ] 59. Write component snapshot tests
+- [x] 59. Write component snapshot tests
   - Create `tests/unit/components/` test files for all major components:
     - CardComponent snapshot
     - ArchitectureSlot snapshot
@@ -640,7 +640,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Update snapshots on intentional UI changes
   - _Requirements: (visual regression prevention)_
 
-- [ ] 60. Write integration tests for game flow
+- [x] 60. Write integration tests for game flow
   - Create `tests/integration/game-flow.test.ts`:
     - Test complete quick-match flow (3 scenarios)
     - Test card placement and validation
@@ -650,7 +650,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 70% integration coverage
   - _Requirements: 1.1, 1.3, 3.1, 3.2, 6.1, 6.2, 7.1_
 
-- [ ] 61. Write E2E tests with Playwright
+- [x] 61. Write E2E tests with Playwright
   - Create `tests/e2e/quick-match.spec.ts`:
     - Complete quick-match game flow
     - Verify all three scenarios load
@@ -672,7 +672,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Missing translation handling
   - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 62. Create test utilities and fixtures
+- [x] 62. Create test utilities and fixtures
   - Create `tests/fixtures/cards.ts` with mock card data
   - Create `tests/fixtures/scenarios.ts` with mock scenarios
   - Create `tests/fixtures/gameState.ts` with mock game states

@@ -1,11 +1,8 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useSessionStore } from '@/stores/session'
 import { createPinia, setActivePinia } from 'pinia'
 import type { GameState } from '@/types/game'
-import {
-  calculateExpirationTime,
-  isSessionExpired,
-} from '@/utils/sessionExpiration'
+import { calculateExpirationTime, isSessionExpired } from '@/utils/sessionExpiration'
 import {
   SESSION_STORAGE_KEY,
   loadFromLocalStorage,
@@ -90,17 +87,16 @@ describe('Phase 9 persistence', () => {
   })
 
   it('reports LocalStorage quota errors', () => {
-    const original = Storage.prototype.setItem
-    Storage.prototype.setItem = () => {
+    const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
       throw new DOMException('Quota exceeded', 'QuotaExceededError')
-    }
+    })
 
     try {
-      expect(() =>
-        saveToLocalStorage(SESSION_STORAGE_KEY, { ok: true })
-      ).toThrowError(/quota exceeded/i)
+      expect(() => saveToLocalStorage(SESSION_STORAGE_KEY, { ok: true })).toThrowError(
+        /quota exceeded/i
+      )
     } finally {
-      Storage.prototype.setItem = original
+      setItem.mockRestore()
     }
   })
 })
