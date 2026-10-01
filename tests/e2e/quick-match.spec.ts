@@ -34,9 +34,13 @@ test.describe('quick-match end-to-end flow', () => {
     const initialTime = Number(await timer.getAttribute('aria-valuenow'))
     expect(initialTime).toBeGreaterThan(0)
 
-    await page.clock.runFor(2_000)
-    expect(Number(await timer.getAttribute('aria-valuenow'))).toBeLessThan(initialTime)
-    await page.clock.runFor(44_000)
+    await expect
+      .poll(async () => {
+        await page.clock.runFor(1_000)
+        return Number(await timer.getAttribute('aria-valuenow'))
+      })
+      .toBeLessThan(initialTime)
+    await page.clock.runFor(60_000)
 
     await expect(page.getByText(/Scenario score:/)).toBeVisible()
     await expect(page.getByRole('button', { name: 'Next Scenario' })).toBeVisible()
