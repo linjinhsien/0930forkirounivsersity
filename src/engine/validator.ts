@@ -6,6 +6,7 @@ import type {
   ValidationViolation,
 } from '@/types/game'
 import type { IValidationEngine } from '@/types/engine'
+import { performanceMetrics } from '@/utils/performanceMonitor'
 
 const SLOT_COMPATIBLE_TAGS: Record<ArchitectureSlot['type'], readonly string[]> = {
   compute: ['compute', 'serverless', 'container'],
@@ -68,6 +69,10 @@ export class ValidationEngine implements IValidationEngine {
     violations.push(...this.detectAntiPatterns(card, placedCards, scenario))
 
     const elapsedTime = performance.now() - startTime
+    performanceMetrics.record('validatePlacement', elapsedTime, 'validation', {
+      cardId: card.id,
+      scenarioId: scenario.id,
+    })
     if (elapsedTime > 500) {
       console.warn(`Validation took ${elapsedTime.toFixed(2)}ms - exceeds 500ms target`)
     }
