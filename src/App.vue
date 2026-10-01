@@ -5,8 +5,12 @@ import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { usePlayerStore } from '@/stores/player'
 import { isSupportedLocale, setLocale } from '@/i18n'
+import { useErrorTracking } from '@/composables/useErrorTracking'
+import { usePerformanceMonitor } from '@/composables/usePerformanceMonitor'
 
 const playerStore = usePlayerStore()
+useErrorTracking()
+usePerformanceMonitor('App')
 
 watch(
   () => playerStore.profile?.accessibility,
