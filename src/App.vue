@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onErrorCaptured, onMounted, watch } from 'vue'
 import { RouterView } from 'vue-router'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { usePlayerStore } from '@/stores/player'
 import { isSupportedLocale, setLocale } from '@/i18n'
 import { useErrorTracking } from '@/composables/useErrorTracking'
+import { trackError } from '@/utils/errorTracking'
 import { usePerformanceMonitor } from '@/composables/usePerformanceMonitor'
 
 const playerStore = usePlayerStore()
 useErrorTracking()
 usePerformanceMonitor('App')
+
+onErrorCaptured((error, instance, info) => {
+  trackError(error, 'runtime', {
+    component: instance?.$options.name ?? 'unknown',
+    info,
+  })
+  return false
+})
 
 watch(
   () => playerStore.profile?.accessibility,
