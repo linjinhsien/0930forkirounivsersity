@@ -12,13 +12,15 @@ const getInitialView = (): View => {
 
 const currentView = ref<View>(getInitialView())
 
-const language = ref(() => {
+const getInitialLanguage = (): string => {
   try {
     return localStorage.getItem('az900-language') || 'en'
   } catch {
     return 'en'
   }
-})
+}
+
+const language = ref(getInitialLanguage())
 
 const currentLanguage = computed(() => (language.value === 'es' ? 'Español' : 'English'))
 
