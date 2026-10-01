@@ -105,17 +105,10 @@ export async function loadCodexData(
 ): Promise<{ cards: AzureCard[]; entries: CodexEntry[] } | null> {
   const record = await withStore<
     StoredRecord<{ cards: AzureCard[]; entries: CodexEntry[] }> | undefined
-  >(
-    'codex',
-    'readonly',
-    (store) => store.get(id)
-  )
+  >('codex', 'readonly', (store) => store.get(id))
   return record?.data ?? null
 }
 
-export async function clearIndexedDbRecord(
-  storeName: IndexedDbStore,
-  id: string
-): Promise<void> {
+export async function clearIndexedDbRecord(storeName: IndexedDbStore, id: string): Promise<void> {
   await withStore<undefined>(storeName, 'readwrite', (store) => store.delete(id))
 }
