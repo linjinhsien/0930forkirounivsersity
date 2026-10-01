@@ -240,7 +240,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 5: UI Components - Foundational
 
-- [ ] 25. Create base UI components with accessibility
+- [x] 25. Create base UI components with accessibility
   - Create `src/components/ui/Button.vue` with:
     - TypeScript props with `<script setup>`
     - Full keyboard support (Enter/Space activation)
@@ -256,14 +256,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Create `src/components/ui/Toast.vue` for notifications
   - _Requirements: 8.1 (keyboard navigation)_
 
-- [ ] 26.* Write unit tests for base UI components
+- [x] 26.* Write unit tests for base UI components
   - Create `tests/unit/components/ui/Button.test.ts`
   - Test keyboard activation (Enter, Space keys)
   - Test focus management and aria-labels
   - Test high-contrast mode rendering
   - _Requirements: 8.1, 8.2_
 
-- [ ] 27. Create Card component (presentation)
+- [x] 27. Create Card component (presentation)
   - Create `src/components/cards/AzureCard.vue`:
     - Props: `card` (AzureCard), `isPlaced`, `isValid`, `isDraggable`
     - Emits: `dragStart`, `dragEnd`, `click`, `tooltipRequest`
@@ -275,7 +275,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Dynamic domain-specific styling (colors)
   - _Requirements: 1.1, 5.3, 8.1_
 
-- [ ] 28. Create CardTooltip component
+- [x] 28. Create CardTooltip component
   - Create `src/components/cards/CardTooltip.vue`:
     - Display quick-reference tooltip (<280 characters)
     - Show AZ-900 exam tip
@@ -284,7 +284,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Tooltip: `role="tooltip"` with ARIA
   - _Requirements: 5.3_
 
-- [ ] 29. Create ArchitectureSlot component (drop zone)
+- [x] 29. Create ArchitectureSlot component (drop zone)
   - Create `src/components/board/ArchitectureSlot.vue`:
     - Props: `slot` (ArchitectureSlot), `isValid`
     - Display slot type indicator and position
@@ -295,7 +295,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - ARIA labels for slot purpose
   - _Requirements: 1.1, 8.1_
 
-- [ ] 30. Create CardDeck component (hand display)
+- [x] 30. Create CardDeck component (hand display)
   - Create `src/components/game/CardDeck.vue`:
     - Props: `cards` (AzureCard[])
     - Display available cards in hand in grid layout
@@ -305,7 +305,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Accessible list structure with ARIA
   - _Requirements: 1.1_
 
-- [ ] 31. Create ScenarioPanel component
+- [x] 31. Create ScenarioPanel component
   - Create `src/components/game/ScenarioPanel.vue`:
     - Props: `scenario` (Scenario)
     - Display scenario title and description
@@ -315,7 +315,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Semantic HTML with ARIA descriptions
   - _Requirements: 1.1, 1.2_
 
-- [ ] 32. Create ScoreDisplay component
+- [x] 32. Create ScoreDisplay component
   - Create `src/components/game/ScoreDisplay.vue`:
     - Props: `score` (ArchitectureScore)
     - Display three score components (HA, Cost, Security) with progress bars
@@ -325,7 +325,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Accessible progress bars with aria-valuenow
   - _Requirements: 1.3, 1.4_
 
-- [ ] 33. Create ValidationFeedback component
+- [x] 33. Create ValidationFeedback component
   - Create `src/components/game/ValidationFeedback.vue`:
     - Props: `result` (ValidationResult)
     - Display violation list with icons
@@ -335,7 +335,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - ARIA alerts for error announcements
   - _Requirements: 1.2, 2.1, 2.3_
 
-- [ ] 34. Create TimerBar component
+- [x] 34. Create TimerBar component
   - Create `src/components/game/TimerBar.vue`:
     - Props: `timeRemaining` (seconds), `totalTime` (seconds)
     - Display animated progress bar
