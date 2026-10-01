@@ -103,7 +103,9 @@ export function saveCodexData(
 export async function loadCodexData(
   id: string
 ): Promise<{ cards: AzureCard[]; entries: CodexEntry[] } | null> {
-  const record = await withStore<StoredRecord<{ cards: AzureCard[]; entries: CodexEntry[] }> | undefined>(
+  const record = await withStore<
+    StoredRecord<{ cards: AzureCard[]; entries: CodexEntry[] }> | undefined
+  >(
     'codex',
     'readonly',
     (store) => store.get(id)
