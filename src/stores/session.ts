@@ -8,12 +8,7 @@ import {
   saveToLocalStorage,
   clearFromLocalStorage,
 } from '@/utils/storageAdapter'
-import {
-  SESSION_TTL_MS,
-  calculateExpirationTime,
-  cleanupExpiredSessions,
-  isSessionExpired,
-} from '@/utils/sessionExpiration'
+import { calculateExpirationTime, isSessionExpired } from '@/utils/sessionExpiration'
 
 function createSessionId(): string {
   return typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
@@ -34,7 +29,7 @@ export const useSessionStore = defineStore('session', () => {
     const session: SavedSession = {
       id: createSessionId(),
       timestamp: now,
-      expiresAt: calculateExpirationTime(now, SESSION_TTL_MS),
+      expiresAt: calculateExpirationTime(now),
       gameState: JSON.parse(JSON.stringify(toRaw(gameState))) as GameState,
       playerId,
     }
@@ -45,8 +40,6 @@ export const useSessionStore = defineStore('session', () => {
   }
 
   function loadSession(): SavedSession | null {
-    cleanupExpiredSessions()
-
     try {
       const parsed = loadFromLocalStorage(SESSION_STORAGE_KEY, isValidSavedSession)
       if (!parsed || isSessionExpired(parsed)) {
