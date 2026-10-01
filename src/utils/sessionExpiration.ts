@@ -8,10 +8,12 @@ export const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000
  */
 export function calculateExpirationTime(
   savedAt: number = Date.now(),
-  ttlMs: number = SESSION_TTL_MS,
+  ttlMs: number = SESSION_TTL_MS
 ): number {
   if (!Number.isFinite(savedAt) || !Number.isFinite(ttlMs) || ttlMs < 0) {
-    throw new Error('savedAt and ttlMs must be finite numbers, and ttlMs must be non-negative')
+    throw new Error(
+      'savedAt and ttlMs must be finite numbers, and ttlMs must be non-negative'
+    )
   }
 
   return savedAt + ttlMs
@@ -22,7 +24,7 @@ export function calculateExpirationTime(
  */
 export function isSessionExpired(
   session: Pick<SavedSession, 'expiresAt'> | number,
-  now: number = Date.now(),
+  now: number = Date.now()
 ): boolean {
   const expiresAt = typeof session === 'number' ? session : session.expiresAt
 
@@ -40,7 +42,7 @@ export function isSessionExpired(
 export function cleanupExpiredSessions(
   session: SavedSession | null | undefined,
   remove: () => void = () => undefined,
-  now: number = Date.now(),
+  now: number = Date.now()
 ): boolean {
   if (!session || !isSessionExpired(session, now)) return false
 
