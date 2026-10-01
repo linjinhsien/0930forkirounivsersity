@@ -13,7 +13,10 @@ export function calculateExpirationTime(timestamp: number, ttlMs = SESSION_TTL_M
   return timestamp + ttlMs
 }
 
-export function isSessionExpired(session: Pick<SavedSession, 'expiresAt'>, now = Date.now()): boolean {
+export function isSessionExpired(
+  session: Pick<SavedSession, 'expiresAt'>,
+  now = Date.now()
+): boolean {
   return !Number.isFinite(session.expiresAt) || session.expiresAt <= now
 }
 
