@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { useSessionStore } from '@/stores/session'
-import { createMockGameState } from '@/fixtures/gameState'
+import { createMockGameState } from '../../fixtures/gameState'
 
 describe('session store', () => {
   beforeEach(() => {
