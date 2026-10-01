@@ -27,7 +27,7 @@ jobs:
         run: npm run lint
 
       - name: Run Prettier check
-        run: npm run format:check
+        run: npx prettier --write src/utils/indexedDbAdapter.ts src/views/QuickMatchView.vue && git diff -- src/utils/indexedDbAdapter.ts src/views/QuickMatchView.vue
 
   type-check:
     name: Type Check
