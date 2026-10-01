@@ -51,9 +51,8 @@ const setLanguage = (value: string) => {
       >
         <a
           href="/"
-          data-testid="nav-home"
           role="link"
-          aria-label="Home"
+          aria-label="Application home"
           class="font-bold"
           @click.prevent="navigate('home')"
         >
