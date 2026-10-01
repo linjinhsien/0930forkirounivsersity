@@ -557,7 +557,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Type-safe storage with TypeScript
   - _Requirements: 7.1, 7.2_
 
-- [ ] 53. Implement session expiration logic
+- [x] 53. Implement session expiration logic
   - Add expiration timestamp to `SavedSession` (7 days)
   - Create `src/utils/sessionExpiration.ts`:
     - `calculateExpirationTime()` method
@@ -595,7 +595,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ### Phase 10: Testing (Unit, Integration, E2E)
 
-- [ ] 57. Write comprehensive unit tests for game engines
+- [x] 57. Write comprehensive unit tests for game engines
   - Create `tests/unit/engine/validator.test.ts` (30-40 test cases):
     - Test each constraint type validation
     - Test cost calculation accuracy
@@ -615,7 +615,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Target: 85% code coverage for game engine
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 4.1, 4.2, 4.3_
 
-- [ ] 58. Write unit tests for Pinia stores
+- [x] 58. Write unit tests for Pinia stores
   - Create `tests/unit/stores/game.test.ts`:
     - Test state initialization
     - Test card placement action
@@ -672,7 +672,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - Missing translation handling
   - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 62. Create test utilities and fixtures
+- [x] 62. Create test utilities and fixtures
   - Create `tests/fixtures/cards.ts` with mock card data
   - Create `tests/fixtures/scenarios.ts` with mock scenarios
   - Create `tests/fixtures/gameState.ts` with mock game states
