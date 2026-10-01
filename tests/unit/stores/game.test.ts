@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 import { useGameStore } from '@/stores/game'
-import { allMockCards } from '@/fixtures/cards'
-import { mockStartupScenario } from '@/fixtures/scenarios'
+import { allMockCards } from '../../fixtures/cards'
+import { mockStartupScenario } from '../../fixtures/scenarios'
 
 vi.mock('@/utils/dataLoader', () => ({
   loadAllCards: vi.fn(async () => allMockCards),
