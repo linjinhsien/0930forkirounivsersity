@@ -5,7 +5,7 @@ import {
   cleanupExpiredSessions,
   isSessionExpired,
 } from '@/utils/sessionExpiration'
-import { mockGameState } from '@/fixtures/gameState'
+import { mockGameState } from '../../fixtures/gameState'
 import type { SavedSession } from '@/types/game'
 
 describe('sessionExpiration', () => {
