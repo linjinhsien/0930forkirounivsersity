@@ -29,7 +29,7 @@ export const useSessionStore = defineStore('session', () => {
       id: createSessionId(),
       timestamp: now,
       expiresAt: calculateExpirationTime(now),
-      gameState: structuredClone(gameState),
+      gameState: JSON.parse(JSON.stringify(gameState)) as GameState,
       playerId,
     }
 
