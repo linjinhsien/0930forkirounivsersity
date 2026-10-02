@@ -60,3 +60,14 @@ These records are local browser diagnostics and are not a replacement for centra
 **Deployment does not start:** check that GitHub Pages is configured to use GitHub Actions and that Actions are enabled.
 
 **Build fails in Actions:** use Node.js 20 and `npm ci`, then inspect the failed workflow job logs.
+
+### One-time Pages enablement
+
+The workflow requests Pages enablement automatically. GitHub may reject that API call when the Actions token does not have repository administration permission. If the workflow reports **Resource not accessible by integration** during `Configure Pages`, enable it once in the repository UI:
+
+1. Open **Settings → Pages**.
+2. Under **Build and deployment**, choose **GitHub Actions** as the source.
+3. Save the setting.
+4. Re-run the latest **Deploy to GitHub Pages** workflow.
+
+After Pages is enabled, the workflow can build and deploy the site without an Azure deployment token.
