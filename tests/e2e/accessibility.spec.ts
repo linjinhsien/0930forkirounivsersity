@@ -7,8 +7,10 @@ test('keyboard navigation, ARIA labels, and high contrast mode work', async ({ p
   await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible()
 
   await page.goto('/quick-match')
+  await expect(page.getByRole('region', { name: 'Game board' })).toBeVisible()
   const cards = page.getByRole('list', { name: 'Cards in hand' })
   const firstCard = cards.getByRole('button').first()
+  await expect(firstCard).toBeVisible()
   await firstCard.focus()
   await page.keyboard.press('Enter')
   const computeSlot = page.getByRole('button', { name: 'compute slot, empty' })
@@ -21,7 +23,8 @@ test('keyboard navigation, ARIA labels, and high contrast mode work', async ({ p
   )
 
   await page.goto('/settings')
-  const highContrast = page.getByRole('checkbox', { name: /High contrast mode/ })
+  const highContrast = page.getByRole('checkbox', { name: 'High contrast mode' })
+  await expect(highContrast).toBeVisible()
   await highContrast.check()
   await expect(page.locator('html')).toHaveClass(/high-contrast/)
 })
