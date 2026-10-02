@@ -56,9 +56,7 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 /** Dynamically import a data module only when it is requested. */
-export async function lazyLoadData<T>(
-  loader: () => Promise<{ default: T } | T>
-): Promise<T> {
+export async function lazyLoadData<T>(loader: () => Promise<{ default: T } | T>): Promise<T> {
   const module = await loader()
   return typeof module === 'object' && module !== null && 'default' in module
     ? module.default
