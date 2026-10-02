@@ -11,8 +11,12 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    chunkSizeWarningLimit: 500,
+    minify: 'esbuild',
     sourcemap: true,
+    cssCodeSplit: true,
+    assetsInlineLimit: 4096,
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
         manualChunks(id) {
