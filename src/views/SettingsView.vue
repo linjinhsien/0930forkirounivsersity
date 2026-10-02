@@ -152,6 +152,7 @@ function clearGameData(): void {
             <input
               class="mt-1"
               type="checkbox"
+              aria-label="High contrast mode"
               :checked="profile?.accessibility.highContrast ?? false"
               @change="setAccessibility('highContrast', $event)"
             />
