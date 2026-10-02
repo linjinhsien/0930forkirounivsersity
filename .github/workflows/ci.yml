@@ -26,11 +26,8 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Diagnose Prettier formatting
-        run: |
-          npx prettier --write src/utils/errorTracking.ts src/utils/lazyLoader.ts src/utils/performanceMonitor.ts
-          git diff -- src/utils/errorTracking.ts src/utils/lazyLoader.ts src/utils/performanceMonitor.ts
-          exit 1
+      - name: Run Prettier check
+        run: npm run format:check
 
   type-check:
     name: Type Check
