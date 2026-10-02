@@ -66,7 +66,7 @@ export const test = base.extend<GameTestFixtures>({
    */
   homePage: async ({ page }, use) => {
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="app-header"]')).toBeVisible({ timeout: 10000 })
     await use(page)
   },
@@ -76,7 +76,7 @@ export const test = base.extend<GameTestFixtures>({
    */
   quickMatchPage: async ({ page }, use) => {
     await page.goto('/quick-match')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="game-board"]')).toBeVisible({ timeout: 10000 })
     await use(page)
   },
@@ -86,7 +86,7 @@ export const test = base.extend<GameTestFixtures>({
    */
   codexPage: async ({ page }, use) => {
     await page.goto('/codex')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="codex-browser"]')).toBeVisible({ timeout: 10000 })
     await use(page)
   },
@@ -96,7 +96,7 @@ export const test = base.extend<GameTestFixtures>({
    */
   settingsPage: async ({ page }, use) => {
     await page.goto('/settings')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="settings-view"]')).toBeVisible({ timeout: 10000 })
     await use(page)
   },
@@ -108,7 +108,7 @@ export const test = base.extend<GameTestFixtures>({
     const clearData = async () => {
       if (page.url() === 'about:blank') {
         await page.goto('/')
-        await page.waitForLoadState('networkidle')
+        await page.waitForLoadState('domcontentloaded')
       }
 
       await page.evaluate(() => {
@@ -185,7 +185,7 @@ export const test = base.extend<GameTestFixtures>({
         localStorage.setItem('az900-language', lang)
       }, language)
       await page.reload()
-      await page.waitForLoadState('networkidle')
+      await page.waitForLoadState('domcontentloaded')
     }
     await use(changeLanguage)
   },
