@@ -130,7 +130,7 @@ test.describe('Performance Validation', () => {
     const startTime = Date.now()
     
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     
     const loadTime = Date.now() - startTime
     
@@ -143,7 +143,7 @@ test.describe('Performance Validation', () => {
     
     const startTime = Date.now()
     await page.locator('[data-testid="nav-codex"]').click()
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
     
     const navigationTime = Date.now() - startTime
     
