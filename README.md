@@ -64,22 +64,38 @@ src/
 
 ## 📚 Documentation
 
-- [Setup Guide](SETUP.md) - Complete setup verification
+- [Setup Guide](SETUP.md) - Local development and repository setup
+- [Deployment Guide](docs/deployment.md) - GitHub Pages deployment and troubleshooting
+- [User Guide](docs/user-guide.md) - How to play, Codex, accessibility, and keyboard shortcuts
+- [Vue Component Style Guide](docs/vue-style-guide.md) - Component conventions and patterns
 - [Design Document](.kiro/specs/azure-az900-card-clash-engine/design.md)
 - [Requirements](.kiro/specs/azure-az900-card-clash-engine/requirements.md)
 - [Tasks](.kiro/specs/azure-az900-card-clash-engine/tasks.md)
 
-## ✅ Task 1 Status: Complete
+## 🌐 Production Deployment
 
-The project foundation is fully initialized:
-- ✅ Vue 3 + Vite + TypeScript strict mode
-- ✅ Path aliases (`@/` → `src/`)
-- ✅ ESLint + Prettier + Pre-commit hooks
-- ✅ Environment configuration files
+The production site is deployed through GitHub Pages:
 
-Run verification:
+**https://linjinhsien.github.io/0930forkirounivsersity/**
+
+Every push to `main` runs validation and, when successful, deploys the Vite `dist/` artifact through GitHub Actions. No Azure Static Web Apps resource or deployment token is required.
+
+## 🧪 Quality Gates
+
+Before submitting changes, run:
+
 ```bash
-node scripts/verify-setup.js
+npm run lint
+npm run format:check
+npm run type-check
+npm run test:unit
+npm run build
+```
+
+For browser regression testing:
+
+```bash
+npm run test:e2e
 ```
 
 ## 📄 License
