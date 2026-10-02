@@ -720,40 +720,33 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 
 ---
 
-### Phase 12: Build & Deployment Configuration
+### Phase 12: Build & GitHub Pages Deployment
 
-- [ ] 67. Configure production build and optimization
-  - Create `vite.config.ts`:
-    - Minification settings
-    - Source maps for production
-    - CSS optimization
-    - Tree-shaking configuration
-    - Asset compression
-  - Create `tsconfig.json` with strict mode
-  - Create `.env` templates for environments
+- [x] 67. Configure production build and optimization
+  - Configure Vite production minification and source maps
+  - Enable CSS code splitting and asset optimization
+  - Configure manual chunks for game engine, UI, game data, and vendor dependencies
+  - Keep TypeScript strict mode and environment templates
   - _Requirements: (deployment infrastructure)_
 
-- [ ] 68. Set up Azure Static Web Apps configuration
-  - Create `staticwebapp.config.json`:
-    - Route configuration for SPA
-    - API rewrite rules
-    - Global HTTP headers (CSP, security)
-    - MIME type mappings
-    - Cache control for assets
+- [x] 68. Configure GitHub Pages SPA deployment
+  - Use GitHub Pages instead of Azure Static Web Apps
+  - Configure Vite base path for the repository GitHub Pages URL
+  - Provide GitHub Pages SPA deployment workflow
+  - Validate static asset paths and client-side routing considerations
   - _Requirements: (deployment)_
 
-- [ ] 69. Configure GitHub Actions CI/CD pipeline
-  - Create `.github/workflows/build-deploy.yml`:
-    - Lint step (ESLint)
-    - Type check step (tsc)
-    - Unit test step with coverage reporting
-    - Build step with artifact upload
-    - Deploy to Azure Static Web Apps on main push
-    - Preview deployment on PRs
+- [x] 69. Configure GitHub Actions CI/CD pipeline
+  - Create `.github/workflows/deploy-pages.yml`
+  - Run lint, format check, type check, unit tests, and production build
+  - Upload the `dist/` artifact for GitHub Pages
+  - Deploy to GitHub Pages on `main` push
+  - Support manual workflow dispatch
   - _Requirements: (deployment infrastructure)_
 
-- [ ] 70. Create deployment documentation
-  - Write deployment guide: environment setup, secrets, deployment process
+- [x] 70. Create deployment documentation
+  - Document GitHub Pages environment setup and deployment process
+  - Document repository Pages configuration
   - Create rollback procedures
   - Document monitoring and error tracking
   - Create troubleshooting guide for common issues
@@ -938,7 +931,7 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     {
       "id": 17,
       "tasks": ["67", "68", "69"],
-      "description": "Build configuration and deployment setup"
+      "description": "Build configuration and GitHub Pages deployment setup"
     },
     {
       "id": 18,
@@ -986,8 +979,8 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 ### Week 5: Testing, Performance, Deployment
 - **Wave 15**: Full test suite (Tasks 57-62)
 - **Wave 16**: Performance optimization (Tasks 63-66)
-- **Wave 17**: Build and deployment setup (Tasks 67-69)
-- **Outcome**: 85% engine coverage, <500KB bundle, ready for deployment
+- **Wave 17**: Build and GitHub Pages deployment setup (Tasks 67-69)
+- **Outcome**: 85% engine coverage, optimized bundle, ready for GitHub Pages deployment
 
 ### Week 6: Documentation & Final QA
 - **Wave 18**: Documentation (Tasks 70-72)
