@@ -100,12 +100,9 @@ export class PerformanceMetrics {
   startComponentRender(componentName: string): () => PerformanceMetric {
     const start = performance.now()
     return () =>
-      this.record(
-        `component-render:${componentName}`,
-        performance.now() - start,
-        'render',
-        { component: componentName }
-      )
+      this.record(`component-render:${componentName}`, performance.now() - start, 'render', {
+        component: componentName,
+      })
   }
 
   /** Return in-memory metrics. */
