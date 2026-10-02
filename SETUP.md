@@ -1,6 +1,6 @@
 # Azure AZ-900 Card Clash Engine - Setup Guide
 
-## Project Initialization (Task 1) ✅
+## Project Setup & Development Guide
 
 This document confirms the completion of Task 1: Initialize Vue 3 + Vite project with TypeScript strict mode.
 
@@ -9,9 +9,9 @@ This document confirms the completion of Task 1: Initialize Vue 3 + Vite project
 #### 1. ✅ Set up Vite project with Vue 3, TypeScript 5.0+, strict mode enabled
 
 **Configuration:**
-- Vue 3.5.13 installed
-- TypeScript 5.9.3 installed
-- Vite 6.0.7 installed
+- Vue 3.5.x installed
+- TypeScript 5.9.x installed
+- Vite 6.x installed
 - TypeScript strict mode enabled in `tsconfig.json`
 
 **Files:**
@@ -163,13 +163,13 @@ The project enforces TypeScript strict mode with the following rules:
 - `vue@^3.5.13` - Progressive JavaScript framework
 - `vue-router@^4.6.4` - Official Vue.js router
 - `pinia@^4.0.3` - Vue state management
-- `vue-i18n@^9.14.5` - Internationalization plugin
-- `@vueuse/core@^15.0.0` - Vue composition utilities
+- `vue-i18n@^11.4.2` - Internationalization plugin
+- `@vueuse/core@^11.3.0` - Vue composition utilities
 
 **Development Tools:**
 - `vite@^6.0.7` - Next-generation frontend tooling
 - `typescript@^5.9.3` - TypeScript compiler
-- `eslint@^10.11.0` - Linting utility
+- `eslint@^8.57.0` - Linting utility
 - `prettier@^3.9.9` - Code formatter
 - `tailwindcss@^3.4.19` - Utility-first CSS framework
 
@@ -205,7 +205,7 @@ This setup satisfies the following requirements from the spec:
 
 ---
 
-**Task Status**: ✅ Complete
+**Setup Status**: ✅ Current
 **Date Completed**: 2026-09-30
 **Spec**: azure-az900-card-clash-engine
 
