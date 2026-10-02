@@ -1,9 +1,4 @@
-export type TrackedErrorType =
-  | 'validation'
-  | 'storage'
-  | 'network'
-  | 'runtime'
-  | 'unknown'
+export type TrackedErrorType = 'validation' | 'storage' | 'network' | 'runtime' | 'unknown'
 
 export interface TrackedError {
   id: string
