@@ -208,3 +208,18 @@ This setup satisfies the following requirements from the spec:
 **Task Status**: ✅ Complete
 **Date Completed**: 2026-09-30
 **Spec**: azure-az900-card-clash-engine
+
+
+## GitHub Pages Deployment
+
+Production deployment uses GitHub Pages, not Azure Static Web Apps.
+
+- Workflow: `.github/workflows/deploy-pages.yml`
+- Trigger: push to `main` or manual workflow dispatch
+- Build output: `dist/`
+- Pages source: **GitHub Actions**
+- Repository base path: `/0930forkirounivsersity/`
+
+No Azure Static Web Apps resource or Azure deployment secret is required.
+
+See [docs/deployment.md](docs/deployment.md) for the complete deployment and troubleshooting guide.
