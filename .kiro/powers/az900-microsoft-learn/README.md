@@ -30,7 +30,7 @@ az900-microsoft-learn/
 ├── plugin.json                          # Power 主要 manifest
 ├── mcp.json                             # MCP 伺服器設定
 ├── mcp-server/
-│   └── index.js                         # Microsoft Learn API 伺服器
+│   └── index.cjs                        # Microsoft Learn API 伺服器
 └── skills/
     ├── az900-lookup/                    # AZ-900 查詢技能
     │   ├── SKILL.md

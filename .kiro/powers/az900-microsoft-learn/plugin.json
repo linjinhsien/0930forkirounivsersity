@@ -1,31 +1,34 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "az900-microsoft-learn",
   "version": "1.0.0",
   "displayName": "AZ-900 Microsoft Learn Power",
   "description": "Integrates Microsoft Learn AZ-900 certification content into Kiro. Provides on-demand lookup of Azure services, exam topics, learning modules, and best practices from the official Microsoft Learn catalog.",
-  "author": "AZ-900 Card Clash Team",
+  "author": {
+    "name": "linjinhsien",
+    "url": "https://github.com/linjinhsien"
+  },
   "keywords": [
     "az-900",
     "az900",
     "AZ-900",
     "azure",
-    "Azure",
-    "microsoft learn",
-    "Microsoft Learn",
-    "cloud concepts",
-    "azure services",
-    "azure management",
-    "azure governance",
-    "azure networking",
-    "azure security",
-    "azure storage",
-    "azure compute",
+    "microsoft-learn",
+    "cloud-concepts",
+    "azure-services",
+    "azure-governance",
     "certification",
-    "exam"
+    "exam",
+    "education"
   ],
   "icon": "☁️",
   "license": "MIT",
-  "homepage": "https://learn.microsoft.com/certifications/azure-fundamentals/",
+  "homepage": "https://github.com/linjinhsien/0930forkirounivsersity",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linjinhsien/0930forkirounivsersity.git",
+    "directory": ".kiro/powers/az900-microsoft-learn"
+  },
   "skills": [
     "skills/az900-lookup",
     "skills/az900-card-assistant",
