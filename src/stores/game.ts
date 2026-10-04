@@ -71,7 +71,7 @@ function dealScenarioHand(scenario: Scenario, cards: AzureCard[]): AzureCard[] {
   const hand: AzureCard[] = []
 
   for (const requirement of scenario.requirements) {
-    const match = shuffled.find(
+    const match = cards.find(
       (card) => !hand.includes(card) && card.synergyTags.includes(requirement.value)
     )
     if (match && hand.length < INITIAL_HAND_SIZE) hand.push(match)

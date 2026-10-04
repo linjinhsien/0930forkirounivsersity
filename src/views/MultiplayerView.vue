@@ -173,10 +173,10 @@ function playAgain(): void {
         </p>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
           <p class="rounded-lg bg-gray-50 p-3">
-            {{ playerOneName }}: {{ scores[1]?.total }} / 300 · {{ xpAwards?.player1 }} XP
+            {{ playerOneName }}: {{ Math.round(scores[1]?.total ?? 0) }} / 300 · {{ xpAwards?.player1 }} XP
           </p>
           <p class="rounded-lg bg-gray-50 p-3">
-            {{ playerTwoName }}: {{ scores[2]?.total }} / 300 · {{ xpAwards?.player2 }} XP
+            {{ playerTwoName }}: {{ Math.round(scores[2]?.total ?? 0) }} / 300 · {{ xpAwards?.player2 }} XP
           </p>
         </div>
         <button
