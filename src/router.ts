@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('@/views/MultiplayerView.vue'),
     },
     { path: '/codex', name: 'codex', component: () => import('@/views/CodexView.vue') },
+    {
+      path: '/topology',
+      name: 'topology',
+      component: () => import('@/views/TopologyMapView.vue'),
+    },
     { path: '/settings', name: 'settings', component: () => import('@/views/SettingsView.vue') },
     { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
   ],

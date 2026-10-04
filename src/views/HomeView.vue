@@ -2,8 +2,10 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { usePlayerStore } from '@/stores/player'
+import { useI18n } from 'vue-i18n'
 
 const playerStore = usePlayerStore()
+const { t } = useI18n()
 const profile = computed(() => playerStore.profile)
 </script>
 
@@ -47,13 +49,21 @@ const profile = computed(() => playerStore.profile)
       </a>
     </div>
 
-    <div class="mt-8 grid gap-5 md:grid-cols-3">
+    <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       <RouterLink
         to="/codex"
         class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-blue-400"
       >
         <h2 class="font-bold text-gray-900">Explore the Codex</h2>
         <p class="mt-2 text-sm text-gray-600">Review Azure services, concepts, and exam tips.</p>
+      </RouterLink>
+      <RouterLink
+        to="/topology"
+        data-testid="home-topology-map"
+        class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-blue-400"
+      >
+        <h2 class="font-bold text-gray-900">{{ t('app.topology') }}</h2>
+        <p class="mt-2 text-sm text-gray-600">串聯 AZ-900 雲端概念、Azure 架構服務與治理考點。</p>
       </RouterLink>
       <RouterLink
         to="/settings"

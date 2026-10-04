@@ -21,6 +21,7 @@ const navigation = [
   { labelKey: 'app.home', to: '/' },
   { labelKey: 'app.game', to: '/quick-match' },
   { labelKey: 'app.codex', to: '/codex' },
+  { labelKey: 'app.topology', to: '/topology' },
   { labelKey: 'app.settings', to: '/settings' },
 ]
 </script>
@@ -62,9 +63,11 @@ const navigation = [
               ? 'nav-home'
               : item.to === '/codex'
                 ? 'nav-codex'
-                : item.to === '/settings'
-                  ? 'nav-settings'
-                  : undefined
+                : item.to === '/topology'
+                  ? 'nav-topology'
+                  : item.to === '/settings'
+                    ? 'nav-settings'
+                    : undefined
           "
           role="link"
           :aria-label="t(item.labelKey)"
