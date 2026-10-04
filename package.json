@@ -22,7 +22,6 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@vueuse/core": "^11.3.0",
     "pinia": "^4.0.3",
     "vue": "^3.5.13",
     "vue-i18n": "^11.4.2",
@@ -30,7 +29,6 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@testing-library/user-event": "^14.6.7",
     "@testing-library/vue": "^8.1.0",
     "@typescript-eslint/eslint-plugin": "^8.71.0",
     "@typescript-eslint/parser": "^8.71.0",
@@ -38,7 +36,6 @@
     "@vitest/coverage-v8": "^4.1.11",
     "@vitest/ui": "^4.1.11",
     "@vue/test-utils": "^2.5.1",
-    "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.6.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.8",
