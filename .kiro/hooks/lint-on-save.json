@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Lint on save",
+      "trigger": "PostFileSave",
+      "matcher": "\\.(ts|tsx|vue)$",
+      "action": {
+        "type": "command",
+        "command": "npx eslint --fix {{filePath}}"
+      }
+    }
+  ]
+}
