@@ -1,12 +1,14 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
     "ms-learn": {
+      "type": "stdio",
       "command": "node",
       "args": [".kiro/powers/az900-microsoft-learn/mcp-server/index.cjs"],
       "description": "Microsoft Learn AZ-900 content fetcher — queries the official MS Learn catalog API for modules, certifications, and service documentation",
       "env": {
-        "MS_LEARN_LOCALE": "zh-tw",
-        "MS_LEARN_FALLBACK_LOCALE": "en-us"
+        "MS_LEARN_LOCALE": "${MS_LEARN_LOCALE:-zh-tw}",
+        "MS_LEARN_FALLBACK_LOCALE": "${MS_LEARN_FALLBACK_LOCALE:-en-us}"
       }
     }
   }

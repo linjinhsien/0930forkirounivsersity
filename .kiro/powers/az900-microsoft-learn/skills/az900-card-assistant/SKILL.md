@@ -1,26 +1,13 @@
-# AZ-900 Card Assistant Skill
-
 ---
 name: az900-card-assistant
 description: >
   Generates, validates, and improves AZ-900 Card Clash game cards from Azure service
   information. Triggers when the user asks to create, edit, or validate game cards.
-triggers:
-  - "create card"
-  - "generate card"
-  - "new card"
-  - "card for"
-  - "add card"
-  - "validate card"
-  - "card description"
-  - "synergyTags"
-  - "az900ExamTip"
 ---
 
-## Overview
+# AZ-900 Card Assistant
 
-This skill helps generate **accurate and balanced** AZ-900 Card Clash game cards
-by combining Microsoft Learn data with the game's card schema.
+Generates **accurate and balanced** AZ-900 Card Clash game cards by combining Microsoft Learn data with the game's card schema.
 
 ## Card Schema Reference
 
@@ -29,41 +16,56 @@ interface AzureCard {
   id: string               // kebab-case, e.g. "azure-blob-storage"
   name: string             // Official Azure service name
   domain: AZ900Domain      // 'cloud-concepts' | 'azure-services' | 'management-governance'
-  cost: number             // 0-20 (use cheatsheet reference values)
-  synergyTags: string[]    // From approved tag pool (see below)
-  az900ExamTip: string     // MAX 280 characters — AZ-900 exam insight
+  cost: number             // 0-20
+  synergyTags: string[]    // From approved tag pool below
+  az900ExamTip: string     // MAX 280 characters
   description: string      // Gameplay description (max 200 chars)
-  power: number            // 0-100 (relative strength)
-  requirements?: string[]  // Card IDs that must be present
-  conflicts?: string[]     // Card IDs that conflict with this card
+  power: number            // 0-100
+  requirements?: string[]
+  conflicts?: string[]
 }
 ```
 
-## Approved synergyTag Pool
+## Step 1: Fetch service info
 
-```
-Compute:  compute, serverless, container, iaas, paas
-Storage:  storage, blob, disk, files
-Network:  network, connectivity, vpn, load-balancer, multi-region
-Security: security, identity, entra, encryption, nsg, firewall
-Govern:   governance, compliance, policy
-HA:       ha, availability-zone, backup, recovery, reserved
-Monitor:  monitoring
-```
+Call `search_services` with the Azure service name. Then call `search_modules` for related learning modules to inform the exam tip.
 
-## Card Generation Workflow
+## Step 2: Map domain and tags
 
-1. **Fetch** service info from Microsoft Learn via `ms-learn` MCP tool
-2. **Map** the service to the appropriate `domain` and `synergyTags`
-3. **Write** `az900ExamTip` — must be ≤280 chars and exam-focused
-4. **Assign** `cost` (0–20) based on real Azure pricing tier
-5. **Set** `power` (0–100) based on versatility in game scenarios
-6. **Check** for logical `requirements` and `conflicts`
-7. **Validate** against existing cards in `src/data/cards/`
+**Approved synergyTag pool only:**
 
-## Card Generation Template
+| Category | Tags |
+|----------|------|
+| Compute  | `compute`, `serverless`, `container`, `iaas`, `paas` |
+| Storage  | `storage`, `blob`, `disk`, `files` |
+| Network  | `network`, `connectivity`, `vpn`, `load-balancer`, `multi-region` |
+| Security | `security`, `identity`, `entra`, `encryption`, `nsg`, `firewall` |
+| Govern   | `governance`, `compliance`, `policy` |
+| HA       | `ha`, `availability-zone`, `backup`, `recovery`, `reserved` |
+| Monitor  | `monitoring` |
 
-When asked to create a card, output JSON like this:
+## Step 3: Write az900ExamTip (≤ 280 chars)
+
+Focus on what the AZ-900 exam tests — the exam distinction, not just the feature description. Count characters before finalizing.
+
+## Step 4: Assign cost and power
+
+| Cost Range | Examples | Power Range |
+|-----------|---------|------------|
+| 0–2 | Queue Storage, DNS, Resource Locks | 20–40 |
+| 3–5 | App Service, ACI, Load Balancer | 40–60 |
+| 6–8 | AKS, VPN Gateway, Defender | 55–75 |
+| 9–10 | ExpressRoute, Data Box | 70–90 |
+
+## Step 5: Validate
+
+- ❌ `az900ExamTip` > 280 chars → trim
+- ❌ unapproved `synergyTags` → replace with approved equivalents
+- ❌ `cost` outside 0–20 or `power` outside 0–100 → correct
+- ✅ `id` unique across `src/data/cards/**`
+- ✅ Output matching `src/data/codex/{card-id}.json` entry
+
+## Output Template
 
 ```json
 {
@@ -79,21 +81,3 @@ When asked to create a card, output JSON like this:
   "conflicts": []
 }
 ```
-
-## Validation Rules
-
-- ❌ `az900ExamTip` must NOT exceed 280 characters
-- ❌ `synergyTags` must ONLY use approved tags from the pool above
-- ❌ `cost` must be 0–20 (integer)
-- ❌ `power` must be 0–100 (integer)
-- ✅ `id` must be unique across all existing cards
-- ✅ Description must reflect real AZ-900 exam content
-
-## Balance Guidelines
-
-| Cost Range | Examples | Power Range |
-|-----------|---------|------------|
-| 0-2 | Queue Storage, DNS, Resource Locks | 20-40 |
-| 3-5 | App Service, ACI, Load Balancer | 40-60 |
-| 6-8 | AKS, VPN Gateway, Defender | 55-75 |
-| 9-10 | ExpressRoute, Data Box | 70-90 |
