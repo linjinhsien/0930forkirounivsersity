@@ -1,0 +1,36 @@
+{
+  "name": "az900-microsoft-learn",
+  "version": "1.0.0",
+  "displayName": "AZ-900 Microsoft Learn Power",
+  "description": "Integrates Microsoft Learn AZ-900 certification content into Kiro. Provides on-demand lookup of Azure services, exam topics, learning modules, and best practices from the official Microsoft Learn catalog.",
+  "author": "AZ-900 Card Clash Team",
+  "keywords": [
+    "az-900",
+    "az900",
+    "AZ-900",
+    "azure",
+    "Azure",
+    "microsoft learn",
+    "Microsoft Learn",
+    "cloud concepts",
+    "azure services",
+    "azure management",
+    "azure governance",
+    "azure networking",
+    "azure security",
+    "azure storage",
+    "azure compute",
+    "certification",
+    "exam"
+  ],
+  "icon": "☁️",
+  "license": "MIT",
+  "homepage": "https://learn.microsoft.com/certifications/azure-fundamentals/",
+  "skills": [
+    "skills/az900-lookup",
+    "skills/az900-card-assistant",
+    "skills/az900-scenario-designer"
+  ],
+  "mcp": "mcp.json",
+  "tags": ["azure", "az-900", "certification", "microsoft-learn", "education"]
+}

@@ -10,6 +10,13 @@
         "strands-agents-mcp-server"
       ],
       "disabled": false
+    },
+    "ms-learn": {
+      "command": "node",
+      "args": [
+        ".kiro/powers/az900-microsoft-learn/mcp-server/index.cjs"
+      ],
+      "disabled": false
     }
   }
 }
