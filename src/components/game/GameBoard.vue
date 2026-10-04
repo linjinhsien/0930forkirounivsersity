@@ -222,7 +222,7 @@ function handleSubmit(): void {
     <!-- ------------------------------------------------------------------ -->
     <!-- Center: Timer + Board + Deck                                        -->
     <!-- ------------------------------------------------------------------ -->
-    <div class="flex flex-col gap-4" aria-label="Game board">
+    <div class="flex flex-col gap-4" role="region" aria-label="Game board">
       <!-- Timer bar -->
       <TimerBar
         :time-remaining="timeRemaining"
