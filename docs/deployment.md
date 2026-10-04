@@ -32,12 +32,13 @@ It:
 5. Deploys the artifact with the GitHub Pages deployment action.
 
 The Vite configuration automatically uses `/0930forkirounivsersity/` as the production base path in GitHub Actions.
+The deployment workflow also copies `dist/index.html` to `dist/404.html` so GitHub Pages can load client-side routes on direct navigation and refresh.
 
 In repository settings, set **Pages → Source** to **GitHub Actions**.
 
 ### SPA routing
 
-GitHub Pages serves static files, while Vue Router uses client-side routing. The deployment should therefore include a fallback for direct route access. If direct navigation to a nested route returns 404, add a Pages-compatible `404.html` fallback that redirects to `index.html`, or use the repository's existing SPA fallback strategy.
+GitHub Pages serves static files, while Vue Router uses client-side routing. The deployment workflow includes a `404.html` copy of the built app, and Vue Router uses Vite's base path so direct route access and refresh work under the repository URL.
 
 ### Rollback
 
