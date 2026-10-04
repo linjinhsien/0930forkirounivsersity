@@ -35,8 +35,6 @@ jobs:
           npm run test:unit
       - name: Build
         run: npm run build
-      - name: Add GitHub Pages SPA fallback
-        run: cp dist/index.html dist/404.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

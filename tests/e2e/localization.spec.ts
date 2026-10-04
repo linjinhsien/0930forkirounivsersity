@@ -3,7 +3,7 @@ import { expect, test } from '../fixtures/test-fixtures'
 test('switching languages updates translated navigation and document language', async ({
   page,
 }) => {
-  await page.goto('/settings')
+  await page.goto('/#/settings')
   await expect(page.getByTestId('nav-home')).toHaveText('Home')
   await page.getByTestId('language-select').selectOption('zh-CN')
 

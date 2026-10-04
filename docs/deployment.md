@@ -25,20 +25,20 @@ Never commit real credentials or secrets. Variables prefixed with `VITE_` are bu
 The `.github/workflows/deploy-pages.yml` workflow runs on pushes to `main` and can also be started manually.
 
 It:
+
 1. Installs dependencies with `npm ci`.
 2. Runs lint, formatting, type checking, and unit tests.
 3. Builds the Vite application.
 4. Uploads `dist/` as a Pages artifact.
 5. Deploys the artifact with the GitHub Pages deployment action.
 
-The Vite configuration automatically uses `/0930forkirounivsersity/` as the production base path in GitHub Actions.
-The deployment workflow also copies `dist/index.html` to `dist/404.html` so GitHub Pages can load client-side routes on direct navigation and refresh.
+The Vite configuration automatically uses `/0930forkirounivsersity/` as the production base path in GitHub Actions. Vue Router uses hash-based URLs so GitHub Pages can load client-side routes directly and on refresh without a server-side rewrite.
 
 In repository settings, set **Pages → Source** to **GitHub Actions**.
 
 ### SPA routing
 
-GitHub Pages serves static files, while Vue Router uses client-side routing. The deployment workflow includes a `404.html` copy of the built app, and Vue Router uses Vite's base path so direct route access and refresh work under the repository URL.
+GitHub Pages serves static files and does not rewrite nested paths to the app entry point. Vue Router therefore uses hash-based routes, such as `/#/quick-match`, so direct navigation and refresh stay on the repository's `index.html`.
 
 ### Rollback
 
@@ -47,6 +47,7 @@ Revert the problematic commit on `main`. GitHub Actions will rebuild and redeplo
 ### Monitoring and error tracking
 
 Client-side diagnostics are available through:
+
 - `src/utils/errorTracking.ts` for the last 50 tracked errors.
 - `src/utils/performanceMonitor.ts` for performance metrics and slow-operation diagnostics.
 

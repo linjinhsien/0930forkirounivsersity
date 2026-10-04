@@ -1,6 +1,6 @@
 /**
  * Custom Playwright test fixtures for Azure AZ-900 Card Clash
- * 
+ *
  * Provides extended test context with game-specific utilities,
  * mock data, and helper functions for E2E testing.
  */
@@ -75,7 +75,7 @@ export const test = base.extend<GameTestFixtures>({
    * Quick match page fixture
    */
   quickMatchPage: async ({ page }, use) => {
-    await page.goto('/quick-match')
+    await page.goto('/#/quick-match')
     await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="game-board"]')).toBeVisible({ timeout: 10000 })
     await use(page)
@@ -85,7 +85,7 @@ export const test = base.extend<GameTestFixtures>({
    * Codex page fixture
    */
   codexPage: async ({ page }, use) => {
-    await page.goto('/codex')
+    await page.goto('/#/codex')
     await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="codex-browser"]')).toBeVisible({ timeout: 10000 })
     await use(page)
@@ -95,7 +95,7 @@ export const test = base.extend<GameTestFixtures>({
    * Settings page fixture
    */
   settingsPage: async ({ page }, use) => {
-    await page.goto('/settings')
+    await page.goto('/#/settings')
     await page.waitForLoadState('domcontentloaded')
     await expect(page.locator('[data-testid="settings-view"]')).toBeVisible({ timeout: 10000 })
     await use(page)
@@ -117,7 +117,7 @@ export const test = base.extend<GameTestFixtures>({
         // Clear IndexedDB if used
         if (window.indexedDB) {
           const dbs = ['az900-game-db', 'player-db']
-          dbs.forEach(dbName => {
+          dbs.forEach((dbName) => {
             window.indexedDB.deleteDatabase(dbName)
           })
         }
@@ -148,17 +148,17 @@ export const test = base.extend<GameTestFixtures>({
   /**
    * Wait for validation feedback helper
    */
-  waitForValidation: async ({ }, use) => {
+  waitForValidation: async ({}, use) => {
     const waitForValidation = async (page: Page) => {
       // Wait for validation feedback component to appear
-      await expect(
-        page.locator('[data-testid="validation-feedback"]')
-      ).toBeVisible({ timeout: 5000 })
+      await expect(page.locator('[data-testid="validation-feedback"]')).toBeVisible({
+        timeout: 5000,
+      })
 
       // Ensure validation completed (check for loading state to disappear)
-      await expect(
-        page.locator('[data-testid="validation-loading"]')
-      ).not.toBeVisible({ timeout: 3000 })
+      await expect(page.locator('[data-testid="validation-loading"]')).not.toBeVisible({
+        timeout: 3000,
+      })
     }
     await use(waitForValidation)
   },
@@ -166,7 +166,7 @@ export const test = base.extend<GameTestFixtures>({
   /**
    * Enable high contrast mode helper
    */
-  enableHighContrast: async ({ }, use) => {
+  enableHighContrast: async ({}, use) => {
     const enableHighContrast = async (page: Page) => {
       await page.evaluate(() => {
         document.documentElement.classList.add('high-contrast')
@@ -179,7 +179,7 @@ export const test = base.extend<GameTestFixtures>({
   /**
    * Change language helper
    */
-  changeLanguage: async ({ }, use) => {
+  changeLanguage: async ({}, use) => {
     const changeLanguage = async (page: Page, language: string) => {
       await page.evaluate((lang) => {
         localStorage.setItem('az900-language', lang)

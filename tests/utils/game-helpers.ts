@@ -1,6 +1,6 @@
 /**
  * Game-specific helper utilities for Playwright E2E tests
- * 
+ *
  * Provides reusable functions for common game interactions,
  * assertions, and test setup operations.
  */
@@ -56,16 +56,16 @@ export class GameHelpers {
   async placeCardWithKeyboard(cardId: string, slotId: string): Promise<void> {
     // Focus on the card
     await this.page.locator(`[data-testid="card-${cardId}"]`).focus()
-    
+
     // Press Enter to pick up card
     await this.page.keyboard.press('Enter')
-    
+
     // Navigate to slot (implementation depends on layout)
     await this.page.locator(`[data-testid="slot-${slotId}"]`).focus()
-    
+
     // Press Enter to place
     await this.page.keyboard.press('Enter')
-    
+
     await this.page.waitForTimeout(500)
   }
 
@@ -75,7 +75,7 @@ export class GameHelpers {
   async removeCard(slotId: string): Promise<void> {
     const slot = this.page.locator(`[data-testid="slot-${slotId}"]`)
     const removeButton = slot.locator('[data-testid="remove-card-button"]')
-    
+
     await removeButton.click()
     await this.page.waitForTimeout(300)
   }
@@ -85,11 +85,11 @@ export class GameHelpers {
    */
   async submitSolution(): Promise<void> {
     await this.page.locator('[data-testid="submit-solution-button"]').click()
-    
+
     // Wait for evaluation to complete
-    await expect(
-      this.page.locator('[data-testid="evaluation-complete"]')
-    ).toBeVisible({ timeout: 10000 })
+    await expect(this.page.locator('[data-testid="evaluation-complete"]')).toBeVisible({
+      timeout: 10000,
+    })
   }
 
   /**
@@ -101,9 +101,7 @@ export class GameHelpers {
     securityCompliance: number
     total: number
   }> {
-    const haScore = await this.page
-      .locator('[data-testid="score-ha"]')
-      .getAttribute('data-value')
+    const haScore = await this.page.locator('[data-testid="score-ha"]').getAttribute('data-value')
     const costScore = await this.page
       .locator('[data-testid="score-cost"]')
       .getAttribute('data-value')
@@ -135,28 +133,29 @@ export class GameHelpers {
    */
   async getValidationErrorMessage(): Promise<string> {
     const errorElement = this.page.locator('[data-testid="validation-error-message"]')
-    return await errorElement.textContent() || ''
+    return (await errorElement.textContent()) || ''
   }
 
   /**
    * Wait for timer to count down to specific time
    */
   async waitForTimer(seconds: number): Promise<void> {
-    await expect(
-      this.page.locator('[data-testid="timer-display"]')
-    ).toContainText(`00:${seconds.toString().padStart(2, '0')}`, { timeout: 60000 })
+    await expect(this.page.locator('[data-testid="timer-display"]')).toContainText(
+      `00:${seconds.toString().padStart(2, '0')}`,
+      { timeout: 60000 }
+    )
   }
 
   /**
    * Check if a card is in the study deck
    */
   async isCardInStudyDeck(cardId: string): Promise<boolean> {
-    await this.page.goto('/codex')
+    await this.page.goto('/#/codex')
     await this.page.waitForLoadState('networkidle')
-    
+
     const studyDeckTab = this.page.locator('[data-testid="study-deck-tab"]')
     await studyDeckTab.click()
-    
+
     const card = this.page.locator(`[data-testid="study-deck-card-${cardId}"]`)
     return await card.isVisible()
   }
@@ -176,13 +175,13 @@ export class AccessibilityHelpers {
     const focusableElements = await this.page.locator(
       'button:visible, a:visible, input:visible, [tabindex]:visible'
     )
-    
+
     const count = await focusableElements.count()
-    
+
     // Tab through all elements
     for (let i = 0; i < count; i++) {
       await this.page.keyboard.press('Tab')
-      
+
       // Verify focus indicator is visible
       const focused = await this.page.evaluateHandle(() => document.activeElement)
       await expect(focused).toBeTruthy()
@@ -194,10 +193,10 @@ export class AccessibilityHelpers {
    */
   async verifyAriaLabels(selector: string, expectedRole: string): Promise<void> {
     const element = this.page.locator(selector)
-    
+
     const role = await element.getAttribute('role')
     expect(role).toBe(expectedRole)
-    
+
     const ariaLabel = await element.getAttribute('aria-label')
     expect(ariaLabel).toBeTruthy()
   }
@@ -208,18 +207,18 @@ export class AccessibilityHelpers {
   async testModalFocusTrap(modalSelector: string): Promise<void> {
     const modal = this.page.locator(modalSelector)
     await expect(modal).toBeVisible()
-    
+
     // Get first and last focusable elements in modal
     const firstFocusable = modal.locator('button, a, input').first()
     const lastFocusable = modal.locator('button, a, input').last()
-    
+
     // Focus last element and press Tab (should cycle to first)
     await lastFocusable.focus()
     await this.page.keyboard.press('Tab')
-    
+
     const focused = await this.page.evaluateHandle(() => document.activeElement)
     const firstElement = await firstFocusable.elementHandle()
-    
+
     // Verify focus returned to first element
     expect(await focused.asElement()).toBe(firstElement)
   }
@@ -229,26 +228,26 @@ export class AccessibilityHelpers {
    */
   async checkColorContrast(selector: string): Promise<boolean> {
     const element = this.page.locator(selector)
-    
+
     const contrast = await element.evaluate((el) => {
       const style = window.getComputedStyle(el)
       const bgColor = style.backgroundColor
       const textColor = style.color
-      
+
       // Simple contrast calculation (simplified for demonstration)
       // In production, use a proper contrast calculation library
       const bg = bgColor.match(/\d+/g)?.map(Number) || [255, 255, 255]
       const text = textColor.match(/\d+/g)?.map(Number) || [0, 0, 0]
-      
+
       const bgLuminance = 0.299 * bg[0] + 0.587 * bg[1] + 0.114 * bg[2]
       const textLuminance = 0.299 * text[0] + 0.587 * text[1] + 0.114 * text[2]
-      
+
       const lighter = Math.max(bgLuminance, textLuminance)
       const darker = Math.min(bgLuminance, textLuminance)
-      
+
       return (lighter + 0.05) / (darker + 0.05)
     })
-    
+
     return contrast >= 4.5
   }
 }
@@ -320,18 +319,16 @@ export class PerformanceHelpers {
   /**
    * Measure validation response time
    */
-  async measureValidationTime(
-    dragCard: () => Promise<void>
-  ): Promise<number> {
+  async measureValidationTime(dragCard: () => Promise<void>): Promise<number> {
     const startTime = Date.now()
-    
+
     await dragCard()
-    
+
     // Wait for validation to complete
-    await expect(
-      this.page.locator('[data-testid="validation-complete"]')
-    ).toBeVisible({ timeout: 1000 })
-    
+    await expect(this.page.locator('[data-testid="validation-complete"]')).toBeVisible({
+      timeout: 1000,
+    })
+
     const endTime = Date.now()
     return endTime - startTime
   }
@@ -341,10 +338,10 @@ export class PerformanceHelpers {
    */
   async measurePageLoadTime(url: string): Promise<number> {
     const startTime = Date.now()
-    
+
     await this.page.goto(url)
     await this.page.waitForLoadState('networkidle')
-    
+
     const endTime = Date.now()
     return endTime - startTime
   }
@@ -352,14 +349,11 @@ export class PerformanceHelpers {
   /**
    * Check if operation completes within time limit
    */
-  async assertCompletesWithin(
-    operation: () => Promise<void>,
-    maxMs: number
-  ): Promise<void> {
+  async assertCompletesWithin(operation: () => Promise<void>, maxMs: number): Promise<void> {
     const startTime = Date.now()
     await operation()
     const elapsed = Date.now() - startTime
-    
+
     expect(elapsed).toBeLessThanOrEqual(maxMs)
   }
 }

@@ -2,7 +2,7 @@ import { expect, test } from '../fixtures/test-fixtures'
 
 test.describe('quick-match end-to-end flow', () => {
   test('completes all three scenarios and shows the final score', async ({ page }) => {
-    await page.goto('/quick-match')
+    await page.goto('/#/quick-match')
 
     for (let scenario = 1; scenario <= 3; scenario += 1) {
       await expect(page.getByText(`Scenario ${scenario} of 3`)).toBeVisible()
@@ -28,7 +28,7 @@ test.describe('quick-match end-to-end flow', () => {
 
   test('counts down and automatically submits when time expires', async ({ page }) => {
     await page.clock.install()
-    await page.goto('/quick-match')
+    await page.goto('/#/quick-match')
     const timer = page.getByRole('progressbar', { name: 'Time remaining' })
     await expect(timer).toBeVisible()
     const initialTime = Number(await timer.getAttribute('aria-valuenow'))
@@ -44,5 +44,15 @@ test.describe('quick-match end-to-end flow', () => {
 
     await expect(page.getByText(/Scenario score:/)).toBeVisible()
     await expect(page.getByRole('button', { name: 'Next Scenario' })).toBeVisible()
+  })
+
+  test('quick-match route survives a page refresh', async ({ page }) => {
+    await page.goto('/#/quick-match')
+    await expect(page.getByRole('heading', { name: '3-Minute Commute Mode' })).toBeVisible()
+
+    await page.reload()
+
+    await expect(page.getByRole('heading', { name: '3-Minute Commute Mode' })).toBeVisible()
+    await expect(page).toHaveURL(/#\/quick-match$/)
   })
 })

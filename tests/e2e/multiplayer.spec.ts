@@ -1,7 +1,7 @@
 import { expect, test } from '../fixtures/test-fixtures'
 
 test('two-player clash determines a result and displays XP awards', async ({ page }) => {
-  await page.goto('/multiplayer')
+  await page.goto('/#/multiplayer')
   await page.getByLabel('Player 1').fill('Ada')
   await page.getByLabel('Player 2').fill('Grace')
   await page.getByRole('button', { name: 'Start Clash' }).click()
