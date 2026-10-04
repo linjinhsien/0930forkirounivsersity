@@ -71,7 +71,7 @@ function dealScenarioHand(scenario: Scenario, cards: AzureCard[]): AzureCard[] {
   const hand: AzureCard[] = []
 
   for (const requirement of scenario.requirements) {
-    const match = cards.find(
+    const match = shuffled.find(
       (card) => !hand.includes(card) && card.synergyTags.includes(requirement.value)
     )
     if (match && hand.length < INITIAL_HAND_SIZE) hand.push(match)
@@ -90,14 +90,13 @@ function createInitialState(
   cards: AzureCard[],
   mode: GameState['mode']
 ): GameState {
-  const hand =
-    mode === 'quick-match' ? dealScenarioHand(scenario, cards) : cards.slice(0, INITIAL_HAND_SIZE)
+  // All modes use dealScenarioHand for randomized, scenario-relevant hands
+  const hand = dealScenarioHand(scenario, cards)
   const handIds = new Set(hand.map((card) => card.id))
 
   return {
     currentScenario: scenario,
-    deck:
-      mode === 'quick-match' ? shuffleCards(cards.filter((card) => !handIds.has(card.id))) : cards,
+    deck: shuffleCards(cards.filter((card) => !handIds.has(card.id))),
     hand,
     slots: createSlots(),
     round: 1,

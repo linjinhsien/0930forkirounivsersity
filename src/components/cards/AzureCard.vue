@@ -39,12 +39,12 @@ function handleDragStart(event: DragEvent): void {
   <div
     :class="[
       'relative flex flex-col w-36 min-h-48 rounded-xl border-2 p-3 cursor-pointer select-none',
-      'bg-white dark:bg-gray-800 shadow-sm',
+      'bg-white dark:bg-gray-800 shadow-md',
       'transition-all duration-150',
       domainBorder[card.domain],
       isSelected
-        ? 'ring-2 ring-offset-2 ring-blue-500 -translate-y-1 shadow-md'
-        : 'hover:-translate-y-0.5 hover:shadow-md',
+        ? 'ring-2 ring-offset-2 ring-blue-500 -translate-y-1 shadow-lg'
+        : 'hover:-translate-y-0.5 hover:shadow-lg',
     ]"
     draggable="true"
     :aria-selected="isSelected"
