@@ -4,6 +4,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [vue()],
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
   base: process.env.GITHUB_ACTIONS === 'true' ? '/0930forkirounivsersity/' : '/',
   resolve: {
     alias: {
