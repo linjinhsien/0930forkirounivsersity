@@ -139,3 +139,37 @@ Encourage the learner to share their experience throughout the session.
   - `az900-card-assistant`: Validates and generates Azure Service Cards according to schema and official Azure definitions (≤280 chars exam tips).
   - `az900-scenario-designer`: Designs balanced AZ-900 architecture scenarios matching the 4 game categories (`startup-scaling`, `enterprise-migration`, `high-compliance`, `real-time-analytics`).
 
+---
+
+## Code Quality: Lint on Save (All AI Agents)
+
+> This mirrors `.kiro/hooks/lint-on-save.json` for AI tools that don't support native hooks (Gemini, Copilot, Cursor, etc.)
+
+**After editing any `.ts`, `.tsx`, or `.vue` file**, always run:
+```bash
+npx eslint --fix <filePath>
+npx prettier --write <filePath>
+```
+
+**Before every commit**, run in this order:
+```bash
+npm run lint          # ESLint fix
+npm run format:check  # Prettier check
+npm run type-check    # TypeScript
+npx vitest run        # Unit + PBT tests
+```
+
+**Snapshot tests**: If you change a component's HTML/CSS classes, update the snapshot:
+```bash
+npx vitest run tests/unit/components/phase10.snapshots.test.ts --update
+```
+Then commit the `.snap` file together with the component change.
+
+**Commit message format** (Conventional Commits):
+```
+feat: ...   # new feature
+fix: ...    # bug fix
+test: ...   # test changes
+chore: ...  # tooling / config
+refactor: # code restructure
+```
