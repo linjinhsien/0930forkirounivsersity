@@ -215,11 +215,58 @@ const paths: TopologyPath[] = [
       },
       {
         id: 'operations',
-        label: '監控與成本治理',
-        subtitle: 'Monitor · Advisor · Budgets',
+        label: '監控與可靠性',
+        subtitle: 'Monitor · Advisor · Service Health',
         detail:
-          'Monitor 蒐集遙測；Advisor 提供改善建議；Cost Management 與 Budget 協助追蹤支出和發出通知。',
-        examTip: 'Budget 可發出支出通知，但本身不會自動停止資源或限制消費。',
+          'Monitor 蒐集遙測；Advisor 提供可靠性、安全性、效能與成本建議；Service Health 通知影響訂用帳戶的服務事件。',
+        examTip: 'Monitor 看資源遙測；Service Health 看 Azure 服務事件；Advisor 提供最佳化建議。',
+      },
+    ],
+  },
+  {
+    id: 'cost-governance',
+    title: '成本治理與 FinOps',
+    domain: 'Domain 3 · Day 27',
+    color: 'border-emerald-300 bg-emerald-50',
+    nodes: [
+      {
+        id: 'pricing-calculator',
+        label: 'Azure Pricing Calculator',
+        subtitle: '部署前 · 預估成本',
+        detail: '在部署前依服務、SKU、區域與預計用量試算架構費用，用來比較不同設計方案的預估成本。',
+        examTip: '問「部署前預估多少錢？」選 Pricing Calculator；它不是實際帳單分析工具。',
+      },
+      {
+        id: 'cost-management',
+        label: 'Cost Management · Cost Analysis',
+        subtitle: '部署後 · 實際成本與趨勢',
+        detail: '分析已發生及預測的雲端支出，可依期間、服務、訂用帳戶、資源群組等維度檢視成本。',
+        examTip:
+          '問「上月實際花多少、哪個服務費用增加？」使用 Cost Analysis，而非 Pricing Calculator。',
+      },
+      {
+        id: 'budgets',
+        label: 'Azure Budgets · Cost Alerts',
+        subtitle: '設定門檻 · 追蹤與通知',
+        detail:
+          '為範圍與期間設定預算門檻，當實際或預測支出觸及門檻時發出警示，協助及早處理超支風險。',
+        examTip: 'Budget 是追蹤與預警，不會預設自動關閉 VM 或硬性阻止消費。',
+      },
+      {
+        id: 'cost-tags',
+        label: 'Tags · Cost Allocation',
+        subtitle: '部門 · 專案 · 環境',
+        detail:
+          '以名稱和值標記資源，搭配 Cost Analysis 分析成本歸屬；需要強制標籤時可用 Azure Policy。',
+        examTip: 'Tags 是分類中繼資料，不授權、不防刪，也不會自動向下繼承。',
+      },
+      {
+        id: 'cost-optimization',
+        label: '長期成本最佳化',
+        subtitle: 'Reservations · Savings · Hybrid Benefit',
+        detail:
+          '對穩定、可預測的長期用量評估 Reservations 或適用的 Savings 方案；符合資格的既有授權可評估 Azure Hybrid Benefit。',
+        examTip: '先用實際用量分析，再評估承諾型折扣；可中斷工作負載另考慮 Spot。',
       },
     ],
   },
@@ -238,12 +285,12 @@ const selectedPath = computed(() =>
   <section data-testid="topology-map" aria-labelledby="topology-title" class="mx-auto max-w-7xl">
     <header class="mb-8">
       <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">
-        AZ-900 · Day 28–30 Review
+        AZ-900 · Day 27–30 Review
       </p>
       <h1 id="topology-title" class="mt-1 text-3xl font-bold sm:text-4xl">AZ-900 知識拓樸圖</h1>
       <p class="mt-3 max-w-3xl text-gray-700">
         從三大考綱領域出發，把雲端概念、Azure
-        架構服務與治理考點串成可追蹤的知識路徑。選取節點查看考試辨識重點。
+        架構服務、成本管理與治理考點串成可追蹤的知識路徑。選取節點查看考試辨識重點。
       </p>
       <RouterLink
         to="/codex"
@@ -325,8 +372,12 @@ const selectedPath = computed(() =>
     </section>
 
     <section class="mt-8 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6">
-      <h2 class="text-xl font-bold">Day 28–30 跨域解題路徑</h2>
+      <h2 class="text-xl font-bold">Day 27–30 跨域解題路徑</h2>
       <div class="mt-4 grid gap-3 md:grid-cols-2">
+        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
+          <strong>成本治理：</strong>部署前用 Pricing Calculator 預估 → 部署後用 Cost Analysis
+          看實際支出 → Budget 設門檻告警 → Tags 分析部門／專案成本 → 評估長期折扣。
+        </p>
         <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
           <strong>跨訂用帳戶合規：</strong>Management Group 定義治理範圍 → Azure Policy 評估規則 →
           Resource 符合 Allowed Locations。
@@ -348,6 +399,13 @@ const selectedPath = computed(() =>
 
     <footer class="mt-8 border-t border-gray-200 pt-5 text-sm text-gray-600">
       參考教材：
+      <a
+        href="https://github.com/linjinhsien/ithome_az-900/blob/master/ithome_az900_day27.md"
+        target="_blank"
+        rel="noreferrer"
+        class="font-medium text-blue-700 underline"
+        >Day 27 成本治理拓樸</a
+      >、
       <a
         href="https://github.com/linjinhsien/ithome_az-900/blob/master/ithome_az900_day28.md"
         target="_blank"
