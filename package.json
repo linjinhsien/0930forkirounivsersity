@@ -40,6 +40,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.11.1",
+    "fast-check": "^4.10.2",
     "happy-dom": "^20.14.5",
     "jsdom": "^29.1.1",
     "postcss": "^8.5.28",
