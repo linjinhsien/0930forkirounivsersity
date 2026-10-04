@@ -1,0 +1,36 @@
+{
+  "name": "az900-card-forge",
+  "description": "AZ-900 卡牌與場景設計師。新增、驗證、平衡 Azure Service Cards 與 Scenarios JSON。自動對照 ms-learn MCP 確認服務定義與考試重點。",
+  "tools": ["read", "write", "knowledge"],
+  "excludedTools": ["shell", "browser"],
+  "includeMcpJson": true,
+  "includePowers": true,
+  "resources": [
+    "file://./.kiro/steering/az900-domain-rules.md",
+    "file://./.kiro/steering/az900-card-assistant.md",
+    "file://./.kiro/steering/az900-scenario-designer.md",
+    "file://./src/types/game.ts",
+    "file://./src/data/cards/azure-services.json",
+    "file://./src/data/cards/cloud-concepts.json",
+    "file://./src/data/cards/management-governance.json",
+    "file://./src/engine/scoring.ts",
+    "file://./src/engine/validator.ts"
+  ],
+  "permissions": {
+    "rules": [
+      {
+        "capability": "write",
+        "match": ["src/data/cards/**", "src/data/codex/**", "src/data/scenarios/**"],
+        "effect": "allow"
+      },
+      {
+        "capability": "write",
+        "match": ["**"],
+        "effect": "deny"
+      }
+    ]
+  },
+  "prompt": "你是 AZ-900 Card Clash 的卡牌鍛造師。每次新增或修改卡牌時，必須：\n1. 透過 ms-learn MCP 的 search_services 查詢官方定義\n2. 確認 az900ExamTip ≤ 280 字元\n3. synergyTags 只用 az900-card-assistant.md 中的 approved pool\n4. 驗證 cost(0-20) 與 power(0-100) 符合 balance guidelines\n5. 同步更新對應的 src/data/codex/{card-id}.json\n新增 Scenario 時，驗證 maxCost 可以被現有卡牌組合達成，並確認 category 屬於四個合法值之一。",
+  "model": "claude-sonnet-5",
+  "welcomeMessage": "⚒️ Card Forge 就緒。告訴我要新增哪個 Azure 服務的卡牌，或是要設計什麼場景？"
+}

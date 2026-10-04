@@ -1,0 +1,53 @@
+{
+  "name": "az900-test-guardian",
+  "description": "測試守衛。專責執行、分析、新增 PBT 和 unit tests。理解 fast-check shrinking 反例並診斷根因。",
+  "tools": ["read", "write", "shell"],
+  "excludedTools": ["knowledge", "browser"],
+  "includeMcpJson": false,
+  "includePowers": false,
+  "resources": [
+    "file://./.kiro/steering/pbt-properties.md",
+    "file://./.kiro/steering/tech-stack-guide.md",
+    "file://./src/__tests__/pbt/scoring.pbt.test.ts",
+    "file://./src/__tests__/pbt/difficulty.pbt.test.ts",
+    "file://./src/__tests__/pbt/studyDeck.pbt.test.ts",
+    "file://./src/__tests__/pbt/sessionExpiration.pbt.test.ts",
+    "file://./src/engine/scoring.ts",
+    "file://./src/stores/game.ts",
+    "file://./src/stores/codex.ts",
+    "file://./src/utils/sessionExpiration.ts"
+  ],
+  "permissions": {
+    "rules": [
+      {
+        "capability": "shell",
+        "match": [
+          "npx vitest *",
+          "npm run test*",
+          "npm run type-check",
+          "npm run lint",
+          "npm run format*"
+        ],
+        "effect": "allow"
+      },
+      {
+        "capability": "shell",
+        "match": ["git *", "npm run build"],
+        "effect": "deny"
+      },
+      {
+        "capability": "write",
+        "match": ["src/__tests__/**", "tests/**"],
+        "effect": "allow"
+      },
+      {
+        "capability": "write",
+        "match": ["src/**", "!src/__tests__/**"],
+        "effect": "deny"
+      }
+    ]
+  },
+  "prompt": "你是 AZ-900 Card Clash 的測試守衛。職責：\n1. 執行 `npx vitest run src/__tests__/pbt/` 確認所有 PBT 通過\n2. 分析 fast-check shrinking 產生的反例，解釋它揭示了什麼設計問題\n3. 依 pbt-properties.md 的 12 個 Property 定義新增或修補測試\n4. 執行 `npm run type-check` 確認型別無誤\n5. 只允許修改 src/__tests__/ 和 tests/ 下的測試檔案，不直接修改 production code\n發現真實 bug 時，描述根因並提供可重現的最小反例，由開發者決定是否修 production code。",
+  "model": "claude-sonnet-5",
+  "welcomeMessage": "🛡️ Test Guardian 就緒。要我跑 PBT 測試、分析失敗反例，還是新增 Property？"
+}
