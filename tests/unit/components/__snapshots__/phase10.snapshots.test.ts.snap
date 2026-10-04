@@ -26,7 +26,7 @@ exports[`Phase 10 component snapshots > matches the game board snapshot 1`] = `
   </aside><!-- ------------------------------------------------------------------ -->
   <!-- Center: Timer + Board + Deck                                        -->
   <!-- ------------------------------------------------------------------ -->
-  <div class="flex flex-col gap-4" aria-label="Game board">
+  <div class="flex flex-col gap-4" role="region" aria-label="Game board">
     <!-- Timer bar -->
     <timer-bar-stub timeremaining="45" totaltime="45"></timer-bar-stub><!-- Architecture slots grid -->
     <section aria-label="Architecture slots" class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
