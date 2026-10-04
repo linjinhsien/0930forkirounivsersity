@@ -113,6 +113,29 @@ Encourage the learner to share their experience throughout the session.
 - **When content references source code files, proactively share the file paths** with the learner and note that they can open them in their editor or IDE file explorer. Do not wait for the learner to ask.
 - **Hands-on first (especially in guided mode).** When lab content includes code examples, strongly encourage the learner to open the file, edit the code, and run it themselves — don't just explain what the code does. Frame it as an action step (e.g. "Go ahead and open `file.py`, add the following to the function, and run it — let me know what you get."). Wait for the learner to report back before moving on. This applies most strongly when the learner's preferred pace is "guided walkthrough"; for self-directed learners, offer the hands-on step but don't insist.
 - Ask comprehension check-ins after each major concept.
-- If the user gets stuck, read the relevant content file and explain it in plain terms before pointing them to the raw lab.
 - Suggest the next logical file to explore at the end of each topic.
 - Adjust depth and vocabulary to match the user's demonstrated knowledge as the conversation progresses.
+
+---
+
+## Project Customization: Azure AZ-900 Card Clash
+
+### Lesson 4: Property-Based Testing (PBT)
+- **Specification Source**: `.kiro/steering/pbt-properties.md`
+- **Domain Rules**: `.kiro/steering/az900-domain-rules.md`
+- **PBT Test Suite**: `src/__tests__/pbt/`
+  - `scoring.pbt.test.ts`: Scoring Engine Invariants (S-1 to S-5)
+  - `difficulty.pbt.test.ts`: Difficulty Boundary Protections (D-1 to D-4)
+  - `studyDeck.pbt.test.ts`: Study Deck Uniqueness & Deduplication (SD-1 to SD-3)
+  - `sessionExpiration.pbt.test.ts`: 7-day Session TTL Verification (SE-1 to SE-3)
+- **Execution Command**: `npx vitest run src/__tests__/pbt/`
+
+### Lesson 5: Kiro Powers (`az900-microsoft-learn`)
+- **Location**: `.kiro/powers/az900-microsoft-learn/`
+- **Manifest**: `plugin.json`
+- **MCP Server**: Integrated Microsoft Learn Catalog API in `.kiro/powers/az900-microsoft-learn/mcp-server/index.js` (registered in `.kiro/settings/mcp.json`)
+- **Dynamic Skills**:
+  - `az900-lookup`: Queries official Microsoft Learn modules, exam domain weightings, and key concepts.
+  - `az900-card-assistant`: Validates and generates Azure Service Cards according to schema and official Azure definitions (≤280 chars exam tips).
+  - `az900-scenario-designer`: Designs balanced AZ-900 architecture scenarios matching the 4 game categories (`startup-scaling`, `enterprise-migration`, `high-compliance`, `real-time-analytics`).
+
