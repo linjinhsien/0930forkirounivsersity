@@ -157,8 +157,8 @@ function playAgain(): void {
         />
       </div>
 
-      <section v-if="matchComplete" aria-live="polite" class="mt-5 rounded-xl border bg-white p-5">
-        <h2 class="text-xl font-bold">Clash results</h2>
+      <section\n        v-if="matchComplete"\n        aria-labelledby="clash-results-title"\n        aria-live="polite"\n        class="mt-5 rounded-xl border bg-white p-5"\n      >
+        <h2 id="clash-results-title" class="text-xl font-bold">Clash results</h2>
         <p class="mt-2 text-lg font-semibold">
           {{
             winner === 'tie'
