@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Phase 10 component snapshots > matches the Azure card snapshot 1`] = `
-"<div class="relative flex flex-col w-36 min-h-48 rounded-xl border-2 p-3 cursor-pointer select-none bg-white dark:bg-gray-800 shadow-sm transition-all duration-150 border-sky-400 hover:-translate-y-0.5 hover:shadow-md" draggable="true" aria-selected="false" aria-label="High Availability Architecture, Cloud Concepts, power 80, cost 0" role="button" tabindex="0">
+"<div class="relative flex flex-col w-36 min-h-48 rounded-xl border-2 p-3 cursor-pointer select-none bg-white dark:bg-gray-800 shadow-md transition-all duration-150 border-sky-400 hover:-translate-y-0.5 hover:shadow-lg" draggable="true" aria-selected="false" aria-label="High Availability Architecture, Cloud Concepts, power 80, cost 0" role="button" tabindex="0">
   <!-- Domain badge --><span class="self-start text-xs font-medium px-1.5 py-0.5 rounded mb-2 bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200">Cloud Concepts</span><!-- Card name -->
   <p class="font-bold text-sm text-gray-900 dark:text-gray-100 leading-tight mb-1">High Availability Architecture</p><!-- Description -->
   <p class="text-xs text-gray-500 dark:text-gray-400 leading-snug line-clamp-3 flex-1">Design pattern for minimizing downtime through redundant components</p><!-- Stats row -->
