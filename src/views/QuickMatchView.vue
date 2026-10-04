@@ -26,7 +26,9 @@ const saveMessage = ref('')
 const scoringEngine = new ScoringEngine()
 const currentScenario = computed(() => scenarios.value[currentIndex.value] ?? null)
 const currentTimeLimit = computed(() => gameStore.gameState?.timeRemaining ?? 45)
-const totalScore = computed(() => scores.value.reduce((sum, score) => sum + score.total, 0))
+const totalScore = computed(() =>
+  Math.round(scores.value.reduce((sum, score) => sum + score.total, 0))
+)
 const isComplete = computed(() => scores.value.length === 3)
 
 async function startGame(): Promise<void> {

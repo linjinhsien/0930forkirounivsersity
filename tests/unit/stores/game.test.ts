@@ -26,6 +26,29 @@ describe('game store', () => {
     expect(store.isGameActive).toBe(true)
   })
 
+  it('deals cards that cover scenario requirements and draws a replacement when playing', async () => {
+    const store = useGameStore()
+    const state = await store.initializeGame('fixture-startup', 'quick-match')
+
+    for (const requirement of state.currentScenario.requirements) {
+      expect(state.hand.some((card) => card.synergyTags.includes(requirement.value))).toBe(true)
+    }
+
+    const card = state.hand[0]
+    const deckSize = state.deck.length
+    expect(store.placeCard(card.id, 'compute-1')).toBe(true)
+    expect(state.hand).toHaveLength(8)
+    expect(state.deck).toHaveLength(deckSize - 1)
+    expect(state.hand.some((item) => item.id === card.id)).toBe(false)
+    const cardsInGame = [
+      ...state.hand,
+      ...state.deck,
+      ...state.slots.flatMap((slot) => (slot.card ? [slot.card] : [])),
+    ]
+    expect(cardsInGame).toHaveLength(allMockCards.length)
+    expect(new Set(cardsInGame.map((item) => item.id)).size).toBe(allMockCards.length)
+  })
+
   it('places a card into an empty slot and removes it from the hand', async () => {
     const store = useGameStore()
     await store.initializeGame('fixture-startup')

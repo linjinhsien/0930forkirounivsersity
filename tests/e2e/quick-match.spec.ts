@@ -8,8 +8,14 @@ test.describe('quick-match end-to-end flow', () => {
       await expect(page.getByText(`Scenario ${scenario} of 3`)).toBeVisible()
       await expect(page.locator('aside[aria-label="Scenario details"]')).toBeVisible()
       const cards = page.getByRole('list', { name: 'Cards in hand' })
+      if (scenario === 1) {
+        await expect(cards.getByRole('button', { name: /Azure App Service/ })).toBeVisible()
+        await expect(cards.getByRole('button', { name: /Azure SQL Database/ })).toBeVisible()
+        await expect(cards.getByRole('button', { name: /Elastic Scaling/ })).toBeVisible()
+      }
       await cards.getByRole('button').first().click()
       await page.getByRole('button', { name: 'compute slot, empty' }).click()
+      await expect(cards.getByRole('button')).toHaveCount(8)
       await page.getByRole('button', { name: 'Submit Solution' }).click()
 
       if (scenario < 3) {

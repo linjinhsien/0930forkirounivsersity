@@ -53,15 +53,52 @@ function cloneScore(score: ArchitectureScore): ArchitectureScore {
   }
 }
 
+const INITIAL_HAND_SIZE = 8
+
+function shuffleCards(cards: AzureCard[]): AzureCard[] {
+  const shuffled = [...cards]
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1))
+    const current = shuffled[index]
+    shuffled[index] = shuffled[swapIndex]
+    shuffled[swapIndex] = current
+  }
+  return shuffled
+}
+
+function dealScenarioHand(scenario: Scenario, cards: AzureCard[]): AzureCard[] {
+  const shuffled = shuffleCards(cards)
+  const hand: AzureCard[] = []
+
+  for (const requirement of scenario.requirements) {
+    const match = cards.find(
+      (card) => !hand.includes(card) && card.synergyTags.includes(requirement.value)
+    )
+    if (match && hand.length < INITIAL_HAND_SIZE) hand.push(match)
+  }
+
+  for (const card of shuffled) {
+    if (hand.length >= INITIAL_HAND_SIZE) break
+    if (!hand.includes(card)) hand.push(card)
+  }
+
+  return hand
+}
+
 function createInitialState(
   scenario: Scenario,
   cards: AzureCard[],
   mode: GameState['mode']
 ): GameState {
+  const hand =
+    mode === 'quick-match' ? dealScenarioHand(scenario, cards) : cards.slice(0, INITIAL_HAND_SIZE)
+  const handIds = new Set(hand.map((card) => card.id))
+
   return {
     currentScenario: scenario,
-    deck: cards,
-    hand: cards.slice(0, 8),
+    deck:
+      mode === 'quick-match' ? shuffleCards(cards.filter((card) => !handIds.has(card.id))) : cards,
+    hand,
     slots: createSlots(),
     round: 1,
     score: {
@@ -139,6 +176,10 @@ export const useGameStore = defineStore('game', () => {
 
     const [card] = gameState.value.hand.splice(cardIndex, 1)
     slot.card = card
+    if (gameState.value.mode === 'quick-match') {
+      const nextCard = gameState.value.deck.shift()
+      if (nextCard) gameState.value.hand.push(nextCard)
+    }
     gameState.value.round += 1
     validationResult.value = { isValid: true, timestamp: Date.now(), violations: [] }
     return true
