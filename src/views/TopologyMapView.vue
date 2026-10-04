@@ -693,6 +693,86 @@ const paths: TopologyPath[] = [
   },
 ]
 
+// cxcxc-io 風格：特定 path 的 ASCII box diagram（FinOps、Day 27-30）
+const asciiBoxDiagram: Record<string, string> = {
+  'cost-governance': `┌──────────────────────────────────────────────────────────┐
+│              💰 Titan FinOps 成本治理閉環                  │
+├──────────────────────────────────────────────────────────┤
+│  還沒部署                                                │
+│      │                                                   │
+│      ▼                                                   │
+│  Pricing Calculator  ←── 估算架構費用（部署前）           │
+│      │                                                   │
+│  ─────────────── 部署 ──────────────────                  │
+│      │                                                   │
+│      ▼                                                   │
+│  Cost Management + Cost Analysis                         │
+│      │  「實際花了多少？哪個 Scope 在增加？」              │
+│      │                                                   │
+│      ├──────────────► Budgets / Cost Alerts              │
+│      │                 「50% → 80% → 100% 通知」          │
+│      ▼                                                   │
+│  Tags / Cost Allocation                                  │
+│      「部門 / 專案 / 環境 → 成本歸屬」                   │
+│      │                                                   │
+│      ▼                                                   │
+│  Reservations / Savings Plan / Hybrid Benefit            │
+│      「長期穩定用量 → 承諾型折扣」                        │
+└──────────────────────────────────────────────────────────┘`,
+  'day-28-reasoning': `┌──────────────────────────────────────────────────────────┐
+│         🧭 Day 28 · 知識圖譜解題拓樸                      │
+├──────────────────────────────────────────────────────────┤
+│  題目情境                                                │
+│      │                                                   │
+│      ▼                                                   │
+│  抽出決策限制 ────► 誰用 / 資料在哪 / 可否公開            │
+│      │               管理負擔 / 成本 / 範圍               │
+│      ▼                                                   │
+│  控制層對照                                              │
+│  ├─ 「誰可以做」    → RBAC (授權)                        │
+│  ├─ 「資源要合規」  → Azure Policy (評估/強制)            │
+│  ├─ 「避免誤刪」    → Resource Lock                      │
+│  └─ 「依專案分類」  → Tags (中繼資料)                    │
+│      │                                                   │
+│      ▼                                                   │
+│  Best-fit = 功能符合 + 限制符合 + 管理負擔最低            │
+└──────────────────────────────────────────────────────────┘`,
+  'day-30-capstone': `┌──────────────────────────────────────────────────────────┐
+│         🏆 Day 30 · 跨域整合架構拓樸                      │
+├──────────────────────────────────────────────────────────┤
+│  Landing Zone (基礎治理基線)                             │
+│  ├─ Management Group → Subscription → RG                 │
+│  ├─ Azure Policy (Allowed Locations / Tags)               │
+│  └─ Activity Log / Monitor / Cost Budgets                 │
+│      │                                                   │
+│      ▼                                                   │
+│  Zero Trust (零信任)                                     │
+│  Entra ID → MFA → Conditional Access → RBAC             │
+│      │                                                   │
+│      ▼                                                   │
+│  分層安全                                                │
+│  NSG → Private Endpoint → Policy → Key Vault → Defender │
+│      │                                                   │
+│      ▼                                                   │
+│  可靠性 / 復原                                           │
+│  Zone (單 DC 故障) → Region Pair (整區故障) → RTO/RPO    │
+└──────────────────────────────────────────────────────────┘`,
+}
+
+// cxcxc-io 風格：每個 path 的單行 ASCII flow
+const asciiFlow: Record<string, string> = {
+  cloud: '☁️ 部署模型 → 服務模型 → 共同責任 → 雲端效益',
+  scope: '🏗️ Root MG → MG → Subscription → RG → Resource',
+  global: '🌏 Geography → Region → AZ → Region Pair',
+  workload: '🚦 User → DNS → VNet/NSG → Compute → Data',
+  governance: '🔐 Entra ID → RBAC → Policy → Locks/Tags → Monitor',
+  'cost-governance': '💰 估算 → 部署 → Cost Analysis → Budgets → Tags → 折扣',
+  'day-7-review': '📋 Day 7 · IaaS/PaaS/SaaS → 責任 → 階層 → AZ → 工具',
+  'day-28-reasoning': '🧭 Day 28 · 題型 → 限制 → Best-fit → 控制對照',
+  'day-29-practice': '🎯 Day 29 · 遷移 → 運算 → 儲存 → 網路 → 治理 → 身分',
+  'day-30-capstone': '🏆 Day 30 · Landing Zone → 零信任 → 安全分層 → FinOps',
+}
+
 const selectedNodeId = ref(paths[0].nodes[0].id)
 const selectedNode = computed(() =>
   paths.flatMap((path) => path.nodes).find((node) => node.id === selectedNodeId.value)!
@@ -721,10 +801,39 @@ const selectedPath = computed(() =>
       </RouterLink>
     </header>
 
-    <div class="mb-8 rounded-2xl border border-blue-200 bg-blue-950 p-5 text-center text-white">
-      <p class="text-xs font-semibold uppercase tracking-widest text-sky-200">Knowledge Graph</p>
-      <p class="mt-1 text-xl font-bold">Azure 雲端工作負載</p>
-      <p class="mt-1 text-sm text-blue-100">用題目中的限制條件，沿關係找到適合的控制層與服務</p>
+    <!-- cxcxc-io 風格：跨域 ASCII 工作負載架構圖 -->
+    <div class="mb-8 rounded-2xl border border-blue-400 bg-blue-950 p-5 text-white">
+      <p class="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-sky-300">
+        ☁️ Knowledge Graph · Azure 雲端工作負載拓樸
+      </p>
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-sky-100 sm:text-sm">
+┌─────────────────────────────────────────────────────────────────┐
+│              Azure 跨域工作負載架構拓樸 (AZ-900)                │
+├─────────────────────────────────────────────────────────────────┤
+│  [用戶端 / 外部]                                                │
+│      │                                                          │
+│      ▼                                                          │
+│  DNS / 流量入口 ──► Application Gateway / WAF (L7)              │
+│      │                                                          │
+│      ▼                                                          │
+│  ┌─────────────────── VNet (私有網路邊界) ──────────────────┐   │
+│  │  NSG (封包篩選)    Private Endpoint (服務私有連線)       │   │
+│  │      │                      │                            │   │
+│  │      ▼                      ▼                            │   │
+│  │  Compute Layer          Data Layer                       │   │
+│  │  ├─ VM (IaaS)           ├─ Azure SQL (關聯式)            │   │
+│  │  ├─ App Service (PaaS)  ├─ Cosmos DB (全球 NoSQL)        │   │
+│  │  ├─ Functions (事件驅動) └─ Blob Storage (物件儲存)      │   │
+│  │  └─ AKS (容器協調)                                       │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│      │                                                          │
+│      ▼                                                          │
+│  治理 / 身分 / 成本                                             │
+│  Entra ID → RBAC → Policy → Budgets → Cost Analysis → Tags     │
+└─────────────────────────────────────────────────────────────────┘</pre>
+      <p class="mt-2 text-center text-xs text-blue-200">
+        💡 用題目限制條件，沿關係找到適合的控制層與服務
+      </p>
     </div>
 
     <div class="space-y-8">
@@ -737,6 +846,15 @@ const selectedPath = computed(() =>
         <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
           <h2 :id="`${path.id}-title`" class="text-xl font-bold text-gray-900">{{ path.title }}</h2>
           <p class="text-sm font-medium text-gray-500">{{ path.domain }}</p>
+        </div>
+        <!-- cxcxc-io 風格：單行 ASCII flow -->
+        <div
+          v-if="asciiFlow[path.id]"
+          class="mb-4 overflow-x-auto rounded-lg border border-gray-100 bg-gray-900 px-3 py-2"
+        >
+          <code class="whitespace-nowrap font-mono text-xs text-emerald-300">{{
+            asciiFlow[path.id]
+          }}</code>
         </div>
 
         <ol class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -760,6 +878,19 @@ const selectedPath = computed(() =>
             </button>
           </li>
         </ol>
+
+        <!-- cxcxc-io 風格：特定 path 的 ASCII box diagram（FinOps、Day 28、Day 30） -->
+        <div
+          v-if="asciiBoxDiagram[path.id]"
+          class="mt-5 overflow-x-auto rounded-xl border border-emerald-800 bg-gray-950 px-4 py-4"
+        >
+          <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-emerald-400">
+            📐 架構拓樸速查
+          </p>
+          <pre class="font-mono text-xs leading-relaxed text-emerald-200">{{
+            asciiBoxDiagram[path.id]
+          }}</pre>
+        </div>
       </section>
     </div>
 
@@ -779,29 +910,102 @@ const selectedPath = computed(() =>
       </p>
     </section>
 
-    <section class="mt-8 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6">
-      <h2 class="text-xl font-bold">Day 7、27–30 跨域解題路徑</h2>
-      <div class="mt-4 grid gap-3 md:grid-cols-2">
-        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
-          <strong>成本治理：</strong>部署前用 Pricing Calculator 預估 → 部署後用 Cost Analysis
-          看實際支出 → Budget 設門檻告警 → Tags 分析部門／專案成本 → 評估長期折扣。
-        </p>
-        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
-          <strong>跨訂用帳戶合規：</strong>Management Group 定義治理範圍 → Azure Policy 評估規則 →
-          Resource 符合 Allowed Locations。
-        </p>
-        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
-          <strong>最小權限：</strong>Microsoft Entra ID 識別主體 → RBAC 指派角色與 Scope →
-          主體只取得所需操作權限。
-        </p>
-        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
-          <strong>區域故障復原：</strong>Availability Zones 防範單一資料中心故障 → Region Pair /
-          備份策略處理更大範圍的中斷。
-        </p>
-        <p class="rounded-lg bg-gray-50 p-4 text-sm text-gray-800">
-          <strong>考題作答：</strong>找出限制條件 → 判斷所屬領域與 Scope → 排除功能不同的相似服務 →
-          選符合需求且管理負擔最低的方案。
-        </p>
+    <!-- cxcxc-io 風格：跨域解題路徑 ASCII tree -->
+    <section class="mt-8 rounded-2xl border border-gray-800 bg-gray-950 p-5 sm:p-6">
+      <h2 class="text-base font-semibold uppercase tracking-widest text-emerald-400">
+        🗺️ Day 7、27–30 跨域解題路徑
+      </h2>
+      <p class="mt-1 text-xs text-gray-400">依情境類型展開對應的知識樹</p>
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-amber-400">💰 成本治理路徑</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+成本治理
+├─ 部署前
+│   └─ Pricing Calculator ← 估算架構費用
+├─ 部署後
+│   ├─ Cost Management / Cost Analysis
+│   │   └─ 查實際支出、趨勢、服務分組
+│   ├─ Budgets + Cost Alerts
+│   │   └─ 50% / 80% / 100% 門檻通知
+│   └─ Tags → Cost Allocation
+│       └─ 部門 / 專案 / 環境歸屬
+└─ 長期優化
+    ├─ Reservations（穩定用量承諾）
+    ├─ Savings Plan
+    └─ Azure Hybrid Benefit（合格授權）</pre>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-sky-400">🏗️ 跨訂用帳戶合規路徑</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+合規治理
+├─ 範圍界定
+│   └─ Management Group → Subscription
+├─ 規則設定
+│   └─ Azure Policy
+│       ├─ Allowed Locations（地區限制）
+│       ├─ Require Tags（標籤強制）
+│       └─ 稽核 vs 拒絕效果
+└─ 驗證
+    └─ Compliance 報表 + Activity Log</pre>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-violet-400">🔐 最小權限路徑</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+身分與授權
+├─ 識別主體
+│   └─ Microsoft Entra ID
+│       ├─ 使用者 / 群組
+│       └─ Managed Identity（工作負載）
+├─ 授權
+│   └─ Azure RBAC
+│       ├─ Role（角色定義）
+│       ├─ Scope（MG / Sub / RG / Resource）
+│       └─ Assignment（指派）
+└─ 強化
+    ├─ MFA + Conditional Access
+    └─ PIM（特權存取管理）</pre>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-rose-400">🛡️ 區域故障復原路徑</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+可靠性設計
+├─ 單一 DC 故障
+│   └─ Availability Zone (Zone 1/2/3)
+│       └─ 同 Region 內隔離基礎設施
+├─ 整個 Region 故障
+│   ├─ Region Pair（部分服務可複寫）
+│   └─ 跨區備份 + 流量切換設計
+└─ 復原目標
+    ├─ RTO（可接受的復原時間）
+    └─ RPO（可接受的資料損失窗口）</pre>
+        </div>
+
+        <div
+          class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 md:col-span-2 p-4"
+        >
+          <p class="mb-2 text-xs font-semibold text-emerald-400">🎯 考題作答決策樹</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+讀題
+├─ Step 1：找出決策限制
+│   ├─ 誰用？（使用者 / 工作負載 / 跨部門）
+│   ├─ 資料在哪？（地區限制 / 私有連線）
+│   ├─ 管理負擔？（不維護 OS → PaaS 方向）
+│   └─ 成本 / 範圍限制？
+├─ Step 2：判斷所屬控制層
+│   ├─ 授權問題    → RBAC + Scope
+│   ├─ 合規/強制   → Azure Policy
+│   ├─ 防誤刪     → Resource Lock
+│   └─ 成本歸屬   → Tags + Cost Analysis
+├─ Step 3：排除相似服務
+│   ├─ Monitor ≠ Service Health ≠ Advisor
+│   ├─ Pricing Calc ≠ Cost Analysis ≠ Budgets
+│   └─ Zone ≠ Region Pair ≠ 跨 Region 備援
+└─ Step 4：選符合全部限制且管理負擔最低的方案</pre>
+        </div>
       </div>
     </section>
 
