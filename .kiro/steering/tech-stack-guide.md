@@ -1,228 +1,84 @@
-# Steering Guide: Frontend Architecture & Code Style
+# Steering Guide: Current Project Architecture and Code Style
 
-## Tech Stack Guidelines
+## Project Stack
 
-### Framework Selection
-* **Primary Framework**: Vue 3 with Composition API using `<script setup>` syntax
-* **Alternative Framework**: React 18+ with Functional Components and Hooks (if explicitly requested)
-* **Key Decision Factors**:
-  - Vue 3 for rapid prototyping and component-driven architecture
-  - React for complex state management and enterprise-scale applications
-  - Both must support TypeScript strict mode
+- Vue 3, TypeScript, and Vite; use Composition API and `<script setup lang="ts">`.
+- Pinia for game, player, codex, and session state.
+- Vue Router for client-side navigation.
+- Vue I18n with English, Simplified Chinese, Japanese, Spanish, German, and French locale files in `src/i18n/locales/`.
+- Tailwind CSS for responsive styling.
+- Vitest and Vue Test Utils for unit/integration tests; Playwright for browser E2E tests.
+- Do not introduce React, another state library, a component framework, or a new dependency unless the task specifically requires it and the existing stack cannot meet the need.
 
-### Language & Type Safety
-* **TypeScript**: Version 5.0+ with strict mode enabled (`"strict": true`)
-* **Type Safety Rules**:
-  - NEVER use `any` type - always define explicit types
-  - All component props and emits must have TypeScript interfaces
-  - Use `unknown` instead of `any` for truly unknown types
-  - Leverage generics for reusable utilities and components
+## Repository Layout
 
-### Styling System
-* **Primary**: Tailwind CSS for utility-first styling
-* **Design Principles**:
-  - Mobile-first responsive design approach
-  - Consistent spacing scale and color palette
-  - Component-focused styling using `@apply` for custom components
-  - Dark mode support using `dark:` variants
-* **Component Library**: Use Headless UI or Radix Vue for accessible components
-
-### State Management
-* **Vue Ecosystem**: Pinia for centralized, modular state management
-* **React Ecosystem**: Zustand or Jotai for simplified, atomic state
-* **State Structure**:
-  - Separate game state from UI state
-  - Immutable updates using Immer or Vue's reactive system
-  - Persistence layer for game progress
-
-## Project Structure & Architecture
-
-### Directory Organization
-```
+```text
 src/
-├── types/              # TypeScript type definitions
-│   ├── game.ts        # Card, player, and game state interfaces
-│   └── az900.ts       # AZ-900 domain and service definitions
-├── components/         # Reusable UI components
-│   ├── cards/         # Card rendering components
-│   ├── board/         # Game board components
-│   └── ui/            # General UI components (buttons, modals)
-├── engine/            # Game logic and business rules
-│   ├── evaluator.ts   # Scenario evaluation logic
-│   ├── deck-manager.ts # Card deck management
-│   └── scoring.ts     # Score calculation utilities
-├── stores/            # State management (Pinia/Zustand stores)
-├── utils/             # Helper functions and utilities
-├── assets/            # Static assets (images, fonts)
-└── styles/            # Global styles and Tailwind configuration
+  components/       Shared layout, UI, card, board, codex, and game components
+  composables/      Reusable Vue behavior, including session resume
+  data/cards/       AZ-900 card JSON, grouped by the three game domains
+  data/codex/       Per-card learning entries
+  data/scenarios/   Scenario JSON grouped by category
+  engine/           Validation, scoring, and multiplayer evaluation
+  i18n/locales/     Six supported UI locales
+  stores/           Pinia game, player, codex, and session stores
+  types/            Game and engine TypeScript contracts
+  utils/            Data loading, persistence, errors, and performance utilities
+  views/            Home, quick match, multiplayer, codex, settings, topology map
+tests/
+  unit/             Unit and component tests
+  integration/      Game-flow and persistence tests
+  e2e/              Playwright user flows
 ```
 
-### Component Architecture
-* **Presentation Components**: Focus solely on rendering UI, no business logic
-* **Smart Components**: Handle game state and user interactions
-* **Compound Components**: For complex UI patterns like card decks and scenarios
-* **Code Splitting**: Use dynamic imports for large game components
+Use the existing domain types and helpers. Keep card/scenario content in the established JSON data files rather than duplicating it in components.
 
-## Code Conventions & Best Practices
+## TypeScript and Vue
 
-### Vue 3 Specific
-```vue
-<script setup lang="ts">
-// Use Composition API with <script setup>
-import { ref, computed } from 'vue'
-import type { Card } from '@/types/game'
+- Preserve strict type checking. Avoid `any`; use explicit domain types and narrow `unknown` at boundaries.
+- Type component props and emitted events. Prefer existing types in `src/types/game.ts` and `src/types/engine.ts`.
+- Keep components focused and use the established separation between views, reusable components, Pinia stores, engines, and data loaders.
+- Lazy-load route views and large data where the current project already does so.
+- Do not add React examples or APIs to project guidance.
 
-const props = defineProps<{
-  card: Card
-  isActive: boolean
-}>()
+## Routing and GitHub Pages
 
-const emit = defineEmits<{
-  select: [cardId: string]
-  discard: [cardId: string]
-}>()
+- The production host is GitHub Pages through `.github/workflows/deploy-pages.yml`, not Azure Static Web Apps.
+- `vite.config.ts` sets the production base to `/0930forkirounivsersity/` in GitHub Actions.
+- `src/router.ts` uses `createWebHashHistory(import.meta.env.BASE_URL)`. Deployed routes therefore look like `https://linjinhsien.github.io/0930forkirounivsersity/#/quick-match` and `/#/topology`.
+- Preserve hash-based routing. Do not switch to history mode or add a `404.html` workaround unless deployment behavior and all direct-route/refresh cases are deliberately re-evaluated.
+- Use Vue Router links for in-app navigation; do not hard-code root-relative anchors for application routes.
 
-const cardClass = computed(() => ({
-  'card-active': props.isActive,
-  'card-inactive': !props.isActive,
-  [`domain-${props.card.domain}`]: true
-}))
-</script>
+## Styling, Accessibility, and Localization
 
-<template>
-  <div 
-    :class="cardClass"
-    @click="emit('select', card.id)"
-    @contextmenu.prevent="emit('discard', card.id)"
-  >
-    <!-- Card content -->
-  </div>
-</template>
+- Use existing Tailwind patterns and mobile-first responsive layouts.
+- Preserve semantic HTML, keyboard operation, visible focus, accessible names, and ARIA patterns already used by the UI.
+- Add UI copy to all six locale JSON files when it is intended to be translated; English is the fallback locale.
+- The topology map is an interactive learning view at `/#/topology`; maintain keyboard-operable node selection and its source links when changing it.
+
+## State and Persistence
+
+- Use Pinia stores for shared game/player/codex/session state and Vue reactivity for view-local state.
+- Session persistence is browser-local, with expiry/resume behavior in the session store and related utilities. Do not imply server-side accounts, cloud sync, or multiplayer networking; multiplayer is a local two-player clash.
+- Surface storage and loading failures using the project's explicit error/status patterns.
+
+## Quality Commands
+
+Run the narrowest relevant checks, and run the full build/type check before shipping code changes:
+
+```sh
+npm run lint
+npm run format:check
+npm run type-check
+npm run test:unit
+npx playwright test <relevant-spec> --workers=1
+npm run build
 ```
 
-### React Specific
-```tsx
-import React from 'react'
-import type { Card } from '@/types/game'
+`npm run lint` invokes ESLint with `--fix`; be aware it may modify files. `npm run test:coverage` is available for coverage reporting. The Pages deployment workflow runs lint, formatting, type checking, unit tests, and the production build before deploying.
 
-interface CardProps {
-  card: Card
-  isActive: boolean
-  onSelect: (cardId: string) => void
-  onDiscard: (cardId: string) => void
-}
+## Git and Changes
 
-const CardComponent: React.FC<CardProps> = ({ 
-  card, 
-  isActive, 
-  onSelect, 
-  onDiscard 
-}) => {
-  const handleClick = () => onSelect(card.id)
-  const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault()
-    onDiscard(card.id)
-  }
-
-  return (
-    <div 
-      className={`card ${isActive ? 'card-active' : 'card-inactive'} domain-${card.domain}`}
-      onClick={handleClick}
-      onContextMenu={handleContextMenu}
-    >
-      {/* Card content */}
-    </div>
-  )
-}
-```
-
-### Type Definitions Example
-```typescript
-// src/types/game.ts
-export interface AzureCard {
-  id: string
-  name: string
-  domain: 'cloud-concepts' | 'azure-services' | 'management-governance'
-  cost: number
-  synergyTags: string[]
-  az900ExamTip: string
-  description: string
-  power: number
-  requirements?: string[]
-}
-
-export interface GameState {
-  deck: AzureCard[]
-  hand: AzureCard[]
-  board: AzureCard[]
-  currentScenario: Scenario
-  playerScore: number
-  round: number
-}
-
-export interface Scenario {
-  id: string
-  title: string
-  description: string
-  requirements: ScenarioRequirement[]
-  constraints: string[]
-  maxRounds: number
-}
-
-export interface ScenarioRequirement {
-  type: 'service' | 'concept' | 'governance'
-  value: string
-  weight: number
-}
-```
-
-## Development Workflow
-
-### Git & Version Control
-* **Branch Strategy**: Feature branches from `main` with descriptive names
-* **Commit Messages**: Conventional Commits format
-* **Code Review**: All PRs require review before merge
-* **Git Hooks**: Pre-commit hooks for linting and type checking
-
-### Testing Strategy
-* **Unit Tests**: Vitest for Vue components, Jest for React
-* **Component Tests**: Vue Testing Library or React Testing Library
-* **Integration Tests**: Playwright for end-to-end game scenarios
-* **Test Coverage**: Minimum 80% coverage for game engine logic
-
-### Performance Optimization
-* **Bundle Optimization**: Code splitting and lazy loading
-* **Memory Management**: Proper cleanup of game state and event listeners
-* **Rendering Performance**: Virtual scrolling for large card decks
-* **Asset Optimization**: Compressed images and fonts
-
-## Deployment & DevOps
-
-### Build Configuration
-* **Development**: Hot module replacement and source maps
-* **Production**: Minification, tree-shaking, and chunk optimization
-* **Environment Variables**: Separate configs for development, staging, production
-
-### Hosting & CI/CD
-* **Static Hosting**: Azure Static Web Apps, Vercel, or Netlify
-* **CI/CD Pipeline**: Automated tests, linting, and deployment
-* **Monitoring**: Error tracking and performance monitoring
-
-## Accessibility & Internationalization
-
-### Accessibility Requirements
-* **WCAG 2.1 AA Compliance**: All game components must be accessible
-* **Keyboard Navigation**: Full game control via keyboard
-* **Screen Reader Support**: ARIA labels and semantic HTML
-* **Color Contrast**: Minimum 4.5:1 ratio for text
-
-### Internationalization (i18n)
-* **Framework**: Vue I18n or react-i18next
-* **Language Support**: English (primary), with expansion capability
-* **Localization**: Date formats, number formats, and currency
-
-## Security Considerations
-* **Input Validation**: Sanitize all user inputs
-* **XSS Protection**: Use framework-safe templating
-* **API Security**: HTTPS-only communications
-* **Data Protection**: Encrypt sensitive game state if persisted
+- Make focused changes and preserve unrelated worktree changes.
+- Use the repository's existing formatting, tests, and Conventional Commit style.
+- Do not commit credentials or secrets. Treat all `VITE_` environment variables as public because they are bundled into browser assets.

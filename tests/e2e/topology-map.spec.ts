@@ -9,6 +9,19 @@ test('AZ-900 knowledge topology is discoverable and connects exam concepts', asy
   await expect(page.getByRole('heading', { name: '資源管理階層' })).toBeVisible()
   await expect(page.getByRole('heading', { name: '全球基礎設施' })).toBeVisible()
   await expect(page.getByRole('heading', { name: '成本治理與 FinOps' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day 7 · 核心架構階段複習' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day 28 · 題型與情境推理' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day 29 · 隨機情境模擬（一）' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day 30 · 跨域情境終局拓樸' })).toBeVisible()
+  for (const day of [7, 27, 28, 29, 30]) {
+    await expect(page.getByRole('link', { name: `Day ${day} 練習頁原始碼` })).toHaveAttribute(
+      'href',
+      `https://github.com/linjinhsien/linjinhsien.github.io/blob/main/day${day}.html`
+    )
+  }
+
+  await page.getByRole('button', { name: /跨訂用帳戶治理階層/ }).click()
+  await expect(page.getByTestId('topology-node-detail')).toContainText('Management Group')
 
   await page.getByRole('button', { name: /Azure Policy/ }).click()
   await expect(page.getByTestId('topology-node-detail')).toContainText('Policy 管合規')
