@@ -16,7 +16,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   cardDropped: [slotId: string, cardId: string]
-  cardRemoved: [slotId: string]
   slotClicked: [slotId: string]
 }>()
 
@@ -35,7 +34,9 @@ const ariaLabel = computed<string>(() => {
   const occupied = props.architectureSlot.card
     ? `occupied by ${props.architectureSlot.card.name}`
     : 'empty'
-  return `${props.architectureSlot.type} slot, ${occupied}`
+  return props.architectureSlot.card
+    ? `${props.architectureSlot.type} slot, ${occupied}, click to remove or replace`
+    : `${props.architectureSlot.type} slot, ${occupied}`
 })
 
 const slotClasses = computed<string>(() => {
