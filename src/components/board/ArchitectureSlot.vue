@@ -94,13 +94,13 @@ function handleKeyActivate(event: KeyboardEvent): void {
 <template>
   <div
     :class="slotClasses"
-    :role="architectureSlot.card ? undefined : 'button'"
-    :tabindex="architectureSlot.card ? undefined : 0"
+    role="button"
+    :tabindex="0"
     :aria-label="ariaLabel"
     @dragover.prevent
     @drop="handleDrop"
-    @click="!architectureSlot.card && handleClick()"
-    @keydown="!architectureSlot.card && handleKeyActivate($event)"
+    @click="handleClick"
+    @keydown="handleKeyActivate"
   >
     <!-- Empty state -->
     <template v-if="!architectureSlot.card">
@@ -123,7 +123,7 @@ function handleKeyActivate(event: KeyboardEvent): void {
         <button
           type="button"
           class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          :aria-label="\`Replace \${architectureSlot.card.name}\`"
+          :aria-label="`Replace ${architectureSlot.card.name}`"
           @click="handleReplace"
         >
           更換卡片
@@ -131,7 +131,7 @@ function handleKeyActivate(event: KeyboardEvent): void {
         <button
           type="button"
           class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
-          :aria-label="\`Return \${architectureSlot.card.name} to hand\`"
+          :aria-label="`Return ${architectureSlot.card.name} to hand`"
           @click="handleRemove"
         >
           移回手牌
