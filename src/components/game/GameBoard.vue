@@ -162,18 +162,21 @@ async function handleSlotDrop(slotId: string, cardId: string): Promise<void> {
 }
 
 async function handleSlotClick(slotId: string): Promise<void> {
-  if (!selectedCard.value) return
-  const cardId = selectedCard.value.id
-  const success = gameStore.placeCard(cardId, slotId)
-  if (success) {
-    selectedCard.value = null
-    emit('cardPlaced', cardId, slotId)
-  }
-}
+  if (selectedCard.value) {
+    const cardId = selectedCard.value.id
+    const slot = gameStore.gameState?.slots.find((item) => item.id === slotId)
+    const success = slot?.card
+      ? gameStore.replaceCard(cardId, slotId)
+      : gameStore.placeCard(cardId, slotId)
 
-function handleCardRemoved(slotId: string): void {
+    if (success) {
+      selectedCard.value = null
+      emit('cardPlaced', cardId, slotId)
+    }
+    return
+  }
+
   gameStore.removeCard(slotId)
-  // De-select any lingering selection after a removal
   selectedCard.value = null
 }
 
@@ -241,7 +244,6 @@ function handleSubmit(): void {
           :architecture-slot="slot"
           :is-highlighted="isSlotHighlighted && !slot.card"
           @card-dropped="handleSlotDrop"
-          @card-removed="handleCardRemoved"
           @slot-clicked="handleSlotClick"
         />
 
