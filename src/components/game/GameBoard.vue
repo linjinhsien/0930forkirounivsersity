@@ -40,6 +40,7 @@ const codexStore = useCodexStore()
 // ---------------------------------------------------------------------------
 
 const selectedCard = ref<AzureCard | null>(null)
+const replacementSlotId = ref<string | null>(null)
 
 const timeRemaining = ref<number>(props.timeLimit ?? (props.mode === 'quick-match' ? 45 : 120))
 
@@ -146,10 +147,23 @@ onUnmounted(() => {
 // ---------------------------------------------------------------------------
 
 function handleCardSelected(card: AzureCard): void {
+  if (replacementSlotId.value) {
+    const slotId = replacementSlotId.value
+    if (gameStore.replaceCard(card.id, slotId)) {
+      replacementSlotId.value = null
+      selectedCard.value = null
+      emit('cardPlaced', card.id, slotId)
+    }
+    return
+  }
   selectedCard.value = selectedCard.value?.id === card.id ? null : card
 }
 
 function handleCardDragStart(card: AzureCard): void {
+  if (replacementSlotId.value) {
+    selectedCard.value = card
+    return
+  }
   selectedCard.value = card
 }
 
@@ -164,19 +178,23 @@ async function handleSlotDrop(slotId: string, cardId: string): Promise<void> {
 async function handleSlotClick(slotId: string): Promise<void> {
   if (selectedCard.value) {
     const cardId = selectedCard.value.id
-    const slot = gameStore.gameState?.slots.find((item) => item.id === slotId)
-    const success = slot?.card
-      ? gameStore.replaceCard(cardId, slotId)
-      : gameStore.placeCard(cardId, slotId)
+    const success = gameStore.placeCard(cardId, slotId)
 
     if (success) {
       selectedCard.value = null
       emit('cardPlaced', cardId, slotId)
     }
-    return
   }
+}
 
+function handleReplaceRequested(slotId: string): void {
+  replacementSlotId.value = slotId
+  selectedCard.value = null
+}
+
+function handleRemoveRequested(slotId: string): void {
   gameStore.removeCard(slotId)
+  if (replacementSlotId.value === slotId) replacementSlotId.value = null
   selectedCard.value = null
 }
 
@@ -245,6 +263,8 @@ function handleSubmit(): void {
           :is-highlighted="isSlotHighlighted && !slot.card"
           @card-dropped="handleSlotDrop"
           @slot-clicked="handleSlotClick"
+          @replace-requested="handleReplaceRequested"
+          @remove-requested="handleRemoveRequested"
         />
 
         <!-- Empty-board placeholder when no slots are loaded yet -->
@@ -268,6 +288,23 @@ function handleSubmit(): void {
           @click="handleSubmit"
         >
           Submit Solution
+        </button>
+      </div>
+
+      <!-- Replacement mode -->
+      <div
+        v-if="replacementSlotId"
+        role="status"
+        aria-live="polite"
+        class="rounded-xl border-2 border-blue-400 bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:border-blue-700 dark:bg-blue-950/40 dark:text-blue-200"
+      >
+        已進入換牌模式：請從下方手牌選擇要替換的卡片。
+        <button
+          type="button"
+          class="ml-2 font-semibold underline"
+          @click="replacementSlotId = null"
+        >
+          取消
         </button>
       </div>
 
