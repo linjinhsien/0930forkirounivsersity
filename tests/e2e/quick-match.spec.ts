@@ -48,14 +48,13 @@ test.describe('quick-match end-to-end flow', () => {
     await page.getByRole('button', { name: 'compute slot, empty' }).click()
     await expect(page.getByRole('button', { name: new RegExp(`compute slot, occupied by`) })).toBeVisible()
 
-    await secondCard.click()
-    const occupiedSlot = page.getByRole('button', { name: /compute slot, occupied by/ })
-    await occupiedSlot.click()
+    const occupiedCardName = firstName!.split(',')[0]
+    await page.getByRole('button', { name: new RegExp(`Replace ${occupiedCardName}`, 'i') }).click()
+    await expect(page.getByRole('status')).toContainText('已進入換牌模式')
 
-    await expect(page.getByRole('button', { name: /compute slot, occupied by/ })).toHaveAttribute(
-      'aria-label',
-      expect.stringContaining(secondName!.split(',')[0])
-    )
+    await secondCard.click()
+
+    await expect(page.getByRole('status')).toHaveCount(0)
     await expect(cards.getByRole('button')).toHaveCount(8)
   })
 
