@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   cardDropped: [slotId: string, cardId: string]
   slotClicked: [slotId: string]
+  replaceRequested: [slotId: string]
+  removeRequested: [slotId: string]
 }>()
 
 const SLOT_ICONS: Record<ArchitectureSlotType['type'], string> = {
@@ -34,9 +36,7 @@ const ariaLabel = computed<string>(() => {
   const occupied = props.architectureSlot.card
     ? `occupied by ${props.architectureSlot.card.name}`
     : 'empty'
-  return props.architectureSlot.card
-    ? `${props.architectureSlot.type} slot, ${occupied}, click to remove or replace`
-    : `${props.architectureSlot.type} slot, ${occupied}`
+  return `${props.architectureSlot.type} slot, ${occupied}`
 })
 
 const slotClasses = computed<string>(() => {
@@ -75,12 +75,16 @@ function handleClick(): void {
   emit('slotClicked', props.architectureSlot.id)
 }
 
-function handleOccupiedCardClick(): void {
-  emit('slotClicked', props.architectureSlot.id)
+function handleReplace(): void {
+  emit('replaceRequested', props.architectureSlot.id)
+}
+
+function handleRemove(): void {
+  emit('removeRequested', props.architectureSlot.id)
 }
 
 function handleKeyActivate(event: KeyboardEvent): void {
-  if (event.key === 'Enter') {
+  if (event.key === 'Enter' || event.key === ' ') {
     event.preventDefault()
     emit('slotClicked', props.architectureSlot.id)
   }
@@ -90,13 +94,13 @@ function handleKeyActivate(event: KeyboardEvent): void {
 <template>
   <div
     :class="slotClasses"
-    role="button"
-    :tabindex="0"
+    :role="architectureSlot.card ? undefined : 'button'"
+    :tabindex="architectureSlot.card ? undefined : 0"
     :aria-label="ariaLabel"
     @dragover.prevent
     @drop="handleDrop"
-    @click="handleClick"
-    @keydown="handleKeyActivate"
+    @click="!architectureSlot.card && handleClick()"
+    @keydown="!architectureSlot.card && handleKeyActivate($event)"
   >
     <!-- Empty state -->
     <template v-if="!architectureSlot.card">
@@ -108,13 +112,31 @@ function handleKeyActivate(event: KeyboardEvent): void {
     </template>
 
     <!-- Occupied: render AzureCard -->
-    <AzureCard
-      v-else
-      :card="architectureSlot.card"
-      :is-placed="true"
-      :is-valid="isValid"
-      :is-draggable="false"
-      @click.stop="handleOccupiedCardClick"
-    />
+    <template v-else>
+      <AzureCard
+        :card="architectureSlot.card"
+        :is-placed="true"
+        :is-valid="isValid"
+        :is-draggable="false"
+      />
+      <div class="mt-2 flex gap-2" @click.stop>
+        <button
+          type="button"
+          class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          :aria-label="\`Replace \${architectureSlot.card.name}\`"
+          @click="handleReplace"
+        >
+          更換卡片
+        </button>
+        <button
+          type="button"
+          class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+          :aria-label="\`Return \${architectureSlot.card.name} to hand\`"
+          @click="handleRemove"
+        >
+          移回手牌
+        </button>
+      </div>
+    </template>
   </div>
 </template>
