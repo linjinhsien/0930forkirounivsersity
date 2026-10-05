@@ -84,6 +84,27 @@ describe('game store', () => {
     expect(store.gameState!.hand.some((item) => item.id === card.id)).toBe(true)
   })
 
+  it('replaces an occupied slot without drawing a new card', async () => {
+    const store = useGameStore()
+    await store.initializeGame('fixture-startup')
+
+    const originalCard = store.gameState!.hand[0]
+    const replacementCard = store.gameState!.hand[1]
+    store.placeCard(originalCard.id, 'compute-1')
+    const handBeforeReplacement = store.gameState!.hand.map((card) => card.id)
+    const deckSize = store.gameState!.deck.length
+
+    expect(store.replaceCard(replacementCard.id, 'compute-1')).toBe(true)
+    expect(store.gameState!.slots.find((slot) => slot.id === 'compute-1')?.card?.id).toBe(
+      replacementCard.id
+    )
+    expect(store.gameState!.hand.map((card) => card.id)).toEqual(
+      expect.arrayContaining([originalCard.id])
+    )
+    expect(store.gameState!.hand).toHaveLength(handBeforeReplacement.length)
+    expect(store.gameState!.deck).toHaveLength(deckSize)
+  })
+
   it('updates score and transitions to complete on submission', async () => {
     const store = useGameStore()
     await store.initializeGame('fixture-startup')
