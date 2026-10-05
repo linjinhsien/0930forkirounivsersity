@@ -32,6 +32,33 @@ test.describe('quick-match end-to-end flow', () => {
     await expect(page.getByText('You completed all three scenarios.')).toBeVisible()
   })
 
+  test('replaces an occupied slot with another card from the hand', async ({ page }) => {
+    await page.goto('/#/quick-match')
+
+    const cards = page.getByRole('list', { name: 'Cards in hand' })
+    const firstCard = cards.getByRole('button').first()
+    const secondCard = cards.getByRole('button').nth(1)
+
+    const firstName = await firstCard.getAttribute('aria-label')
+    const secondName = await secondCard.getAttribute('aria-label')
+    expect(firstName).toBeTruthy()
+    expect(secondName).toBeTruthy()
+
+    await firstCard.click()
+    await page.getByRole('button', { name: 'compute slot, empty' }).click()
+    await expect(page.getByRole('button', { name: new RegExp(`compute slot, occupied by`) })).toBeVisible()
+
+    await secondCard.click()
+    const occupiedSlot = page.getByRole('button', { name: /compute slot, occupied by/ })
+    await occupiedSlot.click()
+
+    await expect(page.getByRole('button', { name: /compute slot, occupied by/ })).toHaveAttribute(
+      'aria-label',
+      expect.stringContaining(secondName!.split(',')[0])
+    )
+    await expect(cards.getByRole('button')).toHaveCount(8)
+  })
+
   test('counts down and automatically submits when time expires', async ({ page }) => {
     await page.clock.install()
     await page.goto('/#/quick-match')
