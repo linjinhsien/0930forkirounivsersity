@@ -74,6 +74,10 @@ function handleClick(): void {
   emit('slotClicked', props.architectureSlot.id)
 }
 
+function handleOccupiedCardClick(): void {
+  emit('slotClicked', props.architectureSlot.id)
+}
+
 function handleKeyActivate(event: KeyboardEvent): void {
   if (event.key === 'Enter') {
     event.preventDefault()
@@ -109,7 +113,7 @@ function handleKeyActivate(event: KeyboardEvent): void {
       :is-placed="true"
       :is-valid="isValid"
       :is-draggable="false"
-      @click="emit('cardRemoved', architectureSlot.id)"
+      @click.stop="handleOccupiedCardClick"
     />
   </div>
 </template>
