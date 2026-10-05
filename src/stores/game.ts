@@ -196,6 +196,26 @@ export const useGameStore = defineStore('game', () => {
     return card
   }
 
+  /**
+   * Replace the card in an occupied slot without drawing a new card.
+   * The previous card returns to the hand and the selected hand card takes its place.
+   */
+  function replaceCard(cardId: string, slotId: string): boolean {
+    if (!gameState.value || gameState.value.status !== 'playing') return false
+
+    const slot = gameState.value.slots.find((item) => item.id === slotId)
+    const cardIndex = gameState.value.hand.findIndex((item) => item.id === cardId)
+    if (!slot || !slot.card || cardIndex < 0) return false
+
+    const [replacement] = gameState.value.hand.splice(cardIndex, 1)
+    const previousCard = slot.card
+    slot.card = replacement
+    gameState.value.hand.push(previousCard)
+    gameState.value.round += 1
+    validationResult.value = { isValid: true, timestamp: Date.now(), violations: [] }
+    return true
+  }
+
   function updateScore(score: ArchitectureScore): void {
     if (gameState.value) gameState.value.score = cloneScore(score)
   }
@@ -224,6 +244,7 @@ export const useGameStore = defineStore('game', () => {
     restoreGame,
     placeCard,
     removeCard,
+    replaceCard,
     updateScore,
     submitSolution,
     setValidationState,
