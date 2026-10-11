@@ -180,6 +180,77 @@ const paths: TopologyPath[] = [
     ],
   },
   {
+    id: 'osi-stack',
+    title: 'OSI 7 層模型與 Azure 網路服務對照',
+    domain: 'Domain 2 · Networking Deep Dive (OSI Layers 1–7)',
+    color: 'border-teal-300 bg-teal-50',
+    nodes: [
+      {
+        id: 'osi-l7',
+        label: 'Layer 7 · 應用層 (Application)',
+        subtitle: 'App Gateway · Front Door · WAF · APIM',
+        detail:
+          '第 7 層能夠解讀 HTTP/HTTPS 請求內容，支援 URL 路徑導流、多站點主機名稱託管、TLS/SSL 卸載，以及 WAF 規則過濾 (防禦 SQLi、XSS)。Front Door 提供全球 Layer 7 Anycast CDN 加速；API Management 提供 API 閘道治理。',
+        examTip:
+          '「根據 URL 路徑 (如 /images vs /api) 路由」、「防止 OWASP Top 10 網頁攻擊 (WAF)」或「SSL 終結」→ 必選 Application Gateway (含 WAF) 或 Azure Front Door。',
+      },
+      {
+        id: 'osi-l6',
+        label: 'Layer 6 · 展示層 (Presentation)',
+        subtitle: 'Key Vault · TLS/SSL 加密 · 格式轉換',
+        detail:
+          '負責資料表示、語法協定與加解密轉換。在 Azure 中對應 Key Vault 集中保管 TLS/SSL 憑證與金鑰；App Gateway / Front Door 執行硬體加速 TLS 解密；API Management 執行 XML 與 JSON 格式轉換。',
+        examTip:
+          '「集中管理憑證生命週期、防止金鑰外洩、符合 FIPS 硬體安全規範」→ 必選 Azure Key Vault。',
+      },
+      {
+        id: 'osi-l5',
+        label: 'Layer 5 · 會話層 (Session)',
+        subtitle: 'Cookie Affinity · Entra ID Token · 連線維持',
+        detail:
+          '管理端對端通信的連線會話、同步與維持。Azure Application Gateway 支援 Cookie-based Session Affinity (黏性工作階段)，確保同一用戶端連續請求導至同一後端伺服器；Microsoft Entra ID 管理 OAuth/OIDC 權杖會話與單一登入 (SSO)。',
+        examTip:
+          '「使用者購物車或連線狀態必須在整個操作階段維持在同一台後端 VM」→ 啟用 App Gateway Cookie-based Affinity。',
+      },
+      {
+        id: 'osi-l4',
+        label: 'Layer 4 · 傳輸層 (Transport)',
+        subtitle: 'Azure Load Balancer · Azure Firewall · NAT Gateway',
+        detail:
+          '依據 TCP/UDP 連接埠與 IP 進行四層傳輸與分流。Azure Load Balancer (ALB) 提供超低延遲、百萬級吞吐量的五元組負載平衡；Azure Firewall 透過 Network Rules 依連接埠控制流量；NAT Gateway 提供輸出 SNAT。',
+        examTip:
+          '「非 HTTP/HTTPS 協定 (如遊戲 UDP、資料庫 TCP 連線)」或「極低延遲第 4 層平衡」→ 選 Azure Load Balancer 而非 Application Gateway。',
+      },
+      {
+        id: 'osi-l3',
+        label: 'Layer 3 · 網路層 (Network)',
+        subtitle: 'VNet · UDR 路由表 · VPN Gateway · ExpressRoute',
+        detail:
+          '負責邏輯 IP 定址、封包路由與虛擬私網邊界。Azure VNet 提供隔離子網；Route Tables (UDR) 自訂下一跳 (Next Hop) 路由導流；VPN Gateway 提供 IPsec 加密站對站連線；ExpressRoute 透過 BGP 路由實現私有專線連線；DDoS Protection 抵禦巨量網路層洪水攻擊。',
+        examTip:
+          '「強制將所有連線導向自建防火牆 (NVA)」→ 用 UDR (Route Table)；「透過網際網路加密安全連線」→ 用 VPN Gateway；「不經網際網路之私有專線」→ 用 ExpressRoute。',
+      },
+      {
+        id: 'osi-l2',
+        label: 'Layer 2 · 資料鏈結層 (Data Link)',
+        subtitle: 'vNIC · VNet Virtual Switch · VXLAN 虛擬化',
+        detail:
+          '實體與虛擬網路介面之間的訊框 (Frame) 轉發與 MAC 定址。Azure 使用軟體定義網路 (SDN / Azure Network Fabric) 將所有 L2 流量以 VXLAN 封裝在實體網路上傳輸；VM 透過 vNIC 與虛擬交換器連接。',
+        examTip:
+          'Azure VNet 不支援廣播 (Broadcast) 或多播 (Multicast)；所有 L2 虛擬連線皆由 Azure 底層 SDN 嚴密隔離與轉換。',
+      },
+      {
+        id: 'osi-l1',
+        label: 'Layer 1 · 實體層 (Physical)',
+        subtitle: 'Microsoft 全球光纖骨幹 · ExpressRoute Direct',
+        detail:
+          '實體光纖、海底電纜、收發模組與實體資料中心設施。Microsoft 營運全球數十萬公里的暗光纖與海底電纜網絡；ExpressRoute Direct 支援以雙 100 Gbps 實體光纖直連 Microsoft Enterprise Edge (MSEE) 路由器。',
+        examTip:
+          'ExpressRoute 的核心價值在於「流量完全不經過公用網際網路」，提供實體級可靠性、最高頻寬與可預測延遲。',
+      },
+    ],
+  },
+  {
     id: 'governance',
     title: '身分、安全與治理',
     domain: 'Domain 3 · Management and governance',
@@ -757,6 +828,48 @@ const asciiBoxDiagram: Record<string, string> = {
 │  可靠性 / 復原                                           │
 │  Zone (單 DC 故障) → Region Pair (整區故障) → RTO/RPO    │
 └──────────────────────────────────────────────────────────┘`,
+  'osi-stack': `┌─────────────────────────────────────────────────────────────────┐
+│        🌐 OSI 7 層模型 ↔ Azure 雲端網路服務全對照 (AZ-900)        │
+├─────────────────────────────────────────────────────────────────┤
+│ [Layer 7 · Application 應用層]   (PDU: Data 資料)                │
+│ ├─ Azure Application Gateway (WAF, URL Path Routing, SSL Offload)│
+│ ├─ Azure Front Door (全球 Anycast L7 加速 + Global WAF + CDN)     │
+│ └─ Azure API Management (APIM 閘道) / Azure CDN                 │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 6 · Presentation 展示層]  (PDU: Data 資料)                │
+│ ├─ Azure Key Vault (TLS/SSL 憑證管理、金鑰與加密解密)             │
+│ └─ API Management (JSON ↔ XML 資料格式協定轉換)                  │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 5 · Session 會話層]       (PDU: Data 資料)                │
+│ ├─ Application Gateway Cookie-based Affinity (Sticky Session)   │
+│ └─ Microsoft Entra ID (OAuth 2.0 / OIDC 權杖會話與 SSO)          │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 4 · Transport 傳輸層]     (PDU: Segment 區段)             │
+│ ├─ Azure Load Balancer (TCP/UDP 五元組負載平衡、超低延遲)        │
+│ ├─ Azure Firewall (Network Rules: TCP/UDP 連接埠篩選)           │
+│ └─ NAT Gateway (對外 SNAT) / NSG Port Rules                      │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 3 · Network 網路層]       (PDU: Packet 封包)              │
+│ ├─ Azure Virtual Network (VNet / Subnet / 私有 IP CIDR)          │
+│ ├─ Route Tables (UDR 使用者自訂下一跳 Next Hop 路由)            │
+│ ├─ Azure VPN Gateway (Site-to-Site IPsec / Point-to-Site)       │
+│ ├─ ExpressRoute (BGP 路由專線) / Azure DDoS Protection          │
+│ └─ Network Security Groups (NSG: IP 來源與目的規則)              │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 2 · Data Link 資料鏈結層] (PDU: Frame 訊框)               │
+│ ├─ Virtual Network Interface Card (vNIC)                        │
+│ └─ Azure SDN Virtual Switch (VXLAN 封裝、無廣播/多播)            │
+│      │                                                          │
+│      ▼                                                          │
+│ [Layer 1 · Physical 實體層]      (PDU: Bit 位元)                 │
+│ ├─ Microsoft Global Network (全球暗光纖、跨洋海底電纜)           │
+│ └─ ExpressRoute Direct (10/100 Gbps 實體光纖直連 MSEE 邊緣)      │
+└─────────────────────────────────────────────────────────────────┘`,
 }
 
 // cxcxc-io 風格：每個 path 的單行 ASCII flow
@@ -765,6 +878,8 @@ const asciiFlow: Record<string, string> = {
   scope: '🏗️ Root MG → MG → Subscription → RG → Resource',
   global: '🌏 Geography → Region → AZ → Region Pair',
   workload: '🚦 User → DNS → VNet/NSG → Compute → Data',
+  'osi-stack':
+    '🌐 L7 應用 (AppGW/WAF) → L6 展示 (KeyVault) → L5 會話 (Cookie) → L4 傳輸 (ALB) → L3 網路 (VNet/UDR/VPN) → L2 鏈結 (vNIC) → L1 實體 (ExpressRoute/光纖)',
   governance: '🔐 Entra ID → RBAC → Policy → Locks/Tags → Monitor',
   'cost-governance': '💰 估算 → 部署 → Cost Analysis → Budgets → Tags → 折扣',
   'day-7-review': '📋 Day 7 · IaaS/PaaS/SaaS → 責任 → 階層 → AZ → 工具',
@@ -772,6 +887,202 @@ const asciiFlow: Record<string, string> = {
   'day-29-practice': '🎯 Day 29 · 遷移 → 運算 → 儲存 → 網路 → 治理 → 身分',
   'day-30-capstone': '🏆 Day 30 · Landing Zone → 零信任 → 安全分層 → FinOps',
 }
+
+interface KnowledgeCheckItem {
+  id: string
+  category: 'osi' | 'domain'
+  categoryLabel: string
+  question: string
+  options: string[]
+  answerIndex: number
+  explanation: string
+  examTip: string
+}
+
+const knowledgeCheckItems: KnowledgeCheckItem[] = [
+  {
+    id: 'kc-osi-1',
+    category: 'osi',
+    categoryLabel: '🌐 OSI Layer 7 應用層',
+    question:
+      '某電商平台需要在單一公用 IP 下，依據 URL 路徑將「/images/*」導向 Blob 儲存體、「/api/*」導向容器叢集，並需要防禦 SQL 資料隱碼與 XSS 攻擊，應選擇哪項服務？',
+    options: [
+      'Azure Load Balancer (標準層)',
+      'Azure Application Gateway (含 WAF v2)',
+      'Azure NAT Gateway',
+      'Azure Route Table (UDR)',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Application Gateway 運作於 OSI Layer 7 (應用層)，支援依據 HTTP/HTTPS 要求的 URL 路徑或主機名稱進行路由分流，並可整合 Web 應用程式防火牆 (WAF) 抵禦 OWASP Top 10 攻擊。',
+    examTip:
+      '「URL 路徑路由」、「SSL/TLS 卸載」或「WAF 防護 (SQLi / XSS)」→ 必選 Application Gateway 或全域 Azure Front Door。',
+  },
+  {
+    id: 'kc-osi-2',
+    category: 'osi',
+    categoryLabel: '🌐 OSI Layer 4 傳輸層',
+    question:
+      '某多人線上遊戲團隊需要為自訂 UDP 遊戲封包建立負載平衡，要求達到微秒級極低延遲與數百萬並行連線，且不涉及 HTTP 協定，應選擇哪項服務？',
+    options: [
+      'Azure Application Gateway',
+      'Azure Load Balancer',
+      'Azure Front Door',
+      'Azure API Management',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Azure Load Balancer 運作於 OSI Layer 4 (傳輸層)，基於 TCP/UDP 五元組 (來源/目的 IP、連接埠、協定) 進行硬體等級超低延遲分流，不拆解應用層封包。',
+    examTip:
+      '「非 HTTP/HTTPS 流量 (如純 TCP / UDP)」、「超低延遲負載分流」→ 必選 Azure Load Balancer。',
+  },
+  {
+    id: 'kc-osi-3',
+    category: 'osi',
+    categoryLabel: '🌐 OSI Layer 3 網路層',
+    question:
+      '企業內部資安政策要求：「所有部署於 Azure 子網路的虛擬機器，連往網際網路的輸出流量皆必須強制經過地端內部防火牆過濾，不可直接直連網際網路」，應使用何種網路功能？',
+    options: [
+      '使用 NSG 規則允許 443 連接埠',
+      '設定使用者定義路由 (UDR / Route Table) 將 0.0.0.0/0 的下一跳設為虛擬網路閘道 (強制通道 Forced Tunneling)',
+      '建立 Azure Bastion 主機',
+      '在每一台 VM 上啟用 Public IP',
+    ],
+    answerIndex: 1,
+    explanation:
+      '在 OSI Layer 3 (網路層)，Azure Route Table (UDR) 允許自訂下一跳 (Next Hop)。將 0.0.0.0/0 指向地端或 NVA 稱為「強制通道 (Forced Tunneling)」，可確保所有外網流量皆受稽核。',
+    examTip:
+      '「覆寫預設系統路由」、「自訂流量下一跳 (Next Hop)」→ 關鍵字一定是 UDR (Route Table)。',
+  },
+  {
+    id: 'kc-osi-4',
+    category: 'osi',
+    categoryLabel: '🌐 OSI Layer 1/2 實體與鏈結層',
+    question:
+      '金融機構需要將總部資料中心與 Azure 建立 10 Gbps 專屬連線，合規明確要求「傳輸流量絕對不可流經公用網際網路」，應選擇哪種連線技術？',
+    options: [
+      'Azure Site-to-Site VPN Gateway',
+      'Point-to-Site VPN',
+      'Azure ExpressRoute (或 ExpressRoute Direct)',
+      'Azure Virtual Network Peering',
+    ],
+    answerIndex: 2,
+    explanation:
+      'ExpressRoute 是透過連線服務提供者建立專屬私有連線，流量行經專用實體線路與 Microsoft 全球骨幹網路，完全不流經公用網際網路。VPN Gateway 雖然具備 IPsec 加密，但仍是在公用網際網路上傳輸。',
+    examTip:
+      '「不走公用網際網路 (Private Dedicated Connection)」、「最高頻寬可預測延遲」→ 必選 ExpressRoute。',
+  },
+  {
+    id: 'kc-domain-1',
+    category: 'domain',
+    categoryLabel: '☁️ Domain 1 · 雲端概念與經濟',
+    question:
+      '某新創企業在產品剛上線時無法準確預測每月的伺服器流量需求，希望能避免大量的前期伺服器採購費用，並能隨用戶增長自動彈性調整支出，這主要符合哪兩種雲端特徵？',
+    options: [
+      'CapEx (資本支出) 與 垂直擴展 (Scale Up)',
+      'OpEx (營運支出) 與 敏捷性 / 彈性 (Agility & Elasticity)',
+      '專用主機 (Dedicated Host) 與 私有雲 (Private Cloud)',
+      '高可用性 (High Availability) 與 靜態容量配置',
+    ],
+    answerIndex: 1,
+    explanation:
+      '雲端採用按使用量計費的消費模型，屬於 OpEx (營運支出)；而隨工作負載高低自動動態增減資源則體現了彈性 (Elasticity) 與敏捷性。',
+    examTip: 'CapEx = 前期買硬體 (折舊攤提)；OpEx = 用多少付多少 (持續營運費)。',
+  },
+  {
+    id: 'kc-domain-2',
+    category: 'domain',
+    categoryLabel: '⚙️ Domain 2 · 核心運算與容器',
+    question:
+      '開發團隊需要將現有 Web 網站遷移到雲端，要求「無需管理底層作業系統更新與修補程式，且支援自動向外擴展與自訂網域名稱 SSL 憑證」，該挑選何種運算服務？',
+    options: [
+      'Azure Virtual Machines (IaaS)',
+      'Azure App Service (PaaS)',
+      'Azure Kubernetes Service (AKS)',
+      'Azure Virtual Desktop (AVD)',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Azure App Service 是全受控的 PaaS 平台，專為 Web 應用程式設計，開發者只需部署程式碼，底層作業系統修補、硬體維護與自動擴展皆由 Azure 處理。',
+    examTip:
+      '要「完全掌控 OS、安裝特殊驅動」選 VM (IaaS)；要「只管程式碼、不管 OS 修補」選 App Service (PaaS)。',
+  },
+  {
+    id: 'kc-domain-3',
+    category: 'domain',
+    categoryLabel: '💾 Domain 3 · 資料儲存與資料庫',
+    question:
+      '某跨國物流系統要求資料庫具備「全球多區域即時低延遲寫入 (Multi-Region Write)」、「保證個位數毫秒讀寫」並提供 99.999% SLA，且資料為彈性 JSON 文件格式，應選何種資料庫？',
+    options: [
+      'Azure SQL Database',
+      'Azure Cosmos DB',
+      'Azure Database for PostgreSQL',
+      'Azure Table Storage',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Cosmos DB 是微軟全球分散式、多模型的 NoSQL 資料庫，支援全球分佈多區域同步寫入與極低延遲保證 (個位數毫秒)。',
+    examTip: '「全球分散」、「多區域寫入」、「毫秒級延遲」→ 關鍵字唯一指向 Azure Cosmos DB。',
+  },
+  {
+    id: 'kc-domain-4',
+    category: 'domain',
+    categoryLabel: '🔐 Domain 4 · 安全身分與零信任',
+    question:
+      '某企業導入零信任架構，要求：「若員工由公司受控網段外或非合規裝置登入時，必須強制進行多因素驗證 (MFA)；若是高風險登入則直接封鎖」，應使用 Entra ID 的哪項功能？',
+    options: [
+      'Azure RBAC 角色指派',
+      'Microsoft Entra 條件式存取 (Conditional Access)',
+      'Azure Resource Lock',
+      'Microsoft Defender for Cloud 安全態勢管理',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Conditional Access (條件式存取) 是零信任的核心防線，根據「If-Then」原則依據身分、位置、裝置狀態與即時風險判斷是否允許、要求 MFA 或直接封鎖。',
+    examTip:
+      '「依據地點/裝置/風險條件要求 MFA 或拒絕登入」→ 必選 Conditional Access (條件式存取)。',
+  },
+  {
+    id: 'kc-domain-5',
+    category: 'domain',
+    categoryLabel: '📊 Domain 5 · 治理合規與 FinOps',
+    question:
+      '財務主管在 Azure 建立了月預算 5,000 美元，並設定當支出達到 80% 時發出警示。當預算達到 100% 時，下列哪項敘述是正確的？',
+    options: [
+      'Azure 會立即自動強制關閉所有運作中的 VM 以防超額',
+      'Azure 會發送警示通知管理員，但預設不會自動停止或終止任何資源的運作',
+      '所有新建立資源的權限會被自動收回',
+      '訂用帳戶會被暫停直到補繳費用',
+    ],
+    answerIndex: 1,
+    explanation:
+      'Azure Budgets 預設只具備通知與監控功能 (Alerting)！超額時會向管理者發送警示信件，但「絕對不會自動關閉或刪除資源」，除非管理者額外透過 Action Group 自行設定自動化 Runbook。',
+    examTip: '「Budgets 超額會不會自動關閉 VM？」→ 考題經典陷阱！答案是「不會，只會發送警示」。',
+  },
+]
+
+const activeCheckCategory = ref<'all' | 'osi' | 'domain'>('all')
+const selectedAnswers = ref<Record<string, number>>({})
+const revealedAnswers = ref<Record<string, boolean>>({})
+
+function selectAnswer(itemId: string, optionIndex: number): void {
+  selectedAnswers.value = {
+    ...selectedAnswers.value,
+    [itemId]: optionIndex,
+  }
+}
+
+function toggleReveal(itemId: string): void {
+  revealedAnswers.value = {
+    ...revealedAnswers.value,
+    [itemId]: !revealedAnswers.value[itemId],
+  }
+}
+
+const filteredKnowledgeChecks = computed(() => {
+  if (activeCheckCategory.value === 'all') return knowledgeCheckItems
+  return knowledgeCheckItems.filter((item) => item.category === activeCheckCategory.value)
+})
 
 const selectedNodeId = ref(paths[0].nodes[0].id)
 const selectedNode = computed(() =>
@@ -910,6 +1221,212 @@ const selectedPath = computed(() =>
       </p>
     </section>
 
+    <!-- 🏛️ AZ-900 核心五大領域架構全景與決策矩陣 (5-Domain Deep-Dive Matrix) -->
+    <section class="mt-8 rounded-2xl border border-indigo-400 bg-slate-950 p-5 text-white sm:p-6">
+      <div
+        class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-indigo-800/80 pb-3"
+      >
+        <div>
+          <span
+            class="inline-block rounded-md bg-indigo-900/60 px-2.5 py-1 text-xs font-semibold text-indigo-300"
+          >
+            5-Domain Mastery
+          </span>
+          <h2 class="mt-1 text-xl font-bold tracking-tight text-white sm:text-2xl">
+            🏛️ AZ-900 核心五大領域架構全景矩陣
+          </h2>
+        </div>
+        <p class="text-xs text-indigo-200">
+          涵蓋考綱三大主領域與高頻架構延伸：運算、儲存、網路 (OSI)、治理身分與 FinOps 成本閉環
+        </p>
+      </div>
+
+      <pre class="overflow-x-auto font-mono text-xs leading-relaxed text-indigo-100 sm:text-sm">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              🏛️ AZ-900 核心五大知識領域深度檢核架構 (5-Domain)                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 1. ☁️ 雲端概念與經濟效益 (Cloud Concepts & Economics)                         │
+│    ├─ 部署模型：Public ↔ Private ↔ Hybrid (在地端與公雲整合)                  │
+│    ├─ 服務模型：IaaS (自管OS) ↔ PaaS (管程式碼/資料) ↔ SaaS (直接端點使用)    │
+│    ├─ 共同責任：無論何種模型，資料、身分與端點安全客戶永遠負有管理責任       │
+│    └─ 經濟效益：CapEx (前期硬體) ↔ OpEx (隨需持續營運費)、高可用性與彈性伸縮 │
+│                                                                             │
+│ 2. ⚙️ 核心運算、容器與無伺服器 (Compute, Containers & Serverless)             │
+│    ├─ VM (IaaS 完全掌控 OS) ↔ VMSS (虛擬機器擴展集，自動水平彈性伸縮)        │
+│    ├─ App Service (PaaS 快速部署 Web/API，內建自動調整規模與自訂網域 SSL)     │
+│    ├─ Functions (事件驅動無伺服器，按秒級計費，無請求時零閒置成本)          │
+│    ├─ ACI (單一容器秒級無伺服器啟動，免管底層 VM)                            │
+│    └─ AKS (大規模 Kubernetes 生產容器編排與服務網格)                         │
+│                                                                             │
+│ 3. 💾 全球資料與雲端儲存架構 (Storage & Databases)                          │
+│    ├─ Blob Storage：非結構化物件 (Hot 常用 / Cool 低頻 / Archive 封存數小時) │
+│    ├─ Azure Files：全受控雲端檔案共享 (標準 SMB 3.0 / NFS，支援地端直接掛載)  │
+│    ├─ Azure Disks：VM 專用虛擬硬碟 (Ultra / Premium SSD / Standard)          │
+│    ├─ Azure SQL Database：全受控 PaaS 關聯式 SQL Server，內建高可用性與備份  │
+│    └─ Azure Cosmos DB：全球分散式多模型 NoSQL (保證個位數毫秒讀寫，多區寫入) │
+│                                                                             │
+│ 4. 🌐 網路邊界與 OSI 七層協定 (Networking & OSI L1–L7 Stack)                 │
+│    ├─ L7 應用層：App Gateway (URL 路徑路由 + WAF) / Front Door (全球加速)    │
+│    ├─ L4 傳輸層：Azure Load Balancer (TCP/UDP 五元組超低延遲負載分流)        │
+│    ├─ L3 網路層：VNet (私有網段) / NSG (連接埠過濾) / UDR (自訂下一跳強導)   │
+│    └─ 混合互連：VPN Gateway (公網 IPsec 加密) ↔ ExpressRoute (私有專線不走公網)│
+│                                                                             │
+│ 5. 🔐 安全身分、治理合規與 FinOps (Security, Governance & Cost)              │
+│    ├─ 身分管理：Microsoft Entra ID (使用者/群組/受控身分 Managed Identity)   │
+│    ├─ 存取控制：Azure RBAC (誰可以在哪個 Scope 執行何種操作)                 │
+│    ├─ 組態合規：Azure Policy (評估與強制合規規則，如 Allowed Locations/Tags)│
+│    ├─ 資源鎖定：Resource Lock (CanNotDelete 防誤刪 / ReadOnly 唯讀防竄改)    │
+│    └─ FinOps 閉環：Pricing Calc (事前估算) → Cost Analysis (事後分析)        │
+│                    Budgets (門檻警示，不停機) → Tags (分類歸屬) → 承諾折扣   │
+└─────────────────────────────────────────────────────────────────────────────┘</pre>
+    </section>
+
+    <!-- 🧠 AZ-900 考點知識檢核 · Knowledge Check -->
+    <section
+      class="mt-8 rounded-2xl border border-teal-200 bg-white p-5 shadow-sm sm:p-6"
+      aria-labelledby="knowledge-check-title"
+    >
+      <div
+        class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-4"
+      >
+        <div>
+          <span
+            class="inline-block rounded-md bg-teal-100 px-2.5 py-1 text-xs font-semibold text-teal-800"
+          >
+            Interactive Quiz
+          </span>
+          <h2 id="knowledge-check-title" class="mt-1 text-2xl font-bold text-gray-900">
+            🧠 AZ-900 考點知識檢核 · Knowledge Check
+          </h2>
+          <p class="mt-1 text-sm text-gray-600">
+            包含 OSI Layer 1–7 網路通訊協定對照與 AZ-900
+            五大架構領域關鍵辨析，點選選項直接檢視解析與考點陷阱。
+          </p>
+        </div>
+
+        <!-- 類別篩選按鈕 -->
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Knowledge check filter">
+          <button
+            type="button"
+            class="rounded-lg px-3 py-1.5 text-xs font-semibold transition"
+            :class="
+              activeCheckCategory === 'all'
+                ? 'bg-teal-700 text-white shadow'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            "
+            @click="activeCheckCategory = 'all'"
+          >
+            全部題目 ({{ knowledgeCheckItems.length }})
+          </button>
+          <button
+            type="button"
+            class="rounded-lg px-3 py-1.5 text-xs font-semibold transition"
+            :class="
+              activeCheckCategory === 'osi'
+                ? 'bg-teal-700 text-white shadow'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            "
+            @click="activeCheckCategory = 'osi'"
+          >
+            🌐 OSI Layer 1–7 (4)
+          </button>
+          <button
+            type="button"
+            class="rounded-lg px-3 py-1.5 text-xs font-semibold transition"
+            :class="
+              activeCheckCategory === 'domain'
+                ? 'bg-teal-700 text-white shadow'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            "
+            @click="activeCheckCategory = 'domain'"
+          >
+            🏛️ 五大領域核心 (5)
+          </button>
+        </div>
+      </div>
+
+      <!-- 題目清單 -->
+      <div class="space-y-6">
+        <article
+          v-for="(item, qIndex) in filteredKnowledgeChecks"
+          :key="item.id"
+          class="rounded-xl border border-gray-200 bg-gray-50/50 p-4 transition sm:p-5"
+        >
+          <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <span class="rounded bg-teal-100 px-2 py-0.5 text-xs font-bold text-teal-800">
+              {{ item.categoryLabel }}
+            </span>
+            <span class="text-xs text-gray-400">Question {{ qIndex + 1 }}</span>
+          </div>
+
+          <h3 class="text-base font-semibold text-gray-900 leading-snug">
+            {{ item.question }}
+          </h3>
+
+          <!-- 選項清單 -->
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            <button
+              v-for="(option, optIndex) in item.options"
+              :key="optIndex"
+              type="button"
+              class="rounded-lg border p-3 text-left text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-600"
+              :class="
+                selectedAnswers[item.id] === optIndex
+                  ? selectedAnswers[item.id] === item.answerIndex
+                    ? 'border-emerald-500 bg-emerald-50 text-emerald-950 font-medium'
+                    : 'border-amber-500 bg-amber-50 text-amber-950 font-medium'
+                  : 'border-gray-200 bg-white hover:border-teal-300 hover:bg-teal-50/40 text-gray-800'
+              "
+              @click="selectAnswer(item.id, optIndex)"
+            >
+              <div class="flex items-start gap-2">
+                <span class="font-mono text-xs font-bold text-gray-500">
+                  {{ String.fromCharCode(65 + optIndex) }}.
+                </span>
+                <span class="flex-1">{{ option }}</span>
+                <span
+                  v-if="selectedAnswers[item.id] === optIndex"
+                  class="text-xs font-bold"
+                  :class="
+                    selectedAnswers[item.id] === item.answerIndex
+                      ? 'text-emerald-700'
+                      : 'text-amber-700'
+                  "
+                >
+                  {{ selectedAnswers[item.id] === item.answerIndex ? '✓ 正確' : '✕ 再想想' }}
+                </span>
+              </div>
+            </button>
+          </div>
+
+          <!-- 解析切換按鈕 -->
+          <div class="mt-4 flex items-center justify-between">
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-600"
+              @click="toggleReveal(item.id)"
+            >
+              {{ revealedAnswers[item.id] ? '隱藏考點詳解 ▲' : '檢視考點詳解與陷阱分析 ▼' }}
+            </button>
+            <span v-if="selectedAnswers[item.id] !== undefined" class="text-xs text-gray-500">
+              正確解答：選項 {{ String.fromCharCode(65 + item.answerIndex) }}
+            </span>
+          </div>
+
+          <!-- 答案與解析區塊 -->
+          <div
+            v-if="revealedAnswers[item.id]"
+            class="mt-3 rounded-lg border border-teal-200 bg-teal-50/80 p-3.5 text-xs text-teal-950"
+          >
+            <p class="font-bold text-teal-900">💡 詳解：{{ item.explanation }}</p>
+            <p class="mt-1.5 text-teal-800">
+              <span class="font-bold">🎯 考點陷阱提示：</span>{{ item.examTip }}
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <!-- cxcxc-io 風格：跨域解題路徑 ASCII tree -->
     <section class="mt-8 rounded-2xl border border-gray-800 bg-gray-950 p-5 sm:p-6">
       <h2 class="text-base font-semibold uppercase tracking-widest text-emerald-400">
@@ -1005,6 +1522,61 @@ const selectedPath = computed(() =>
 │   ├─ Pricing Calc ≠ Cost Analysis ≠ Budgets
 │   └─ Zone ≠ Region Pair ≠ 跨 Region 備援
 └─ Step 4：選符合全部限制且管理負擔最低的方案</pre>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-teal-400">🌐 OSI 7 層 ↔ Azure 網路架構樹</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+OSI 7 層通訊協定
+├─ L7 應用層 (Application)
+│   ├─ Application Gateway (URL 路由 + WAF)
+│   ├─ Azure Front Door (全球 Anycast CDN + WAF)
+│   └─ Azure API Management / Azure CDN
+├─ L6 展示層 (Presentation)
+│   ├─ Azure Key Vault (TLS/SSL 憑證金鑰集中管理)
+│   └─ API Management (JSON ↔ XML 格式轉換)
+├─ L5 會話層 (Session)
+│   ├─ App Gateway Cookie-based Affinity (黏性連線)
+│   └─ Entra ID (OAuth 2.0 / OIDC 權杖會話)
+├─ L4 傳輸層 (Transport)
+│   ├─ Azure Load Balancer (TCP/UDP 五元組低延遲分流)
+│   ├─ Azure Firewall (連接埠與協定 Network Rules)
+│   └─ NAT Gateway (對外 SNAT) / NSG Port 篩選
+├─ L3 網路層 (Network)
+│   ├─ Azure Virtual Network (VNet 私有 IP 隔離)
+│   ├─ Route Tables / UDR (強制自訂下一跳 Next Hop)
+│   ├─ VPN Gateway (網際網路 IPsec 加密連線)
+│   └─ Azure ExpressRoute (專屬私網 BGP 路由)
+├─ L2 資料鏈結層 (Data Link)
+│   ├─ vNIC (虛擬網路介面卡)
+│   └─ Azure SDN Virtual Switch (VXLAN 封裝)
+└─ L1 實體層 (Physical)
+    ├─ Microsoft Global Network (全球暗光纖骨幹)
+    └─ ExpressRoute Direct (100 Gbps 實體光纖直連)</pre>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
+          <p class="mb-2 text-xs font-semibold text-indigo-400">🏛️ AZ-900 五大架構領域決策總成樹</p>
+          <pre class="font-mono text-xs leading-relaxed text-gray-200">
+AZ-900 五大架構領域
+├─ 1. 雲端概念與效益
+│   ├─ 責任邊界：SaaS > PaaS > IaaS（客戶管資料身分）
+│   └─ 經濟效益：CapEx (買硬體) ↔ OpEx (用多少付多少)
+├─ 2. 運算與無伺服器
+│   ├─ IaaS：VM (自管 OS 修補) / VMSS (水平擴展)
+│   ├─ PaaS：App Service (免管 OS，專注 Web 程式碼)
+│   └─ Serverless：Functions (事件秒級) / ACI (單容器)
+├─ 3. 儲存與全球資料
+│   ├─ 物件：Blob (Hot 常用 / Cool 低頻 / Archive 封存)
+│   ├─ 檔案：Azure Files (標準 SMB/NFS 跨地端共用)
+│   └─ 資料庫：Azure SQL (關聯式) ↔ Cosmos DB (全球 NoSQL)
+├─ 4. 網路與邊界安全
+│   ├─ 流量分流：ALB (L4 TCP/UDP) ↔ AppGW (L7 URL+WAF)
+│   └─ 混合互連：VPN (公網加密) ↔ ExpressRoute (私線專屬)
+└─ 5. 身分、治理與成本
+    ├─ 授權合規：RBAC (管人與動作) ↔ Policy (管資源組態)
+    ├─ 防護鎖定：Resource Lock (CanNotDelete / ReadOnly)
+    └─ FinOps：Pricing Calc (事前) ↔ Budgets (警示不停機)</pre>
         </div>
       </div>
     </section>
