@@ -1104,12 +1104,33 @@ const selectedPath = computed(() =>
         從三大考綱領域出發，把雲端概念、Azure 架構服務、成本管理與治理考點串成可追蹤的知識路徑。Day
         7 與 Day 27–30 各自有獨立複習路徑；選取節點查看概念說明與考試辨識重點。
       </p>
-      <RouterLink
-        to="/codex"
-        class="mt-4 inline-flex text-sm font-semibold text-blue-700 underline"
-      >
-        前往 Azure 架構圖鑑查看服務卡牌
-      </RouterLink>
+      <div class="mt-4 flex flex-wrap items-center gap-2">
+        <RouterLink
+          to="/codex"
+          class="inline-flex items-center text-sm font-semibold text-blue-700 underline"
+        >
+          前往 Azure 架構圖鑑查看服務卡牌
+        </RouterLink>
+        <span class="text-gray-300">·</span>
+        <a
+          href="#osi-stack"
+          class="rounded-lg border border-teal-200 bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 transition hover:bg-teal-100"
+        >
+          ⚡ 直達：OSI 7 層模型對照
+        </a>
+        <a
+          href="#five-domain-matrix"
+          class="rounded-lg border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-800 transition hover:bg-indigo-100"
+        >
+          🏛️ 直達：五大領域架構矩陣
+        </a>
+        <a
+          href="#knowledge-check"
+          class="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 transition hover:bg-emerald-100"
+        >
+          🧠 直達：考點自我檢核 Quiz
+        </a>
+      </div>
     </header>
 
     <!-- cxcxc-io 風格：跨域 ASCII 工作負載架構圖 -->
@@ -1151,6 +1172,7 @@ const selectedPath = computed(() =>
       <section
         v-for="path in paths"
         :key="path.id"
+        :id="path.id"
         class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6"
         :aria-labelledby="`${path.id}-title`"
       >
@@ -1222,7 +1244,10 @@ const selectedPath = computed(() =>
     </section>
 
     <!-- 🏛️ AZ-900 核心五大領域架構全景與決策矩陣 (5-Domain Deep-Dive Matrix) -->
-    <section class="mt-8 rounded-2xl border border-indigo-400 bg-slate-950 p-5 text-white sm:p-6">
+    <section
+      id="five-domain-matrix"
+      class="mt-8 rounded-2xl border border-indigo-400 bg-slate-950 p-5 text-white sm:p-6"
+    >
       <div
         class="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-indigo-800/80 pb-3"
       >
@@ -1283,6 +1308,7 @@ const selectedPath = computed(() =>
 
     <!-- 🧠 AZ-900 考點知識檢核 · Knowledge Check -->
     <section
+      id="knowledge-check"
       class="mt-8 rounded-2xl border border-teal-200 bg-white p-5 shadow-sm sm:p-6"
       aria-labelledby="knowledge-check-title"
     >
