@@ -62,13 +62,15 @@ const navigation = [
           :data-testid="
             item.to === '/'
               ? 'nav-home'
-              : item.to === '/codex'
-                ? 'nav-codex'
-                : item.to === '/topology'
-                  ? 'nav-topology'
-                  : item.to === '/settings'
-                    ? 'nav-settings'
-                    : undefined
+              : item.to === '/quick-match'
+                ? 'nav-game'
+                : item.to === '/codex'
+                  ? 'nav-codex'
+                  : item.to === '/topology'
+                    ? 'nav-topology'
+                    : item.to === '/settings'
+                      ? 'nav-settings'
+                      : undefined
           "
           role="link"
           :aria-label="t(item.labelKey)"

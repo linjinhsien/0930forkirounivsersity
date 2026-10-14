@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { setLocale } from '@/i18n'
 import { usePlayerStore } from '@/stores/player'
 import { useSessionStore } from '@/stores/session'
 import type { PlayerProfile } from '@/types/game'
@@ -44,10 +45,11 @@ watch(
   { deep: true, immediate: true }
 )
 
-function setLanguage(value: string): void {
+async function setLanguage(value: string): Promise<void> {
   const language = languageOptions.find((option) => option.value === value)?.value
   if (!language) return
   playerStore.setLanguage(language)
+  await setLocale(language)
   try {
     localStorage.setItem('az900-language', language)
   } catch (error) {

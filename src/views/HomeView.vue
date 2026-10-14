@@ -30,12 +30,14 @@ const profile = computed(() => playerStore.profile)
       <div class="mt-8 flex flex-wrap gap-3">
         <RouterLink
           to="/quick-match"
+          data-testid="quick-match-cta"
           class="rounded-lg bg-white px-5 py-3 font-semibold text-blue-900 shadow hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           {{ t('home.quickMatch') }}
         </RouterLink>
         <RouterLink
           to="/multiplayer"
+          data-testid="multiplayer-cta"
           class="rounded-lg border border-white/70 px-5 py-3 font-semibold text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           {{ t('home.multiplayer') }}
