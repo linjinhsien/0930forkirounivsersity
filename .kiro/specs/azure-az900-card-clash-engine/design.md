@@ -1835,19 +1835,54 @@ export function setupFallbacks() {
 
 ## Testing Strategy
 
-### Testing Approach
+### Dual Testing Approach (Example-Based + Property-Based Testing)
 
-This feature is **suitable for property-based testing** because it involves:
-- Game logic with clear input/output behavior (card placements → validation results)
-- Scoring algorithms that should satisfy universal properties
-- State transformations that maintain invariants
+Following [Kiro Spec Correctness (`kiro.dev/docs/specs/correctness`)](https://kiro.dev/docs/specs/correctness/), validation uses a dual testing strategy combining **example-based unit tests** and **property-based testing (PBT)** via `fast-check` and `vitest`:
 
-However, certain components are **NOT suitable for PBT**:
-- Vue component rendering (use snapshot tests instead)
-- UI interactions and layouts (use component tests with Vue Testing Library)
-- LocalStorage persistence (use example-based integration tests)
+- **Property-Based Tests (`fast-check`)**: Verify universal invariants across hundreds of randomly generated inputs (`numRuns >= 100`). When a property fails, `fast-check` shrinks the failing input to a minimal counterexample so Kiro can diagnose either the implementation bug or specification ambiguity.
+  - Game logic with clear input/output contracts (`ValidationEngine`, `ScoringEngine`, `EvaluatorEngine`)
+  - State transformations that maintain domain invariants (Difficulty scaling boundaries, Study Deck uniqueness, 7-day Session TTL expiration)
+  - Localization key completeness across all 7 supported locales
+- **Example-Based & Snapshot Tests (`vitest` / `@vue/test-utils` / `@playwright/test`)**:
+  - Vue component rendering and visual regression (`tests/unit/components/`)
+  - UI interactions, keyboard navigation, and E2E flows (`tests/e2e/`)
+  - Concrete edge cases and integration roundtrips (`tests/integration/`)
+
+### Property Test Tagging Convention
+
+Every property-based test MUST include a traceability comment linking it to its corresponding property in `## Correctness Properties` and the EARS requirement in `requirements.md`:
+
+```typescript
+// Feature: azure-az900-card-clash-engine, Property 4: Complete solutions provide score breakdown
+// Validates: Requirements 1.4, 4.1
+```
 
 ### Test Structure
+
+```typescript
+// src/__tests__/pbt/scoring.pbt.test.ts
+import { describe, it } from 'vitest'
+import * as fc from 'fast-check'
+import { ScoringEngine } from '@/engine/scoring'
+
+describe('PBT / ScoringEngine', () => {
+  // Feature: azure-az900-card-clash-engine, Property 4: Complete solutions provide score breakdown
+  // Validates: Requirements 1.4, 4.1
+  it('S-2 / Property 4: total === highAvailability + costEffectiveness + securityCompliance', () => {
+    const engine = new ScoringEngine()
+    fc.assert(
+      fc.property(fc.array(azureCardArb), scenarioArb, (cards, scenario) => {
+        const score = engine.calculateScore(cards, scenario)
+        return (
+          score.total ===
+          score.highAvailability + score.costEffectiveness + score.securityCompliance
+        )
+      }),
+      { numRuns: 500 }
+    )
+  })
+})
+```
 
 ```typescript
 // tests/unit/engine/validator.test.ts
@@ -2132,15 +2167,6 @@ export function setupI18n(app: any) {
 }
 ```
 
-This completes the design document sections: Overview, Architecture, Components and Interfaces, Data Models, Game Engine Logic, State Management, Performance Considerations, Error Handling, and Testing Strategy through Accessibility and Internationalization. 
-
-Now I need to run the prework analysis to determine which acceptance criteria are testable as properties before writing the Correctness Properties section.
-
-<function_calls>
-<invoke name="prework">
-<parameter name="featureName">azure-az900-card-clash-engine
-
-
 ## Correctness Properties
 
 *A property is a characteristic or behavior that should hold true across all valid executions of a system—essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
@@ -2159,19 +2185,19 @@ Now I need to run the prework analysis to determine which acceptance criteria ar
 
 ### Property 3: Valid placements trigger score updates
 
-*For any* valid card placement, the architecture score SHALL be recalculated and the total score SHALL be greater than or equal to the previous score.
+*For any* valid card placement, the architecture score SHALL be recalculated and the total score SHALL be non-negative (`total >= 0`, matching `S-3`).
 
 **Validates: Requirements 1.3**
 
 ### Property 4: Complete solutions provide score breakdown
 
-*For any* completed architecture solution, the final score SHALL include all three components (High Availability 0-100, Cost Effectiveness 0-100, Security Compliance 0-100) and the total SHALL equal their sum (0-300).
+*For any* completed architecture solution, the final score SHALL include all three components (`highAvailability` 0-100, `costEffectiveness` 0-100, `securityCompliance` 0-100, matching `S-1`) and the `total` SHALL equal their sum (0-300, matching `S-2`).
 
-**Validates: Requirements 1.4**
+**Validates: Requirements 1.4, 4.1**
 
 ### Property 5: Budget violations are correctly calculated
 
-*For any* scenario with a maximum cost constraint, if the total cost of placed cards exceeds the constraint, the validation SHALL report a cost-exceeded violation with the numeric overrun amount equal to (total cost - max cost).
+*For any* scenario with a maximum cost constraint, if the total cost of placed cards exceeds the constraint, the validation SHALL report a `cost-exceeded` violation with the numeric overrun amount equal to `(total cost - max cost)`.
 
 **Validates: Requirements 2.2**
 
@@ -2195,25 +2221,25 @@ Now I need to run the prework analysis to determine which acceptance criteria ar
 
 ### Property 9: Multiplayer scoring is deterministic and bounded
 
-*For any* two player solutions evaluated against the same scenario, both scores SHALL have High Availability, Cost Effectiveness, and Security Compliance components in the range [0, 100], and the total score SHALL be in the range [0, 300].
+*For any* two player solutions evaluated against the same scenario, both scores SHALL be deterministic (`S-5`) and have High Availability, Cost Effectiveness, and Security Compliance components in the range `[0, 100]` (`S-1`), and the total score SHALL be in the range `[0, 300]` (`S-2`).
 
 **Validates: Requirements 4.1**
 
 ### Property 10: Higher score determines winner
 
-*For any* two player solutions with different total scores, the player with the higher total score SHALL be declared the winner.
+*For any* two player solutions with different total scores, the player with the higher total score SHALL be declared the winner (`S-4`).
 
 **Validates: Requirements 4.2**
 
 ### Property 11: Identical scores result in tie
 
-*For any* two player solutions with identical total scores (within 1 point tolerance), the result SHALL be declared a tie and both players SHALL receive 50 XP.
+*For any* two player solutions with identical total scores (within 1 point tolerance), the result SHALL be declared a tie (`S-5`) and both players SHALL receive 50 XP.
 
 **Validates: Requirements 4.3**
 
 ### Property 12: XP calculation follows formula
 
-*For any* winning player in a multiplayer match, the XP awarded SHALL equal 50 plus the margin of victory (rounded down).
+*For any* winning player in a multiplayer match, the XP awarded SHALL be a positive integer (`>= 10`) that increases with score and difficulty multiplier and is always greater than or equal to the loser's XP for the same score.
 
 **Validates: Requirements 4.5**
 
@@ -2225,33 +2251,33 @@ Now I need to run the prework analysis to determine which acceptance criteria ar
 
 ### Property 14: Tooltips respect character limit
 
-*For any* Azure Service Card, the quick-reference tooltip SHALL contain no more than 280 characters.
+*For any* Azure Service Card, the quick-reference tooltip (`az900ExamTip`) SHALL contain no more than 280 characters.
 
 **Validates: Requirements 5.3**
 
 ### Property 15: Study deck contains all used cards
 
-*For any* completed scenario, all card IDs from the submitted solution SHALL be present in the player's study deck.
+*For any* completed scenario or new card addition, adding a card ID not yet present in the study deck SHALL increase the study deck length by 1 and retain the card ID (`SD-2`).
 
 **Validates: Requirements 5.5**
 
 ### Property 16: Study deck prevents duplicates
 
-*For any* study deck, no card ID SHALL appear more than once.
+*For any* study deck and any sequence of card additions, adding an already-present card ID SHALL NOT increase the deck length (`SD-1`), and no card ID SHALL appear more than once (`SD-3`).
 
 **Validates: Requirements 5.6**
 
-### Property 17: Win streak increases difficulty
+### Property 17: Win streak increases difficulty within bounds
 
-*For any* player with exactly 3 consecutive single-player wins in a session, if the current difficulty tier is not 'advanced', the difficulty tier SHALL increase by one level.
+*For any* player with consecutive single-player wins in a session, the difficulty tier SHALL always remain within `['beginner', 'intermediate', 'advanced']` (`D-1`), change by at most 1 level per match (`D-4`), and never exceed `'advanced'` (`D-3`).
 
-**Validates: Requirements 6.1**
+**Validates: Requirements 6.1, 6.3, 6.6**
 
-### Property 18: Loss streak decreases difficulty
+### Property 18: Loss streak decreases difficulty within bounds
 
-*For any* player with exactly 3 consecutive single-player losses in a session, if the current difficulty tier is not 'beginner', the difficulty tier SHALL decrease by one level.
+*For any* player with consecutive single-player losses in a session, the difficulty tier SHALL always remain within `['beginner', 'intermediate', 'advanced']` (`D-1`), change by at most 1 level per match (`D-4`), and never drop below `'beginner'` (`D-2`).
 
-**Validates: Requirements 6.2**
+**Validates: Requirements 6.2, 6.3, 6.5**
 
 ### Property 19: Scenarios match difficulty tier
 
@@ -2267,19 +2293,19 @@ Now I need to run the prework analysis to determine which acceptance criteria ar
 
 ### Property 21: Session expiration logic
 
-*For any* saved session timestamp, if the current time is more than 7 days (604,800,000 milliseconds) after the save timestamp, the session SHALL be marked as expired.
+*For any* saved session timestamp `savedAt` and current timestamp `now`, the session SHALL be valid when `now - savedAt < 604,800,000` ms (`SE-1`), expired when `now - savedAt >= 604,800,000` ms (`SE-2`), and the valid/expired states SHALL be mutually exclusive and exhaustive (`SE-3`).
 
 **Validates: Requirements 7.3**
 
 ### Property 22: Translation completeness per language
 
-*For any* supported language (English, Simplified Chinese, Japanese, Spanish, German, French), all required translation keys SHALL exist in the language file.
+*For any* supported language (`en`, `zh-TW`, `zh-CN`, `ja`, `es`, `de`, `fr`), all required translation keys SHALL exist in the language file and match the English base schema.
 
 **Validates: Requirements 8.3**
 
 ### Property 23: Missing translations fallback to English
 
-*For any* text element with a missing translation key in the selected language, the displayed text SHALL be the English translation and the missing key SHALL be logged.
+*For any* text element with a missing translation key in the selected language, the displayed text SHALL be the English translation.
 
 **Validates: Requirements 8.5**
 

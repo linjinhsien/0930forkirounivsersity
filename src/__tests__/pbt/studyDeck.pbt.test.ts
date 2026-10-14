@@ -21,10 +21,13 @@ describe('PBT / Study Deck 去重', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 16: Study deck prevents duplicates
+   * Validates: Requirements 5.6
+   *
    * Property SD-1：加入重複牌後長度不增加
    * 若牌已存在 deck 中，再次 addStudyCard 後 length 不變
    */
-  it('SD-1: 加入已存在的牌後 deck 長度不增加', () => {
+  it('SD-1: 加入已存在的牌後 deck 長度不增加 (Property 16)', () => {
     fc.assert(
       fc.property(
         fc.array(cardIdArb, { minLength: 1, maxLength: 10 }),
@@ -55,12 +58,15 @@ describe('PBT / Study Deck 去重', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 15: Study deck contains all used cards
+   * Validates: Requirements 5.5
+   *
    * Property SD-2：加入新牌後長度恰好 +1
    *
    * 直接用純函數模擬 addStudyCard 邏輯，避免 Pinia store 重置 studyDeck 的干擾。
    * 這樣可以精確驗證去重邏輯的正確性，不受 store 初始化副作用影響。
    */
-  it('SD-2: 加入全新的牌後 deck 長度恰好 +1', () => {
+  it('SD-2: 加入全新的牌後 deck 長度恰好 +1 (Property 15)', () => {
     /** 純函數版 addStudyCard，鏡像 player store 的去重邏輯 */
     function addStudyCard(deck: string[], cardId: string): string[] {
       if (deck.includes(cardId)) return deck
@@ -87,10 +93,13 @@ describe('PBT / Study Deck 去重', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 16: Study deck prevents duplicates
+   * Validates: Requirements 5.6
+   *
    * Property SD-3：Study Deck 無重複項目
    * 任意操作序列後，deck 中所有 id 唯一（無重複）
    */
-  it('SD-3: 任意操作序列後 deck 中無重複 id', { timeout: 30_000 }, () => {
+  it('SD-3: 任意操作序列後 deck 中無重複 id (Property 16)', { timeout: 30_000 }, () => {
     fc.assert(
       fc.property(fc.array(cardIdArb, { minLength: 1, maxLength: 15 }), (cardIds) => {
         const store = usePlayerStore()

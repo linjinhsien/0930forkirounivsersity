@@ -1,11 +1,12 @@
 /**
- * Property-based tests for ValidationEngine
+ * Property-based and example-based tests for ValidationEngine
  *
- * Properties are exercised through multiple explicit parameterised cases
- * (it.each) without relying on external property-testing libraries.
+ * Uses fast-check for universal property verification alongside explicit
+ * parameterised cases (it.each).
  */
 
 import { describe, it, expect } from 'vitest'
+import * as fc from 'fast-check'
 import { ValidationEngine } from '@/engine/validator'
 import type { AzureCard, ArchitectureSlot, Scenario } from '@/types/game'
 
@@ -329,6 +330,65 @@ describe('ValidationEngine', () => {
 
       expect(result.isValid).toBe(true)
       expect(result.violations).toHaveLength(0)
+    })
+  })
+
+  // ─── fast-check Property-Based Tests (Kiro Spec Correctness) ─────────────────
+
+  describe('fast-check Property-Based Tests (Properties 1, 2, 5)', () => {
+    const engine = new ValidationEngine()
+
+    /**
+     * Feature: azure-az900-card-clash-engine, Property 1: Validation completes within performance budget
+     * Validates: Requirements 1.1, 1.2
+     */
+    it('Property 1 (fast-check): validatePlacement completes in < 500ms across random inputs', () => {
+      fc.assert(
+        fc.property(
+          fc.integer({ min: 0, max: 100 }),
+          fc.integer({ min: 1, max: 200 }),
+          fc.constantFrom('compute', 'storage', 'network', 'security', 'governance', 'any'),
+          (cost, maxCost, slotType) => {
+            const card = makeCard({ cost, synergyTags: ['compute', 'storage'] })
+            const slot = makeSlot({ type: slotType as ArchitectureSlot['type'] })
+            const scenario = makeScenario({ constraints: { maxCost } })
+            const start = performance.now()
+            const result = engine.validatePlacement(card, slot, [], scenario)
+            const elapsed = performance.now() - start
+            return elapsed < 500 && typeof result.isValid === 'boolean'
+          },
+        ),
+        { numRuns: 100 },
+      )
+    })
+
+    /**
+     * Feature: azure-az900-card-clash-engine, Property 2: Invalid placements identify all constraint violations
+     * Feature: azure-az900-card-clash-engine, Property 5: Budget violations are correctly calculated
+     * Validates: Requirements 1.2, 2.1, 2.2
+     */
+    it('Property 2 & Property 5 (fast-check): budget overrun reports cost-exceeded with exact numericDetail = totalCost - maxCost', () => {
+      fc.assert(
+        fc.property(
+          fc.integer({ min: 1, max: 100 }),
+          fc.integer({ min: 1, max: 100 }),
+          (maxCost, overrun) => {
+            const cardCost = maxCost + overrun
+            const card = makeCard({ cost: cardCost, synergyTags: ['compute'] })
+            const slot = makeSlot({ type: 'any' })
+            const scenario = makeScenario({ constraints: { maxCost } })
+
+            const result = engine.validatePlacement(card, slot, [], scenario)
+            const violation = result.violations.find((v) => v.type === 'cost-exceeded')
+            return (
+              result.isValid === false &&
+              violation !== undefined &&
+              violation.numericDetail === overrun
+            )
+          },
+        ),
+        { numRuns: 200 },
+      )
     })
   })
 })

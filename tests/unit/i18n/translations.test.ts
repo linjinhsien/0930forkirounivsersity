@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import * as fc from 'fast-check'
 import { i18n, loadLocaleMessages, setLocale, SUPPORTED_LOCALES } from '@/i18n'
 import en from '@/i18n/locales/en.json'
 import zhTW from '@/i18n/locales/zh-TW.json'
@@ -17,6 +18,15 @@ function flattenKeys(value: unknown, prefix = ''): string[] {
   )
 }
 
+function resolveKey(obj: Record<string, unknown>, path: string): unknown {
+  return path.split('.').reduce<unknown>((acc, part) => {
+    if (acc && typeof acc === 'object' && part in (acc as Record<string, unknown>)) {
+      return (acc as Record<string, unknown>)[part]
+    }
+    return undefined
+  }, obj)
+}
+
 describe('i18n', () => {
   it('defines all seven supported locales', () => {
     expect(SUPPORTED_LOCALES).toEqual(['en', 'zh-TW', 'zh-CN', 'ja', 'es', 'de', 'fr'])
@@ -27,6 +37,25 @@ describe('i18n', () => {
     for (const locale of SUPPORTED_LOCALES) {
       expect(flattenKeys(messages[locale]).sort(), locale).toEqual(expected)
     }
+  })
+
+  /**
+   * Feature: azure-az900-card-clash-engine, Property 22: Translation completeness per language
+   * Validates: Requirements 8.3
+   */
+  it('Property 22 (fast-check): any key in English exists and is a non-empty string in any supported locale', () => {
+    const allKeys = flattenKeys(en)
+    fc.assert(
+      fc.property(
+        fc.constantFrom(...SUPPORTED_LOCALES),
+        fc.constantFrom(...allKeys),
+        (locale, key) => {
+          const val = resolveKey(messages[locale] as Record<string, unknown>, key)
+          return typeof val === 'string' && val.trim().length > 0
+        },
+      ),
+      { numRuns: 200 },
+    )
   })
 
   it('lazy-loads non-English messages and updates the document language', async () => {

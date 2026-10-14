@@ -110,6 +110,6 @@ Azure AZ-900 Architecture Card Clash Engine is an interactive, scenario-driven c
 
 1. THE Game_Engine SHALL support keyboard navigation for card deployment actions including selecting a card, selecting a deployment zone, confirming deployment, and canceling deployment, with a visible focus indicator of minimum 2px outline on the currently focused element.
 2. THE Game_Engine SHALL provide a high-contrast visual mode that displays all text and interactive elements with a contrast ratio of at least 4.5:1 for normal text and at least 3:1 for large text.
-3. THE Game_Engine SHALL display all game text including UI labels, card names, card descriptions, error messages, tutorial instructions, and menu items in the player's selected language from the supported language list (English, Simplified Chinese, Japanese, Spanish, German, French).
+3. THE Game_Engine SHALL display all game text including UI labels, card names, card descriptions, error messages, tutorial instructions, and menu items in the player's selected language from the supported language list (English, Traditional Chinese, Simplified Chinese, Japanese, Spanish, German, French).
 4. WHEN a player changes the language setting, THE Game_Engine SHALL update all displayed text within 2 seconds without requiring a restart.
 5. IF a translation is unavailable for a text element in the selected language, THEN THE Game_Engine SHALL display the text in English as fallback and log the missing translation key.

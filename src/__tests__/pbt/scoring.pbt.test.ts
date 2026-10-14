@@ -99,10 +99,14 @@ const engine = new ScoringEngine()
 
 describe('PBT / 計分引擎', () => {
   /**
+   * Feature: azure-az900-card-clash-engine, Property 4: Complete solutions provide score breakdown
+   * Feature: azure-az900-card-clash-engine, Property 9: Multiplayer scoring is deterministic and bounded
+   * Validates: Requirements 1.4, 4.1
+   *
    * Property S-1：子分數範圍
    * 對任意合法牌組與場景，每個子分數必須在 [0, 100]
    */
-  it('S-1: 子分數永遠在 [0, 100] 內', () => {
+  it('S-1: 子分數永遠在 [0, 100] 內 (Property 4, Property 9)', () => {
     fc.assert(
       fc.property(
         fc.array(azureCardArb, { minLength: 0, maxLength: 8 }),
@@ -124,9 +128,12 @@ describe('PBT / 計分引擎', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 4: Complete solutions provide score breakdown
+   * Validates: Requirements 1.4, 4.1
+   *
    * Property S-2：總分等於三項之和
    */
-  it('S-2: total === highAvailability + costEffectiveness + securityCompliance', () => {
+  it('S-2: total === highAvailability + costEffectiveness + securityCompliance (Property 4)', () => {
     fc.assert(
       fc.property(
         fc.array(azureCardArb, { minLength: 0, maxLength: 8 }),
@@ -143,9 +150,12 @@ describe('PBT / 計分引擎', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 3: Valid placements trigger score updates
+   * Validates: Requirements 1.3
+   *
    * Property S-3：空牌組不產生負分
    */
-  it('S-3: 空牌組所有分數 >= 0', () => {
+  it('S-3: 空牌組所有分數 >= 0 (Property 3)', () => {
     fc.assert(
       fc.property(scenarioArb, (scenario) => {
         const score = engine.calculateScore([], scenario)
@@ -161,10 +171,13 @@ describe('PBT / 計分引擎', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 10: Higher score determines winner
+   * Validates: Requirements 4.2
+   *
    * Property S-4：多人勝負一致性
    * total 較高者必定是勝者（用 winner 判斷邏輯模擬 Req 4.2）
    */
-  it('S-4: 分數較高的玩家必定勝出', () => {
+  it('S-4: 分數較高的玩家必定勝出 (Property 10)', () => {
     fc.assert(
       fc.property(
         fc.array(azureCardArb, { minLength: 0, maxLength: 6 }),
@@ -191,10 +204,14 @@ describe('PBT / 計分引擎', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 9: Multiplayer scoring is deterministic and bounded
+   * Feature: azure-az900-card-clash-engine, Property 11: Identical scores result in tie
+   * Validates: Requirements 4.1, 4.3
+   *
    * Property S-5：平局對稱性
    * 相同牌組算出的分數必定相等（確定性）
    */
-  it('S-5: 相同輸入產生相同分數（計算確定性）', () => {
+  it('S-5: 相同輸入產生相同分數（計算確定性） (Property 9, Property 11)', () => {
     fc.assert(
       fc.property(
         fc.array(azureCardArb, { minLength: 0, maxLength: 6 }),

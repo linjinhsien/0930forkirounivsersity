@@ -1,11 +1,12 @@
 /**
- * Property-based tests for EvaluatorEngine
+ * Property-based and example-based tests for EvaluatorEngine
  *
- * Each property is exercised through multiple explicit parameterised cases
- * (it.each) without relying on external property-testing libraries.
+ * Uses fast-check for universal property verification alongside explicit
+ * parameterised cases (it.each).
  */
 
 import { describe, it, expect } from 'vitest'
+import * as fc from 'fast-check'
 import { EvaluatorEngine } from '@/engine/evaluator'
 import type { AzureCard, Scenario, ArchitectureScore } from '@/types/game'
 
@@ -274,5 +275,66 @@ describe('EvaluatorEngine', () => {
         expect(Number.isInteger(xp)).toBe(true)
       },
     )
+  })
+
+  // ─── fast-check Property-Based Tests (Kiro Spec Correctness) ─────────────────
+
+  describe('fast-check Property-Based Tests (Properties 10, 11, 12)', () => {
+    const engine = new EvaluatorEngine()
+
+    /**
+     * Feature: azure-az900-card-clash-engine, Property 10: Higher score determines winner
+     * Feature: azure-az900-card-clash-engine, Property 11: Identical scores result in tie
+     * Validates: Requirements 4.2, 4.3
+     */
+    it('Property 10 & Property 11 (fast-check): evaluateClash winner strictly matches total score ordering and tie symmetry', () => {
+      fc.assert(
+        fc.property(
+          fc.integer({ min: 0, max: 100 }),
+          fc.integer({ min: 0, max: 100 }),
+          (p1Cost, p2Cost) => {
+            const scenario = makeScenario({ constraints: { maxCost: 100 } })
+            const p1Cards = p1Cost === 0 ? [] : [makeCard({ id: 'p1', cost: p1Cost, synergyTags: ['ha'] })]
+            const p2Cards = p2Cost === 0 ? [] : [makeCard({ id: 'p2', cost: p2Cost, synergyTags: ['ha'] })]
+            const result = engine.evaluateClash(p1Cards, p2Cards, scenario)
+
+            if (result.player1Score.total > result.player2Score.total) {
+              return result.winner === 'player1'
+            }
+            if (result.player2Score.total > result.player1Score.total) {
+              return result.winner === 'player2'
+            }
+            return result.winner === 'tie' && result.marginOfVictory === 0
+          },
+        ),
+        { numRuns: 200 },
+      )
+    })
+
+    /**
+     * Feature: azure-az900-card-clash-engine, Property 12: XP calculation follows formula
+     * Validates: Requirements 4.5
+     */
+    it('Property 12 (fast-check): winner XP is always a positive integer >= 10 and >= loser XP for the same score', () => {
+      fc.assert(
+        fc.property(
+          fc.integer({ min: 0, max: 300 }),
+          fc.constantFrom('beginner' as const, 'intermediate' as const, 'advanced' as const),
+          (total, difficulty) => {
+            const score = makeScore(total)
+            const winXP = engine.calculateXPAward(score, true, difficulty)
+            const loseXP = engine.calculateXPAward(score, false, difficulty)
+            return (
+              Number.isInteger(winXP) &&
+              Number.isInteger(loseXP) &&
+              winXP >= 10 &&
+              loseXP >= 10 &&
+              winXP >= loseXP
+            )
+          },
+        ),
+        { numRuns: 200 },
+      )
+    })
   })
 })

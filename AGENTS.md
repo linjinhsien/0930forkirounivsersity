@@ -120,14 +120,18 @@ Encourage the learner to share their experience throughout the session.
 
 ## Project Customization: Azure AZ-900 Card Clash
 
-### Lesson 4: Property-Based Testing (PBT)
-- **Specification Source**: `.kiro/steering/pbt-properties.md`
-- **Domain Rules**: `.kiro/steering/az900-domain-rules.md`
-- **PBT Test Suite**: `src/__tests__/pbt/`
-  - `scoring.pbt.test.ts`: Scoring Engine Invariants (S-1 to S-5)
-  - `difficulty.pbt.test.ts`: Difficulty Boundary Protections (D-1 to D-4)
-  - `studyDeck.pbt.test.ts`: Study Deck Uniqueness & Deduplication (SD-1 to SD-3)
-  - `sessionExpiration.pbt.test.ts`: 7-day Session TTL Verification (SE-1 to SE-3)
+### Lesson 4: Property-Based Testing (PBT — Kiro IDE Spec Correctness)
+- **Kiro IDE Spec Correctness Source**:
+  - `.kiro/specs/azure-az900-card-clash-engine/requirements.md` (EARS Requirements)
+  - `.kiro/specs/azure-az900-card-clash-engine/design.md` (`## Correctness Properties`: Property 1 to Property 23)
+  - `.kiro/specs/azure-az900-card-clash-engine/tasks.md` (Optional `*` PBT tasks: `14.1*`, `15.1*`, `18.*`, `20.*`, `22.*`, `48.*`, `53.1*`)
+- **Steering Reference**: `.kiro/steering/pbt-properties.md` & `.kiro/steering/az900-domain-rules.md`
+- **PBT Test Suite (`fast-check`)**:
+  - `src/__tests__/pbt/scoring.pbt.test.ts`: Scoring Engine Invariants (`S-1` to `S-5` / Properties 3, 4, 9, 10, 11)
+  - `src/__tests__/pbt/difficulty.pbt.test.ts`: Difficulty Boundary Protections (`D-1` to `D-4` / Properties 17, 18)
+  - `src/__tests__/pbt/studyDeck.pbt.test.ts`: Study Deck Uniqueness & Deduplication (`SD-1` to `SD-3` / Properties 15, 16)
+  - `src/__tests__/pbt/sessionExpiration.pbt.test.ts`: 7-day Session TTL Verification (`SE-1` to `SE-3` / Property 21)
+  - `tests/unit/engine/{validator,scoring,evaluator}.test.ts` & `tests/unit/i18n/translations.test.ts` (Properties 1–5, 9–12, 22)
 - **Execution Command**: `npx vitest run src/__tests__/pbt/`
 
 ### Lesson 5: Kiro Powers (`az900-microsoft-learn`)

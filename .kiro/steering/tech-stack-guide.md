@@ -5,28 +5,29 @@
 - Vue 3, TypeScript, and Vite; use Composition API and `<script setup lang="ts">`.
 - Pinia for game, player, codex, and session state.
 - Vue Router for client-side navigation.
-- Vue I18n with English, Simplified Chinese, Japanese, Spanish, German, and French locale files in `src/i18n/locales/`.
+- Vue I18n with English, Traditional Chinese, Simplified Chinese, Japanese, Spanish, German, and French locale files in `src/i18n/locales/`.
 - Tailwind CSS for responsive styling.
-- Vitest and Vue Test Utils for unit/integration tests; Playwright for browser E2E tests.
+- Vitest, `fast-check` (Property-Based Testing), and Vue Test Utils for unit/integration/PBT tests; Playwright for browser E2E tests.
 - Do not introduce React, another state library, a component framework, or a new dependency unless the task specifically requires it and the existing stack cannot meet the need.
 
 ## Repository Layout
 
 ```text
 src/
+  __tests__/pbt/    Property-based tests (fast-check) linked to Kiro Spec Correctness Properties
   components/       Shared layout, UI, card, board, codex, and game components
   composables/      Reusable Vue behavior, including session resume
   data/cards/       AZ-900 card JSON, grouped by the three game domains
   data/codex/       Per-card learning entries
   data/scenarios/   Scenario JSON grouped by category
   engine/           Validation, scoring, and multiplayer evaluation
-  i18n/locales/     Six supported UI locales
+  i18n/locales/     Seven supported UI locales (en, zh-TW, zh-CN, ja, es, de, fr)
   stores/           Pinia game, player, codex, and session stores
   types/            Game and engine TypeScript contracts
   utils/            Data loading, persistence, errors, and performance utilities
   views/            Home, quick match, multiplayer, codex, settings, topology map
 tests/
-  unit/             Unit and component tests
+  unit/             Unit, engine PBT, and component tests
   integration/      Game-flow and persistence tests
   e2e/              Playwright user flows
 ```

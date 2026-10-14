@@ -130,6 +130,14 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Maintain accessibility and language preferences
   - _Requirements: 4.5, 6.1, 6.2, 8.1_
 
+- [x] 14.1* Write property tests for difficulty scaling
+  - **Property 17: Win streak increases difficulty within bounds**
+  - **Property 18: Loss streak decreases difficulty within bounds**
+  - **Property 19: Scenarios match difficulty tier**
+  - Create `src/__tests__/pbt/difficulty.pbt.test.ts` with `fast-check` property-based tests (`D-1` to `D-4`)
+  - Verify difficulty tier always remains in `['beginner', 'intermediate', 'advanced']`, respects floor/ceiling bounds, and changes by at most 1 tier per match
+  - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
+
 - [x] 15. Implement codex store (Pinia)
   - Create `src/stores/codex.ts` for card library and learning:
     - State: `cardLibrary`, `scenarioLibrary`, `codexEntries`, `searchResults`
@@ -138,6 +146,15 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - Implement search functionality with tagging system
   - Support filtering by domain, cost, synergy tags
   - _Requirements: 5.1, 5.2_
+
+- [x] 15.1* Write property tests for Study Deck uniqueness and deduplication
+  - **Property 13: Codex entries are complete**
+  - **Property 14: Tooltips respect character limit**
+  - **Property 15: Study deck contains all used cards**
+  - **Property 16: Study deck prevents duplicates**
+  - Create `src/__tests__/pbt/studyDeck.pbt.test.ts` with `fast-check` property-based tests (`SD-1` to `SD-3`)
+  - Verify adding existing cards preserves deck length, adding new cards increments length by 1, and study deck contains no duplicate card IDs across arbitrary operation sequences
+  - _Requirements: 5.2, 5.3, 5.5, 5.6_
 
 - [x] 16. Implement session store (Pinia) for persistence
   - Create `src/stores/session.ts` for save/load functionality:
@@ -167,9 +184,9 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - **Property 1: Validation completes within performance budget**
   - **Property 2: Invalid placements identify all constraint violations**
   - **Property 5: Budget violations are correctly calculated**
-  - Create `tests/unit/engine/validator.test.ts` with property-based tests
-  - Test validation response time under <500ms target
-  - Test violation detection for all constraint types
+  - Create `tests/unit/engine/validator.test.ts` with `fast-check` property-based tests (`numRuns >= 100`) and example-based unit tests
+  - Test validation response time under <500ms target across randomized cards and scenarios
+  - Test violation detection and exact cost overrun (`totalCost - maxCost`) for all constraint types
   - _Requirements: 1.1, 1.2, 2.1, 2.2_
 
 - [x] 19. Implement ScoringEngine with three-dimensional scoring
@@ -194,11 +211,10 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - **Property 4: Complete solutions provide score breakdown**
   - **Property 6: Conflicts prevent score updates**
   - **Property 9: Multiplayer scoring is deterministic and bounded**
-  - Create `tests/unit/engine/scoring.test.ts` with property-based tests
-  - Test score components remain in [0, 100] range
-  - Test total score equals sum of three components
-  - Test scores increase with valid card additions
-  - _Requirements: 1.3, 1.4, 4.1_
+  - Create `src/__tests__/pbt/scoring.pbt.test.ts` (`S-1` to `S-5`) and `tests/unit/engine/scoring.test.ts` with `fast-check` property-based tests
+  - Test score components remain in `[0, 100]` range (`S-1`)
+  - Test total score equals sum of three components (`S-2`) and empty deck produces non-negative scores (`S-3`)
+  - _Requirements: 1.3, 1.4, 2.4, 4.1_
 
 - [x] 21. Implement EvaluatorEngine for multiplayer clash
   - Create `src/engine/evaluator.ts` with `EvaluatorEngine` class:
@@ -212,10 +228,9 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - **Property 10: Higher score determines winner**
   - **Property 11: Identical scores result in tie**
   - **Property 12: XP calculation follows formula**
-  - Create `tests/unit/engine/evaluator.test.ts`
-  - Test winner determination with various score combinations
-  - Test XP calculation matches formula
-  - Test tie handling with score equality
+  - Create `tests/unit/engine/evaluator.test.ts` and `src/__tests__/pbt/scoring.pbt.test.ts` (`S-4`, `S-5`) with `fast-check` property-based tests
+  - Test winner determination with randomized score combinations
+  - Test XP calculation invariants and tie symmetry
   - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
 - [x] 23. Create performance monitoring utility
@@ -489,8 +504,9 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
   - _Requirements: 8.3, 8.5_
 
 - [x] 47. Create translation files for all supported languages
-  - Create JSON translation files for 6 languages:
+  - Create JSON translation files for 7 languages:
     - `en.json` (English - base)
+    - `zh-TW.json` (Traditional Chinese)
     - `zh-CN.json` (Simplified Chinese)
     - `ja.json` (Japanese)
     - `es.json` (Spanish)
@@ -503,9 +519,9 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
 - [x] 48.* Write property test for translation completeness
   - **Property 22: Translation completeness per language**
   - **Property 23: Missing translations fallback to English**
-  - Create `tests/unit/i18n/translations.test.ts`
-  - Test all translation files have same keys
-  - Test fallback behavior
+  - Create `tests/unit/i18n/translations.test.ts` with `fast-check` property-based tests
+  - Test all 7 translation files have identical key sets matching `en.json`
+  - Test fallback behavior to English for missing keys
   - _Requirements: 8.3, 8.5_
 
 - [x] 49. Implement keyboard navigation system
@@ -565,6 +581,13 @@ This implementation plan breaks down the Azure AZ-900 Card Clash Engine into con
     - `cleanupExpiredSessions()` method
   - Test expiration edge cases (midnight boundary, timezone)
   - _Requirements: 7.3_
+
+- [x] 53.1* Write property tests for 7-day session expiration
+  - **Property 20: Session save preserves state**
+  - **Property 21: Session expiration logic**
+  - Create `src/__tests__/pbt/sessionExpiration.pbt.test.ts` with `fast-check` property-based tests (`SE-1` to `SE-3`)
+  - Verify sessions saved within `< 7 days` (`604,800,000 ms`) are valid, sessions `>= 7 days` are expired, and valid/expired states are mutually exclusive
+  - _Requirements: 7.1, 7.2, 7.3_
 
 - [x] 54. Implement IndexedDB adapter for extended persistence
   - Create `src/utils/indexedDbAdapter.ts`:

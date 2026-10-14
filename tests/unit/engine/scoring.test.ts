@@ -1,11 +1,12 @@
 /**
- * Property-based tests for ScoringEngine
+ * Property-based and example-based tests for ScoringEngine
  *
- * Each property is exercised through multiple explicit parameterised cases
- * (it.each) without relying on external property-testing libraries.
+ * Uses fast-check for universal property verification alongside explicit
+ * parameterised cases (it.each).
  */
 
 import { describe, it, expect } from 'vitest'
+import * as fc from 'fast-check'
 import { ScoringEngine } from '@/engine/scoring'
 import type { AzureCard, Scenario } from '@/types/game'
 
@@ -385,6 +386,54 @@ describe('ScoringEngine', () => {
       const result = engine.calculateScore(cards, scenario)
 
       expect(result.breakdown.synergyBonuses).toContain(expectedSharedTag)
+    })
+  })
+
+  // ─── fast-check Property-Based Tests (Kiro Spec Correctness) ─────────────────
+
+  describe('fast-check Property-Based Tests (Properties 3, 4, 9)', () => {
+    const engine = new ScoringEngine()
+
+    /**
+     * Feature: azure-az900-card-clash-engine, Property 3: Valid placements trigger score updates
+     * Feature: azure-az900-card-clash-engine, Property 4: Complete solutions provide score breakdown
+     * Feature: azure-az900-card-clash-engine, Property 9: Multiplayer scoring is deterministic and bounded
+     * Validates: Requirements 1.3, 1.4, 4.1
+     */
+    it('Properties 3, 4, 9 (fast-check): score components are bounded in [0, 100], total equals sum, and calculation is deterministic', () => {
+      fc.assert(
+        fc.property(
+          fc.array(
+            fc.record({
+              cost: fc.integer({ min: 0, max: 30 }),
+              tag: fc.constantFrom('ha', 'paas', 'serverless', 'identity', 'encryption', 'nsg', 'governance', 'backup'),
+            }),
+            { minLength: 0, maxLength: 6 },
+          ),
+          fc.integer({ min: 10, max: 200 }),
+          (cardSpecs, maxCost) => {
+            const cards = cardSpecs.map((spec, idx) =>
+              makeCard({ id: `fc-card-${idx}`, cost: spec.cost, synergyTags: [spec.tag] }),
+            )
+            const scenario = makeScenario({ constraints: { maxCost } })
+            const score1 = engine.calculateScore(cards, scenario)
+            const score2 = engine.calculateScore(cards, scenario)
+
+            return (
+              score1.highAvailability >= 0 &&
+              score1.highAvailability <= 100 &&
+              score1.costEffectiveness >= 0 &&
+              score1.costEffectiveness <= 100 &&
+              score1.securityCompliance >= 0 &&
+              score1.securityCompliance <= 100 &&
+              score1.total ===
+                score1.highAvailability + score1.costEffectiveness + score1.securityCompliance &&
+              score1.total === score2.total
+            )
+          },
+        ),
+        { numRuns: 200 },
+      )
     })
   })
 })

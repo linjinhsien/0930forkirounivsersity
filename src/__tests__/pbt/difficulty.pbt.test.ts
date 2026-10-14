@@ -21,10 +21,14 @@ describe('PBT / 難度系統', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 17: Win streak increases difficulty within bounds
+   * Feature: azure-az900-card-clash-engine, Property 18: Loss streak decreases difficulty within bounds
+   * Validates: Requirements 6.1, 6.2, 6.3
+   *
    * Property D-1：難度值域限制
    * 任意勝負序列後，difficulty 只能是三種合法值之一
    */
-  it('D-1: 難度永遠是合法的三種值之一', () => {
+  it('D-1: 難度永遠是合法的三種值之一 (Property 17, Property 18)', () => {
     fc.assert(
       fc.property(
         // 產生一組隨機勝負序列（true=勝, false=敗），長度 1~20
@@ -45,10 +49,13 @@ describe('PBT / 難度系統', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 18: Loss streak decreases difficulty within bounds
+   * Validates: Requirements 6.2, 6.5
+   *
    * Property D-2：Beginner 底部邊界
    * 從 beginner 開始，任意次連敗後不會低於 beginner
    */
-  it('D-2: Beginner 連敗後仍維持 beginner（不往下降）', () => {
+  it('D-2: Beginner 連敗後仍維持 beginner（不往下降） (Property 18)', () => {
     fc.assert(
       fc.property(fc.integer({ min: 1, max: 30 }), (lossCount) => {
         const store = usePlayerStore()
@@ -65,10 +72,13 @@ describe('PBT / 難度系統', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 17: Win streak increases difficulty within bounds
+   * Validates: Requirements 6.1, 6.6
+   *
    * Property D-3：Advanced 頂部邊界
    * 從 advanced 開始，任意次連勝後不會超過 advanced
    */
-  it('D-3: Advanced 連勝後仍維持 advanced（不往上升）', () => {
+  it('D-3: Advanced 連勝後仍維持 advanced（不往上升） (Property 17)', () => {
     fc.assert(
       fc.property(fc.integer({ min: 1, max: 30 }), (winCount) => {
         const store = usePlayerStore()
@@ -85,10 +95,14 @@ describe('PBT / 難度系統', () => {
   })
 
   /**
+   * Feature: azure-az900-card-clash-engine, Property 17: Win streak increases difficulty within bounds
+   * Feature: azure-az900-card-clash-engine, Property 18: Loss streak decreases difficulty within bounds
+   * Validates: Requirements 6.1, 6.2
+   *
    * Property D-4：升降一次最多一級
    * 每次 recordMatchResult 後，難度等級變化幅度不超過 1
    */
-  it('D-4: 每場比賽難度最多變化一級', () => {
+  it('D-4: 每場比賽難度最多變化一級 (Property 17, Property 18)', () => {
     fc.assert(
       fc.property(
         fc.constantFrom(...VALID_TIERS),
