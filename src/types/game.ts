@@ -259,7 +259,7 @@ export interface PlayerProfile {
   studyDeck: string[]
 
   /** Preferred language */
-  language: 'en' | 'zh-CN' | 'ja' | 'es' | 'de' | 'fr'
+  language: 'en' | 'zh-TW' | 'zh-CN' | 'ja' | 'es' | 'de' | 'fr'
 
   /** Accessibility preferences */
   accessibility: {

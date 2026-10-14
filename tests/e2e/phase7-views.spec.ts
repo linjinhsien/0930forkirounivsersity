@@ -54,7 +54,7 @@ test.describe('Phase 7 game views', () => {
     await expect(page.getByRole('heading', { name: 'Study Deck' })).toBeVisible()
 
     await page.goto('/#/settings')
-    await expect(page.getByTestId('language-select').locator('option')).toHaveCount(6)
+    await expect(page.getByTestId('language-select').locator('option')).toHaveCount(7)
     await expect(page.getByRole('checkbox', { name: /High contrast mode/ })).toBeVisible()
     await page.getByRole('button', { name: 'Clear Data' }).click()
     await expect(page.getByRole('alertdialog')).toBeVisible()

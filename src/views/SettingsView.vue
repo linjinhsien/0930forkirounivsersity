@@ -15,6 +15,7 @@ const clearConfirmationOpen = ref(false)
 const statusMessage = ref('')
 const languageOptions: Array<{ value: PlayerProfile['language']; label: string }> = [
   { value: 'en', label: 'English' },
+  { value: 'zh-TW', label: '繁體中文' },
   { value: 'zh-CN', label: '简体中文' },
   { value: 'ja', label: '日本語' },
   { value: 'es', label: 'Español' },

@@ -4,7 +4,15 @@ import type { PlayerProfile } from '@/types/game'
 
 const STORAGE_KEY = 'az900-player-profile'
 const LANGUAGE_KEY = 'az900-language'
-const SUPPORTED_LANGUAGES: PlayerProfile['language'][] = ['en', 'zh-CN', 'ja', 'es', 'de', 'fr']
+const SUPPORTED_LANGUAGES: PlayerProfile['language'][] = [
+  'en',
+  'zh-TW',
+  'zh-CN',
+  'ja',
+  'es',
+  'de',
+  'fr',
+]
 
 const DEFAULT_PROFILE: PlayerProfile = {
   id: '',

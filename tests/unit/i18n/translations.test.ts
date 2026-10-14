@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { i18n, loadLocaleMessages, setLocale, SUPPORTED_LOCALES } from '@/i18n'
 import en from '@/i18n/locales/en.json'
+import zhTW from '@/i18n/locales/zh-TW.json'
 import zhCN from '@/i18n/locales/zh-CN.json'
 import ja from '@/i18n/locales/ja.json'
 import es from '@/i18n/locales/es.json'
 import de from '@/i18n/locales/de.json'
 import fr from '@/i18n/locales/fr.json'
 
-const messages = { en, 'zh-CN': zhCN, ja, es, de, fr }
+const messages = { en, 'zh-TW': zhTW, 'zh-CN': zhCN, ja, es, de, fr }
 
 function flattenKeys(value: unknown, prefix = ''): string[] {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return prefix ? [prefix] : []
@@ -17,8 +18,8 @@ function flattenKeys(value: unknown, prefix = ''): string[] {
 }
 
 describe('i18n', () => {
-  it('defines all six supported locales', () => {
-    expect(SUPPORTED_LOCALES).toEqual(['en', 'zh-CN', 'ja', 'es', 'de', 'fr'])
+  it('defines all seven supported locales', () => {
+    expect(SUPPORTED_LOCALES).toEqual(['en', 'zh-TW', 'zh-CN', 'ja', 'es', 'de', 'fr'])
   })
 
   it('keeps every locale key-complete with English', () => {
@@ -29,6 +30,13 @@ describe('i18n', () => {
   })
 
   it('lazy-loads non-English messages and updates the document language', async () => {
+    await loadLocaleMessages('zh-TW')
+    expect(i18n.global.availableLocales).toContain('zh-TW')
+    await setLocale('zh-TW')
+    expect(i18n.global.locale.value).toBe('zh-TW')
+    expect(document.documentElement.lang).toBe('zh-TW')
+    expect(i18n.global.t('app.home')).toBe('首頁')
+
     await loadLocaleMessages('zh-CN')
     expect(i18n.global.availableLocales).toContain('zh-CN')
     await setLocale('zh-CN')

@@ -9,6 +9,7 @@ const { t } = useI18n()
 const menuOpen = ref(false)
 const languageNames = {
   en: 'English',
+  'zh-TW': '繁體中文',
   'zh-CN': '简体中文',
   ja: '日本語',
   es: 'Español',

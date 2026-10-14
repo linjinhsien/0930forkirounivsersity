@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import en from './locales/en.json'
 
-export const SUPPORTED_LOCALES = ['en', 'zh-CN', 'ja', 'es', 'de', 'fr'] as const
+export const SUPPORTED_LOCALES = ['en', 'zh-TW', 'zh-CN', 'ja', 'es', 'de', 'fr'] as const
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
 export const FALLBACK_LOCALE: SupportedLocale = 'en'
 
@@ -9,6 +9,7 @@ type LocaleMessages = typeof en
 
 const localeLoaders: Record<SupportedLocale, () => Promise<LocaleMessages>> = {
   en: async () => en,
+  'zh-TW': () => import('./locales/zh-TW.json').then((module) => module.default),
   'zh-CN': () => import('./locales/zh-CN.json').then((module) => module.default),
   ja: () => import('./locales/ja.json').then((module) => module.default),
   es: () => import('./locales/es.json').then((module) => module.default),
