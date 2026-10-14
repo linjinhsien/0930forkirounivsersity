@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { ArchitectureScore, AzureCard } from '@/types/game'
 import { useGameStore } from '@/stores/game'
 import { useCodexStore } from '@/stores/codex'
@@ -29,9 +30,10 @@ const emit = defineEmits<{
 }>()
 
 // ---------------------------------------------------------------------------
-// Stores
+// Stores & i18n
 // ---------------------------------------------------------------------------
 
+const { t } = useI18n()
 const gameStore = useGameStore()
 const codexStore = useCodexStore()
 
@@ -123,9 +125,6 @@ onMounted(async () => {
 
   // Sync timeRemaining from store if it was just initialised
   if (gameStore.gameState) {
-    // Prefer the prop/default; keep them in sync only if gameState already
-    // carries a more relevant value (e.g. a resumed session).
-    // We intentionally keep the prop-derived value as the source of truth here.
     totalTime.value = timeRemaining.value
   }
 
@@ -134,7 +133,6 @@ onMounted(async () => {
     startTimer()
   }
 
-  // Silence unused-variable warning for `cards` — we just needed the side-effect
   void cards
 })
 
@@ -273,7 +271,7 @@ function handleSubmit(): void {
           class="col-span-2 md:col-span-3 text-center text-gray-400 dark:text-gray-500 py-12"
           aria-live="polite"
         >
-          Loading board…
+          {{ t('game.loadingBoard') }}
         </div>
       </section>
 
@@ -287,7 +285,7 @@ function handleSubmit(): void {
           :aria-disabled="placedCardCount === 0"
           @click="handleSubmit"
         >
-          Submit Solution
+          {{ t('game.submit') }}
         </button>
       </div>
 
@@ -298,13 +296,13 @@ function handleSubmit(): void {
         aria-live="polite"
         class="rounded-xl border-2 border-blue-400 bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:border-blue-700 dark:bg-blue-950/40 dark:text-blue-200"
       >
-        已進入換牌模式：請從下方手牌選擇要替換的卡片。
+        {{ t('game.replacementMode') }}
         <button
           type="button"
           class="ml-2 font-semibold underline"
           @click="replacementSlotId = null"
         >
-          取消
+          {{ t('game.cancel') }}
         </button>
       </div>
 

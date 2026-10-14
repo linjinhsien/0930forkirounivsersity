@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import CodexBrowser from '@/components/codex/CodexBrowser.vue'
 import CodexEntry from '@/components/codex/CodexEntry.vue'
 import StudyDeck from '@/components/codex/StudyDeck.vue'
 import { useCodexStore } from '@/stores/codex'
 
+const { t } = useI18n()
 const codexStore = useCodexStore()
 const activeTab = ref<'library' | 'study'>('library')
 const selectedCardId = ref<string | null>(null)
@@ -28,7 +30,7 @@ function closeEntry(): void {
 }
 
 function addedToStudyDeck(): void {
-  statusMessage.value = 'Card added to your Study Deck.'
+  statusMessage.value = t('codex.addedToStudyDeck')
 }
 </script>
 
@@ -36,9 +38,11 @@ function addedToStudyDeck(): void {
   <section data-testid="codex-browser" aria-labelledby="codex-title">
     <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Learn Azure</p>
-        <h1 id="codex-title" class="mt-1 text-3xl font-bold">Azure Architecture Codex</h1>
-        <p class="mt-2 text-gray-600">Browse service cards and save concepts to your study deck.</p>
+        <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">
+          {{ t('codex.eyebrow') }}
+        </p>
+        <h1 id="codex-title" class="mt-1 text-3xl font-bold">{{ t('codex.heading') }}</h1>
+        <p class="mt-2 text-gray-600">{{ t('codex.subtitle') }}</p>
       </div>
       <div class="flex gap-2" role="tablist" aria-label="Codex sections">
         <button
@@ -51,7 +55,7 @@ function addedToStudyDeck(): void {
           :class="activeTab === 'library' ? 'bg-blue-700 text-white' : 'border bg-white'"
           @click="activeTab = 'library'"
         >
-          Card Library
+          {{ t('codex.cardLibrary') }}
         </button>
         <button
           id="study-tab"
@@ -63,7 +67,7 @@ function addedToStudyDeck(): void {
           :class="activeTab === 'study' ? 'bg-blue-700 text-white' : 'border bg-white'"
           @click="activeTab = 'study'"
         >
-          Study Deck
+          {{ t('codex.studyDeck') }}
         </button>
       </div>
     </div>
@@ -118,10 +122,10 @@ function addedToStudyDeck(): void {
             class="rounded-lg border px-3 py-2 text-sm font-semibold hover:bg-gray-50"
             @click="closeEntry"
           >
-            Close
+            {{ t('codex.close') }}
           </button>
         </div>
-        <h2 id="codex-dialog-title" class="sr-only">Card details</h2>
+        <h2 id="codex-dialog-title" class="sr-only">{{ t('codex.cardDetails') }}</h2>
         <CodexEntry
           :key="selectedCardId"
           :card-id="selectedCardId"

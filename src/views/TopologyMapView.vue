@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface TopologyNode {
   id: string
@@ -1097,38 +1100,39 @@ const selectedPath = computed(() =>
   <section data-testid="topology-map" aria-labelledby="topology-title" class="mx-auto max-w-7xl">
     <header class="mb-8">
       <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">
-        AZ-900 · Day 7, 27–30 Review
+        {{ t('topology.eyebrow') }}
       </p>
-      <h1 id="topology-title" class="mt-1 text-3xl font-bold sm:text-4xl">AZ-900 知識拓樸圖</h1>
+      <h1 id="topology-title" class="mt-1 text-3xl font-bold sm:text-4xl">
+        {{ t('topology.heading') }}
+      </h1>
       <p class="mt-3 max-w-3xl text-gray-700">
-        從三大考綱領域出發，把雲端概念、Azure 架構服務、成本管理與治理考點串成可追蹤的知識路徑。Day
-        7 與 Day 27–30 各自有獨立複習路徑；選取節點查看概念說明與考試辨識重點。
+        {{ t('topology.subtitle') }}
       </p>
       <div class="mt-4 flex flex-wrap items-center gap-2">
         <RouterLink
           to="/codex"
           class="inline-flex items-center text-sm font-semibold text-blue-700 underline"
         >
-          前往 Azure 架構圖鑑查看服務卡牌
+          {{ t('topology.viewCodex') }}
         </RouterLink>
         <span class="text-gray-300">·</span>
         <a
           href="#osi-stack"
           class="rounded-lg border border-teal-200 bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 transition hover:bg-teal-100"
         >
-          ⚡ 直達：OSI 7 層模型對照
+          {{ t('topology.jumpOsi') }}
         </a>
         <a
           href="#five-domain-matrix"
           class="rounded-lg border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-800 transition hover:bg-indigo-100"
         >
-          🏛️ 直達：五大領域架構矩陣
+          {{ t('topology.jumpDomains') }}
         </a>
         <a
           href="#knowledge-check"
           class="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 transition hover:bg-emerald-100"
         >
-          🧠 直達：考點自我檢核 Quiz
+          {{ t('topology.jumpQuiz') }}
         </a>
       </div>
     </header>
@@ -1192,9 +1196,9 @@ const selectedPath = computed(() =>
 
         <ol class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           <li v-for="(node, index) in path.nodes" :key="node.id" class="min-w-0">
-            <span v-if="index > 0" class="mb-1 block text-xs font-semibold text-gray-500"
-              >延伸辨析 {{ index }} · relates to</span
-            >
+            <span v-if="index > 0" class="mb-1 block text-xs font-semibold text-gray-500">{{
+              t('topology.relatesTo', { index })
+            }}</span>
             <button
               type="button"
               class="min-w-0 flex-1 rounded-xl border-2 p-3 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
@@ -1218,7 +1222,7 @@ const selectedPath = computed(() =>
           class="mt-5 overflow-x-auto rounded-xl border border-emerald-800 bg-gray-950 px-4 py-4"
         >
           <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-emerald-400">
-            📐 架構拓樸速查
+            {{ t('topology.asciiQuickRef') }}
           </p>
           <pre class="font-mono text-xs leading-relaxed text-emerald-200">{{
             asciiBoxDiagram[path.id]
@@ -1234,12 +1238,13 @@ const selectedPath = computed(() =>
       data-testid="topology-node-detail"
     >
       <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">
-        {{ selectedPath?.title }} · 節點說明
+        {{ selectedPath?.title }} · {{ t('topology.nodeDetail') }}
       </p>
       <h2 id="node-detail-title" class="mt-1 text-xl font-bold">{{ selectedNode.label }}</h2>
       <p class="mt-2 text-gray-800">{{ selectedNode.detail }}</p>
       <p class="mt-3 rounded-lg bg-white/80 p-3 text-sm text-gray-800">
-        <strong>考點提示：</strong>{{ selectedNode.examTip }}
+        <strong>{{ t('topology.examTip') }}</strong
+        >{{ selectedNode.examTip }}
       </p>
     </section>
 
@@ -1255,14 +1260,14 @@ const selectedPath = computed(() =>
           <span
             class="inline-block rounded-md bg-indigo-900/60 px-2.5 py-1 text-xs font-semibold text-indigo-300"
           >
-            5-Domain Mastery
+            {{ t('topology.fiveDomainBadge') }}
           </span>
           <h2 class="mt-1 text-xl font-bold tracking-tight text-white sm:text-2xl">
-            🏛️ AZ-900 核心五大領域架構全景矩陣
+            {{ t('topology.fiveDomainTitle') }}
           </h2>
         </div>
         <p class="text-xs text-indigo-200">
-          涵蓋考綱三大主領域與高頻架構延伸：運算、儲存、網路 (OSI)、治理身分與 FinOps 成本閉環
+          {{ t('topology.fiveDomainDesc') }}
         </p>
       </div>
 
@@ -1319,14 +1324,13 @@ const selectedPath = computed(() =>
           <span
             class="inline-block rounded-md bg-teal-100 px-2.5 py-1 text-xs font-semibold text-teal-800"
           >
-            Interactive Quiz
+            {{ t('topology.quizBadge') }}
           </span>
           <h2 id="knowledge-check-title" class="mt-1 text-2xl font-bold text-gray-900">
-            🧠 AZ-900 考點知識檢核 · Knowledge Check
+            {{ t('topology.quizTitle') }}
           </h2>
           <p class="mt-1 text-sm text-gray-600">
-            包含 OSI Layer 1–7 網路通訊協定對照與 AZ-900
-            五大架構領域關鍵辨析，點選選項直接檢視解析與考點陷阱。
+            {{ t('topology.quizDesc') }}
           </p>
         </div>
 
@@ -1342,7 +1346,7 @@ const selectedPath = computed(() =>
             "
             @click="activeCheckCategory = 'all'"
           >
-            全部題目 ({{ knowledgeCheckItems.length }})
+            {{ t('topology.filterAll', { count: knowledgeCheckItems.length }) }}
           </button>
           <button
             type="button"
@@ -1354,7 +1358,7 @@ const selectedPath = computed(() =>
             "
             @click="activeCheckCategory = 'osi'"
           >
-            🌐 OSI Layer 1–7 (4)
+            {{ t('topology.filterOsi', { count: 4 }) }}
           </button>
           <button
             type="button"
@@ -1366,7 +1370,7 @@ const selectedPath = computed(() =>
             "
             @click="activeCheckCategory = 'domain'"
           >
-            🏛️ 五大領域核心 (5)
+            {{ t('topology.filterDomain', { count: 5 }) }}
           </button>
         </div>
       </div>
@@ -1382,7 +1386,9 @@ const selectedPath = computed(() =>
             <span class="rounded bg-teal-100 px-2 py-0.5 text-xs font-bold text-teal-800">
               {{ item.categoryLabel }}
             </span>
-            <span class="text-xs text-gray-400">Question {{ qIndex + 1 }}</span>
+            <span class="text-xs text-gray-400">{{
+              t('topology.questionNum', { num: qIndex + 1 })
+            }}</span>
           </div>
 
           <h3 class="text-base font-semibold text-gray-900 leading-snug">
@@ -1419,7 +1425,11 @@ const selectedPath = computed(() =>
                       : 'text-amber-700'
                   "
                 >
-                  {{ selectedAnswers[item.id] === item.answerIndex ? '✓ 正確' : '✕ 再想想' }}
+                  {{
+                    selectedAnswers[item.id] === item.answerIndex
+                      ? t('topology.correct')
+                      : t('topology.tryAgain')
+                  }}
                 </span>
               </div>
             </button>
@@ -1432,10 +1442,18 @@ const selectedPath = computed(() =>
               class="inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-600"
               @click="toggleReveal(item.id)"
             >
-              {{ revealedAnswers[item.id] ? '隱藏考點詳解 ▲' : '檢視考點詳解與陷阱分析 ▼' }}
+              {{
+                revealedAnswers[item.id]
+                  ? t('topology.hideExplanation')
+                  : t('topology.showExplanation')
+              }}
             </button>
             <span v-if="selectedAnswers[item.id] !== undefined" class="text-xs text-gray-500">
-              正確解答：選項 {{ String.fromCharCode(65 + item.answerIndex) }}
+              {{
+                t('topology.correctOption', {
+                  option: String.fromCharCode(65 + item.answerIndex),
+                })
+              }}
             </span>
           </div>
 
@@ -1444,9 +1462,12 @@ const selectedPath = computed(() =>
             v-if="revealedAnswers[item.id]"
             class="mt-3 rounded-lg border border-teal-200 bg-teal-50/80 p-3.5 text-xs text-teal-950"
           >
-            <p class="font-bold text-teal-900">💡 詳解：{{ item.explanation }}</p>
+            <p class="font-bold text-teal-900">
+              {{ t('topology.explanationLabel') }}{{ item.explanation }}
+            </p>
             <p class="mt-1.5 text-teal-800">
-              <span class="font-bold">🎯 考點陷阱提示：</span>{{ item.examTip }}
+              <span class="font-bold">{{ t('topology.examTrapLabel') }}</span
+              >{{ item.examTip }}
             </p>
           </div>
         </article>
@@ -1456,9 +1477,9 @@ const selectedPath = computed(() =>
     <!-- cxcxc-io 風格：跨域解題路徑 ASCII tree -->
     <section class="mt-8 rounded-2xl border border-gray-800 bg-gray-950 p-5 sm:p-6">
       <h2 class="text-base font-semibold uppercase tracking-widest text-emerald-400">
-        🗺️ Day 7、27–30 跨域解題路徑
+        {{ t('topology.decisionTreesTitle') }}
       </h2>
-      <p class="mt-1 text-xs text-gray-400">依情境類型展開對應的知識樹</p>
+      <p class="mt-1 text-xs text-gray-400">{{ t('topology.decisionTreesDesc') }}</p>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         <div class="overflow-x-auto rounded-xl border border-gray-700 bg-gray-900 p-4">
           <p class="mb-2 text-xs font-semibold text-amber-400">💰 成本治理路徑</p>
@@ -1608,7 +1629,7 @@ AZ-900 五大架構領域
     </section>
 
     <footer class="mt-8 border-t border-gray-200 pt-5 text-sm text-gray-600">
-      參考教材與原始練習頁：
+      {{ t('topology.referencesLabel') }}
       <a
         href="https://github.com/linjinhsien/linjinhsien.github.io/blob/main/day7.html"
         target="_blank"

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { ArchitectureScore } from '@/types/game'
 
 const props = defineProps<{
   score: ArchitectureScore
 }>()
+
+const { t } = useI18n()
 
 const haBarColor = computed((): string => {
   if (props.score.highAvailability >= 75) return 'bg-blue-500'
@@ -43,7 +46,7 @@ const costUtilizationDisplay = computed((): string => {
     <!-- Total score -->
     <div class="flex items-baseline justify-between mb-4">
       <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-        Architecture Score
+        {{ t('score.title') }}
       </h2>
       <div class="flex items-baseline gap-1">
         <span
@@ -62,7 +65,7 @@ const costUtilizationDisplay = computed((): string => {
       <div>
         <div class="flex justify-between items-center mb-1">
           <span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
-            🔄 <span>High Availability</span>
+            🔄 <span>{{ t('score.highAvailability') }}</span>
           </span>
           <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">
             {{ score.highAvailability }}
@@ -87,7 +90,7 @@ const costUtilizationDisplay = computed((): string => {
       <div>
         <div class="flex justify-between items-center mb-1">
           <span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
-            💰 <span>Cost Effectiveness</span>
+            💰 <span>{{ t('score.costEffectiveness') }}</span>
           </span>
           <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">
             {{ score.costEffectiveness }}
@@ -112,7 +115,7 @@ const costUtilizationDisplay = computed((): string => {
       <div>
         <div class="flex justify-between items-center mb-1">
           <span class="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
-            🔒 <span>Security Compliance</span>
+            🔒 <span>{{ t('score.securityCompliance') }}</span>
           </span>
           <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 tabular-nums">
             {{ score.securityCompliance }}
@@ -139,13 +142,13 @@ const costUtilizationDisplay = computed((): string => {
       <summary
         class="cursor-pointer text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide select-none hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
       >
-        Score Breakdown ▾
+        {{ t('score.breakdown') }}
       </summary>
 
       <div class="mt-3 space-y-2 text-sm">
         <!-- Requirements met -->
         <div class="flex justify-between text-gray-600 dark:text-gray-300">
-          <span>Requirements met</span>
+          <span>{{ t('score.requirementsMet') }}</span>
           <span class="font-medium tabular-nums">
             {{ score.breakdown.requirementsMet }} / {{ score.breakdown.totalRequirements }}
           </span>
@@ -153,14 +156,14 @@ const costUtilizationDisplay = computed((): string => {
 
         <!-- Cost utilization -->
         <div class="flex justify-between text-gray-600 dark:text-gray-300">
-          <span>Cost utilization</span>
+          <span>{{ t('score.costUtilization') }}</span>
           <span class="font-medium tabular-nums">{{ costUtilizationDisplay }}</span>
         </div>
 
         <!-- Synergy bonuses -->
         <div v-if="score.breakdown.synergyBonuses.length > 0">
           <p class="text-xs font-semibold text-green-600 dark:text-green-400 mb-1">
-            Synergy Bonuses
+            {{ t('score.synergyBonuses') }}
           </p>
           <ul class="space-y-0.5">
             <li
@@ -175,7 +178,9 @@ const costUtilizationDisplay = computed((): string => {
 
         <!-- Penalties -->
         <div v-if="score.breakdown.penalties.length > 0">
-          <p class="text-xs font-semibold text-red-600 dark:text-red-400 mb-1">Penalties</p>
+          <p class="text-xs font-semibold text-red-600 dark:text-red-400 mb-1">
+            {{ t('score.penalties') }}
+          </p>
           <ul class="space-y-0.5">
             <li
               v-for="penalty in score.breakdown.penalties"
@@ -194,7 +199,7 @@ const costUtilizationDisplay = computed((): string => {
           "
           class="text-xs text-gray-400 dark:text-gray-500 italic"
         >
-          No synergies or penalties applied.
+          {{ t('score.noSynergiesOrPenalties') }}
         </p>
       </div>
     </details>

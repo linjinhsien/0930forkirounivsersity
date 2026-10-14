@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCodexStore } from '@/stores/codex'
 import type { AZ900Domain, AzureCard } from '@/types/game'
 import AzureCardComponent from '@/components/cards/AzureCard.vue'
@@ -9,7 +10,8 @@ const emit = defineEmits<{
   entrySelected: [cardId: string]
 }>()
 
-// ── Store ──────────────────────────────────────────────────────────────────
+// ── Store & i18n ───────────────────────────────────────────────────────────
+const { t } = useI18n()
 const codexStore = useCodexStore()
 
 // ── Local state ────────────────────────────────────────────────────────────
@@ -18,11 +20,11 @@ const selectedDomain = ref<AZ900Domain | null>(null)
 const sortBy = ref<'name' | 'cost' | 'domain'>('domain')
 
 // ── Domain config ──────────────────────────────────────────────────────────
-const domains: ReadonlyArray<{ value: AZ900Domain; label: string }> = [
-  { value: 'cloud-concepts', label: 'Cloud Concepts' },
-  { value: 'azure-services', label: 'Azure Services' },
-  { value: 'management-governance', label: 'Governance' },
-]
+const domains = computed<ReadonlyArray<{ value: AZ900Domain; label: string }>>(() => [
+  { value: 'cloud-concepts', label: t('domains.cloud-concepts') },
+  { value: 'azure-services', label: t('domains.azure-services') },
+  { value: 'management-governance', label: t('domains.governanceShort') },
+])
 
 // ── Domain button helpers ──────────────────────────────────────────────────
 function toggleDomain(domain: AZ900Domain): void {
@@ -108,7 +110,7 @@ onMounted(() => {
       <input
         v-model="searchQuery"
         type="search"
-        placeholder="Search cards..."
+        :placeholder="t('codex.searchPlaceholder')"
         aria-label="Search cards"
         class="flex-1 min-w-48 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
       />
@@ -133,9 +135,9 @@ onMounted(() => {
         aria-label="Sort cards by"
         class="rounded-lg border border-gray-300 px-2 py-2 text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
       >
-        <option value="domain">Sort: Domain</option>
-        <option value="name">Sort: Name</option>
-        <option value="cost">Sort: Cost</option>
+        <option value="domain">{{ t('codex.sortDomain') }}</option>
+        <option value="name">{{ t('codex.sortName') }}</option>
+        <option value="cost">{{ t('codex.sortCost') }}</option>
       </select>
     </div>
 
@@ -156,7 +158,7 @@ onMounted(() => {
         class="text-center py-12 text-gray-400 dark:text-gray-500"
         aria-live="polite"
       >
-        Loading...
+        {{ t('codex.loading') }}
       </div>
 
       <!-- Empty results after filter/search -->
@@ -164,7 +166,7 @@ onMounted(() => {
         v-else-if="displayCards.length === 0"
         class="text-center py-12 text-gray-400 dark:text-gray-500"
       >
-        No cards match your search.
+        {{ t('codex.noMatch') }}
       </div>
 
       <!-- Card grid -->

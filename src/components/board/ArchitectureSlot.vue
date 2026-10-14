@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { ArchitectureSlot as ArchitectureSlotType } from '@/types/game'
 import AzureCard from '@/components/cards/AzureCard.vue'
 
@@ -20,6 +21,8 @@ const emit = defineEmits<{
   replaceRequested: [slotId: string]
   removeRequested: [slotId: string]
 }>()
+
+const { t } = useI18n()
 
 const SLOT_ICONS: Record<ArchitectureSlotType['type'], string> = {
   compute: '⚙️',
@@ -108,7 +111,9 @@ function handleKeyActivate(event: KeyboardEvent): void {
       <span class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{
         architectureSlot.type
       }}</span>
-      <span v-if="architectureSlot.required" class="text-xs text-red-400 mt-1">Required</span>
+      <span v-if="architectureSlot.required" class="text-xs text-red-400 mt-1">{{
+        t('game.required')
+      }}</span>
     </template>
 
     <!-- Occupied: render AzureCard -->
@@ -126,7 +131,7 @@ function handleKeyActivate(event: KeyboardEvent): void {
           :aria-label="`Replace ${architectureSlot.card.name}`"
           @click="handleReplace"
         >
-          更換卡片
+          {{ t('game.replaceCard') }}
         </button>
         <button
           type="button"
@@ -134,7 +139,7 @@ function handleKeyActivate(event: KeyboardEvent): void {
           :aria-label="`Return ${architectureSlot.card.name} to hand`"
           @click="handleRemove"
         >
-          移回手牌
+          {{ t('game.returnToHand') }}
         </button>
       </div>
     </template>

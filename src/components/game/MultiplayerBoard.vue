@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createPinia, piniaSymbol } from 'pinia'
 import { onMounted, provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import GameBoard from '@/components/game/GameBoard.vue'
 import type { ArchitectureScore, Scenario } from '@/types/game'
 import { useGameStore } from '@/stores/game'
@@ -18,6 +19,7 @@ const emit = defineEmits<{
   complete: [playerNumber: 1 | 2, score: ArchitectureScore]
 }>()
 
+const { t } = useI18n()
 const pinia = createPinia()
 provide(piniaSymbol, pinia)
 const gameStore = useGameStore(pinia)
@@ -46,7 +48,7 @@ function handleComplete(): void {
   >
     <h2 class="mb-3 text-lg font-bold">{{ playerName }}</h2>
     <div v-if="!ready" role="status" class="rounded-lg bg-white p-5 text-sm text-gray-600">
-      Preparing player board…
+      {{ t('multiplayer.preparingBoard') }}
     </div>
     <GameBoard
       v-else

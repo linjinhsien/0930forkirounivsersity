@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import type { AzureCard } from '@/types/game'
 import AzureCardComponent from '@/components/cards/AzureCard.vue'
 
@@ -11,12 +12,16 @@ const emit = defineEmits<{
   cardSelected: [card: AzureCard]
   cardDragStart: [card: AzureCard]
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
   <div class="flex flex-col">
     <!-- Card count -->
-    <div class="text-sm text-gray-500 mb-2">{{ cards.length }} cards in hand</div>
+    <div class="text-sm text-gray-500 mb-2">
+      {{ t('game.cardsInHandCount', { count: cards.length }) }}
+    </div>
 
     <!-- Card list container -->
     <div
@@ -27,7 +32,7 @@ const emit = defineEmits<{
     >
       <!-- Empty state -->
       <div v-if="cards.length === 0" class="text-center text-gray-400 py-8 w-full">
-        No cards available
+        {{ t('game.noCardsAvailable') }}
       </div>
 
       <!-- Card items -->

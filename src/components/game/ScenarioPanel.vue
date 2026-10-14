@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Scenario } from '@/types/game'
 
 const props = defineProps<{
   scenario: Scenario
   placedCardCount?: number
 }>()
+
+const { t } = useI18n()
 
 // A requirement is "met" if there are enough placed cards to cover its index
 function isMet(index: number): boolean {
@@ -21,12 +25,12 @@ const difficultyBadge: Record<Scenario['difficulty'], string> = {
   advanced: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
 }
 
-const categoryLabel: Record<Scenario['category'], string> = {
-  'startup-scaling': 'Startup Scaling',
-  'enterprise-migration': 'Enterprise Migration',
-  'high-compliance': 'High Compliance',
-  'real-time-analytics': 'Real-Time Analytics',
-}
+const categoryLabel = computed<Record<Scenario['category'], string>>(() => ({
+  'startup-scaling': t('categories.startup-scaling'),
+  'enterprise-migration': t('categories.enterprise-migration'),
+  'high-compliance': t('categories.high-compliance'),
+  'real-time-analytics': t('categories.real-time-analytics'),
+}))
 
 const categoryBadge: Record<Scenario['category'], string> = {
   'startup-scaling': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
@@ -61,7 +65,7 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
           ]"
           :aria-label="`Difficulty: ${scenario.difficulty}`"
         >
-          {{ scenario.difficulty }}
+          {{ t(`difficulty.${scenario.difficulty}`) }}
         </span>
         <span
           :class="[
@@ -85,7 +89,7 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
       <h3
         class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2"
       >
-        Requirements
+        {{ t('game.requirements') }}
       </h3>
       <ul aria-label="Scenario requirements" class="space-y-0">
         <li
@@ -101,7 +105,9 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
           </span>
           <div>
             <span class="font-medium text-gray-800 dark:text-gray-200">{{ req.description }}</span>
-            <span class="text-xs ml-2 opacity-60">weight: {{ req.weight }}</span>
+            <span class="text-xs ml-2 opacity-60">{{
+              t('game.weight', { weight: req.weight })
+            }}</span>
           </div>
         </li>
       </ul>
@@ -112,13 +118,15 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
       <h3
         class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2"
       >
-        Constraints
+        {{ t('game.constraints') }}
       </h3>
       <div class="flex flex-wrap gap-2 text-sm">
         <!-- Max cost -->
         <span class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-          💰 Budget:
-          <span class="font-medium">{{ scenario.constraints.maxCost ?? 'Unlimited' }} pts</span>
+          💰 {{ t('game.budget') }}
+          <span class="font-medium"
+            >{{ scenario.constraints.maxCost ?? t('game.unlimited') }} pts</span
+          >
         </span>
 
         <!-- Min availability -->
@@ -126,7 +134,7 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
           v-if="scenario.constraints.minAvailability !== undefined"
           class="flex items-center gap-1 text-gray-600 dark:text-gray-300"
         >
-          🔄 Min SLA:
+          🔄 {{ t('game.minSla') }}
           <span class="font-medium">{{ scenario.constraints.minAvailability }}%</span>
         </span>
 
@@ -148,7 +156,7 @@ const securityBadge: Record<NonNullable<Scenario['constraints']['securityLevel']
     <div
       class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-400 dark:text-gray-500"
     >
-      Max rounds: {{ scenario.maxRounds }}
+      {{ t('game.maxRounds', { rounds: scenario.maxRounds }) }}
     </div>
   </div>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { AzureCard } from '@/types/game'
 
 const props = defineProps<{
@@ -11,11 +13,13 @@ const emit = defineEmits<{
   dragStart: [card: AzureCard]
 }>()
 
-const domainLabel: Record<AzureCard['domain'], string> = {
-  'cloud-concepts': 'Cloud Concepts',
-  'azure-services': 'Azure Services',
-  'management-governance': 'Management & Governance',
-}
+const { t } = useI18n()
+
+const domainLabel = computed<Record<AzureCard['domain'], string>>(() => ({
+  'cloud-concepts': t('domains.cloud-concepts'),
+  'azure-services': t('domains.azure-services'),
+  'management-governance': t('domains.management-governance'),
+}))
 
 const domainColor: Record<AzureCard['domain'], string> = {
   'cloud-concepts': 'bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200',

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { usePlayerStore } from '@/stores/player'
 import { useSessionStore } from '@/stores/session'
 import type { PlayerProfile } from '@/types/game'
 
+const { t } = useI18n()
 const playerStore = usePlayerStore()
 const sessionStore = useSessionStore()
 const profile = computed(() => playerStore.profile)
@@ -52,17 +54,17 @@ function setLanguage(value: string): void {
       error instanceof Error ? error.message : 'Could not save the language preference.'
     return
   }
-  statusMessage.value = `Language preference saved: ${languageName.value}.`
+  statusMessage.value = t('settings.languageSaved', { language: languageName.value })
 }
 
 function savePlayerName(): void {
   const name = playerName.value.trim()
   if (!name || !playerStore.profile) {
-    statusMessage.value = 'Enter a player name before saving.'
+    statusMessage.value = t('settings.enterPlayerName')
     return
   }
   playerStore.setDisplayName(name)
-  statusMessage.value = 'Player name saved.'
+  statusMessage.value = t('settings.playerNameSaved')
 }
 
 function setAccessibility(preference: keyof PlayerProfile['accessibility'], event: Event): void {
@@ -81,16 +83,18 @@ function clearGameData(): void {
   playerStore.initializeProfile()
   playerName.value = playerStore.profile?.displayName ?? ''
   clearConfirmationOpen.value = false
-  statusMessage.value = 'Saved game data and preferences have been cleared.'
+  statusMessage.value = t('settings.dataCleared')
 }
 </script>
 
 <template>
   <section data-testid="settings-view" aria-labelledby="settings-title" class="mx-auto max-w-3xl">
     <div class="mb-6">
-      <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Preferences</p>
-      <h1 id="settings-title" class="mt-1 text-3xl font-bold">Settings</h1>
-      <p class="mt-2 text-gray-600">Make the game comfortable and accessible for you.</p>
+      <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">
+        {{ t('settings.preferences') }}
+      </p>
+      <h1 id="settings-title" class="mt-1 text-3xl font-bold">{{ t('settings.title') }}</h1>
+      <p class="mt-2 text-gray-600">{{ t('settings.subtitle') }}</p>
     </div>
 
     <p
@@ -103,10 +107,10 @@ function clearGameData(): void {
 
     <div class="space-y-5">
       <section class="rounded-xl border bg-white p-5">
-        <h2 class="font-bold">Player profile</h2>
+        <h2 class="font-bold">{{ t('settings.playerProfile') }}</h2>
         <form class="mt-3 flex flex-wrap items-end gap-3" @submit.prevent="savePlayerName">
           <label class="flex min-w-48 flex-1 flex-col gap-1 text-sm font-medium">
-            Player name
+            {{ t('settings.playerName') }}
             <input
               v-model="playerName"
               maxlength="32"
@@ -118,18 +122,19 @@ function clearGameData(): void {
             type="submit"
             class="rounded-lg bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800"
           >
-            Save name
+            {{ t('settings.saveName') }}
           </button>
         </form>
         <p class="mt-3 text-sm text-gray-600">
-          Difficulty: {{ profile?.difficultyTier ?? 'beginner' }}
+          {{ t('settings.difficulty') }}:
+          {{ t(`difficulty.${profile?.difficultyTier ?? 'beginner'}`) }}
         </p>
       </section>
 
       <section class="rounded-xl border bg-white p-5">
-        <h2 class="font-bold">Language</h2>
+        <h2 class="font-bold">{{ t('settings.language') }}</h2>
         <label class="mt-3 flex max-w-sm flex-col gap-1 text-sm font-medium">
-          Interface language
+          {{ t('settings.interfaceLanguage') }}
           <select
             :value="profile?.language ?? 'en'"
             data-testid="language-select"
@@ -146,7 +151,7 @@ function clearGameData(): void {
       </section>
 
       <section class="rounded-xl border bg-white p-5">
-        <h2 class="font-bold">Accessibility</h2>
+        <h2 class="font-bold">{{ t('settings.accessibility') }}</h2>
         <div class="mt-3 space-y-3">
           <label class="flex items-start gap-3">
             <input
@@ -157,10 +162,10 @@ function clearGameData(): void {
               @change="setAccessibility('highContrast', $event)"
             />
             <span
-              ><strong>High contrast mode</strong
-              ><span class="block text-sm text-gray-600"
-                >Increase visual contrast across the game.</span
-              ></span
+              ><strong>{{ t('settings.highContrast') }}</strong
+              ><span class="block text-sm text-gray-600">{{
+                t('settings.highContrastDesc')
+              }}</span></span
             >
           </label>
           <label class="flex items-start gap-3">
@@ -171,10 +176,10 @@ function clearGameData(): void {
               @change="setAccessibility('keyboardOnly', $event)"
             />
             <span
-              ><strong>Keyboard-only mode</strong
-              ><span class="block text-sm text-gray-600"
-                >Emphasize keyboard focus indicators.</span
-              ></span
+              ><strong>{{ t('settings.keyboardOnly') }}</strong
+              ><span class="block text-sm text-gray-600">{{
+                t('settings.keyboardOnlyDesc')
+              }}</span></span
             >
           </label>
           <label class="flex items-start gap-3">
@@ -185,10 +190,10 @@ function clearGameData(): void {
               @change="setAccessibility('reducedMotion', $event)"
             />
             <span
-              ><strong>Reduced motion</strong
-              ><span class="block text-sm text-gray-600"
-                >Reduce non-essential animation.</span
-              ></span
+              ><strong>{{ t('settings.reducedMotion') }}</strong
+              ><span class="block text-sm text-gray-600">{{
+                t('settings.reducedMotionDesc')
+              }}</span></span
             >
           </label>
         </div>
@@ -198,12 +203,12 @@ function clearGameData(): void {
         class="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-5"
       >
         <div>
-          <h2 class="font-bold">Saved game</h2>
+          <h2 class="font-bold">{{ t('settings.savedGame') }}</h2>
           <p class="mt-1 text-sm text-gray-600">
             {{
               sessionStore.hasValidSession
-                ? 'A saved match is available.'
-                : 'No saved match is available.'
+                ? t('settings.savedMatchAvailable')
+                : t('settings.noSavedMatch')
             }}
           </p>
         </div>
@@ -212,27 +217,27 @@ function clearGameData(): void {
           to="/quick-match?resume=1"
           class="rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50"
         >
-          Resume Game
+          {{ t('settings.resume') }}
         </RouterLink>
       </section>
 
       <section class="rounded-xl border border-red-200 bg-white p-5">
-        <h2 class="font-bold text-red-800">Clear game data</h2>
+        <h2 class="font-bold text-red-800">{{ t('settings.clearGameDataTitle') }}</h2>
         <p class="mt-1 text-sm text-gray-600">
-          Remove saved matches, player progress, and preferences from this browser.
+          {{ t('settings.clearGameDataDesc') }}
         </p>
         <button
           type="button"
           class="mt-3 rounded-lg border border-red-300 px-4 py-2 font-semibold text-red-800 hover:bg-red-50"
           @click="clearConfirmationOpen = true"
         >
-          Clear Data
+          {{ t('settings.clearData') }}
         </button>
       </section>
     </div>
 
     <RouterLink to="/" class="mt-6 inline-block font-semibold text-blue-700 hover:underline">
-      Back to Home
+      {{ t('settings.backToHome') }}
     </RouterLink>
 
     <div
@@ -248,10 +253,9 @@ function clearGameData(): void {
         aria-labelledby="clear-title"
         class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
       >
-        <h2 id="clear-title" class="text-lg font-bold">Clear all game data?</h2>
+        <h2 id="clear-title" class="text-lg font-bold">{{ t('settings.clearConfirmTitle') }}</h2>
         <p class="mt-2 text-sm text-gray-600">
-          This removes your saved match, XP, and preferences from this browser. This cannot be
-          undone.
+          {{ t('settings.clearConfirmDesc') }}
         </p>
         <div class="mt-5 flex justify-end gap-3">
           <button
@@ -259,14 +263,14 @@ function clearGameData(): void {
             class="rounded-lg border px-4 py-2 font-semibold"
             @click="clearConfirmationOpen = false"
           >
-            Cancel
+            {{ t('settings.cancel') }}
           </button>
           <button
             type="button"
             class="rounded-lg bg-red-700 px-4 py-2 font-semibold text-white hover:bg-red-800"
             @click="clearGameData"
           >
-            Clear Data
+            {{ t('settings.clearData') }}
           </button>
         </div>
       </section>

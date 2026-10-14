@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import MultiplayerBoard from '@/components/game/MultiplayerBoard.vue'
 import { EvaluatorEngine } from '@/engine/evaluator'
 import { usePlayerStore } from '@/stores/player'
 import type { ArchitectureScore, Scenario } from '@/types/game'
 import { loadAllScenarios } from '@/utils/dataLoader'
 
+const { t } = useI18n()
 const playerStore = usePlayerStore()
 const evaluator = new EvaluatorEngine()
 const scenarios = ref<Scenario[]>([])
@@ -84,13 +86,13 @@ function playAgain(): void {
     <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
         <p class="text-sm font-semibold uppercase tracking-wide text-purple-700">
-          Two-player challenge
+          {{ t('multiplayer.eyebrow') }}
         </p>
-        <h1 id="multiplayer-title" class="mt-1 text-3xl font-bold">Multiplayer Challenge</h1>
+        <h1 id="multiplayer-title" class="mt-1 text-3xl font-bold">{{ t('home.multiplayer') }}</h1>
       </div>
-      <RouterLink to="/" class="text-sm font-medium text-blue-700 hover:underline"
-        >Main menu</RouterLink
-      >
+      <RouterLink to="/" class="text-sm font-medium text-blue-700 hover:underline">{{
+        t('game.mainMenu')
+      }}</RouterLink>
     </div>
 
     <p
@@ -101,14 +103,14 @@ function playAgain(): void {
       {{ errorMessage }}
     </p>
     <div v-else-if="!currentScenario" role="status" class="rounded-lg bg-white p-5 text-gray-600">
-      Loading match scenario…
+      {{ t('multiplayer.loadingScenario') }}
     </div>
     <template v-else>
       <section class="mb-5 rounded-xl border bg-white p-5" aria-label="Match setup">
-        <h2 class="text-lg font-bold">Match setup</h2>
+        <h2 class="text-lg font-bold">{{ t('multiplayer.matchSetup') }}</h2>
         <div class="mt-4 grid gap-4 sm:grid-cols-2">
           <label class="flex flex-col gap-1 text-sm font-medium">
-            Player 1
+            {{ t('multiplayer.player1') }}
             <input
               v-model="playerOneName"
               maxlength="32"
@@ -117,7 +119,7 @@ function playAgain(): void {
             />
           </label>
           <label class="flex flex-col gap-1 text-sm font-medium">
-            Player 2
+            {{ t('multiplayer.player2') }}
             <input
               v-model="playerTwoName"
               maxlength="32"
@@ -134,7 +136,7 @@ function playAgain(): void {
           class="mt-4 rounded-lg bg-purple-700 px-4 py-2 font-semibold text-white hover:bg-purple-800"
           @click="startMatch"
         >
-          Start Clash
+          {{ t('multiplayer.startClash') }}
         </button>
       </section>
 
@@ -142,7 +144,7 @@ function playAgain(): void {
         <MultiplayerBoard
           :key="`${matchKey}-player-1`"
           :player-number="1"
-          :player-name="playerOneName || 'Player 1'"
+          :player-name="playerOneName || t('multiplayer.player1')"
           :scenario="currentScenario"
           :match-key="matchKey"
           @complete="handlePlayerComplete"
@@ -150,7 +152,7 @@ function playAgain(): void {
         <MultiplayerBoard
           :key="`${matchKey}-player-2`"
           :player-number="2"
-          :player-name="playerTwoName || 'Player 2'"
+          :player-name="playerTwoName || t('multiplayer.player2')"
           :scenario="currentScenario"
           :match-key="matchKey"
           @complete="handlePlayerComplete"
@@ -163,12 +165,16 @@ function playAgain(): void {
         aria-live="polite"
         class="mt-5 rounded-xl border bg-white p-5"
       >
-        <h2 id="clash-results-title" class="text-xl font-bold">Clash results</h2>
+        <h2 id="clash-results-title" class="text-xl font-bold">
+          {{ t('multiplayer.clashResults') }}
+        </h2>
         <p class="mt-2 text-lg font-semibold">
           {{
             winner === 'tie'
-              ? 'It’s a tie!'
-              : `${winner === 'player1' ? playerOneName : playerTwoName} wins!`
+              ? t('multiplayer.tie')
+              : t('multiplayer.playerWins', {
+                  name: winner === 'player1' ? playerOneName : playerTwoName,
+                })
           }}
         </p>
         <div class="mt-4 grid gap-3 sm:grid-cols-2">
@@ -186,13 +192,13 @@ function playAgain(): void {
           class="mt-4 rounded-lg bg-purple-700 px-4 py-2 font-semibold text-white hover:bg-purple-800"
           @click="playAgain"
         >
-          Play Again
+          {{ t('multiplayer.playAgain') }}
         </button>
         <RouterLink
           to="/"
           class="ml-3 inline-block rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50"
         >
-          Main Menu
+          {{ t('game.mainMenuBtn') }}
         </RouterLink>
       </section>
     </template>

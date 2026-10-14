@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import type { ValidationResult, ValidationViolation } from '@/types/game'
 
 defineProps<{
   result: ValidationResult | null
   isValidating?: boolean
 }>()
+
+const { t } = useI18n()
 
 function violationIcon(type: ValidationViolation['type']): string {
   const icons: Record<ValidationViolation['type'], string> = {
@@ -41,7 +44,7 @@ function violationIcon(type: ValidationViolation['type']): string {
           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
         />
       </svg>
-      <span class="text-sm text-gray-600 dark:text-gray-300">Validating...</span>
+      <span class="text-sm text-gray-600 dark:text-gray-300">{{ t('validation.validating') }}</span>
     </div>
 
     <!-- Valid state -->
@@ -51,7 +54,9 @@ function violationIcon(type: ValidationViolation['type']): string {
       class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3 flex items-center gap-2"
     >
       <span aria-hidden="true">✅</span>
-      <span class="text-green-800 dark:text-green-300 font-medium">Valid placement!</span>
+      <span class="text-green-800 dark:text-green-300 font-medium">{{
+        t('validation.validPlacement')
+      }}</span>
     </div>
 
     <!-- Violation state -->
@@ -69,7 +74,7 @@ function violationIcon(type: ValidationViolation['type']): string {
           <div>
             <p class="text-red-800 dark:text-red-300 text-sm font-medium">{{ v.message }}</p>
             <p v-if="v.principle" class="text-red-600 dark:text-red-400 text-xs mt-0.5">
-              Principle: {{ v.principle }}
+              {{ t('validation.principle', { principle: v.principle }) }}
             </p>
           </div>
         </div>
@@ -77,7 +82,9 @@ function violationIcon(type: ValidationViolation['type']): string {
 
       <!-- Suggestions -->
       <div v-if="result.suggestions && result.suggestions.length > 0" class="mt-2">
-        <p class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Suggestions:</p>
+        <p class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
+          {{ t('validation.suggestions') }}
+        </p>
         <div class="flex flex-wrap gap-1">
           <span
             v-for="s in result.suggestions"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCodexStore } from '@/stores/codex'
 import { usePlayerStore } from '@/stores/player'
 import type { AZ900Domain, AzureCard } from '@/types/game'
@@ -10,7 +11,8 @@ const emit = defineEmits<{
   cardSelected: [cardId: string]
 }>()
 
-// ── Stores ─────────────────────────────────────────────────────────────────
+// ── Stores & i18n ──────────────────────────────────────────────────────────
+const { t } = useI18n()
 const playerStore = usePlayerStore()
 const codexStore = useCodexStore()
 
@@ -19,11 +21,11 @@ const sortBy = ref<'name' | 'cost' | 'domain'>('domain')
 const filterDomain = ref<AZ900Domain | null>(null)
 
 // ── Domain config ──────────────────────────────────────────────────────────
-const domains: ReadonlyArray<{ value: AZ900Domain; label: string }> = [
-  { value: 'cloud-concepts', label: 'Cloud Concepts' },
-  { value: 'azure-services', label: 'Azure Services' },
-  { value: 'management-governance', label: 'Governance' },
-]
+const domains = computed<ReadonlyArray<{ value: AZ900Domain; label: string }>>(() => [
+  { value: 'cloud-concepts', label: t('domains.cloud-concepts') },
+  { value: 'azure-services', label: t('domains.azure-services') },
+  { value: 'management-governance', label: t('domains.governanceShort') },
+])
 
 // ── Domain sort order ──────────────────────────────────────────────────────
 const domainOrder: Record<AZ900Domain, number> = {
@@ -70,7 +72,7 @@ const displayCards = computed<AzureCard[]>(() => {
     <!-- ── Header with progress ── -->
     <div class="p-4 bg-white dark:bg-gray-900 border-b dark:border-gray-700">
       <div class="flex justify-between items-center mb-2">
-        <h2 class="font-bold text-gray-900 dark:text-gray-100">Study Deck</h2>
+        <h2 class="font-bold text-gray-900 dark:text-gray-100">{{ t('codex.studyDeck') }}</h2>
         <span class="text-sm text-gray-500 dark:text-gray-400">
           {{ progress.collected }} / {{ progress.total }}
         </span>
@@ -98,9 +100,9 @@ const displayCards = computed<AzureCard[]>(() => {
         aria-label="Sort study deck by"
         class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 dark:bg-gray-800 dark:text-gray-100"
       >
-        <option value="domain">Domain</option>
-        <option value="name">Name</option>
-        <option value="cost">Cost</option>
+        <option value="domain">{{ t('codex.domain') }}</option>
+        <option value="name">{{ t('codex.name') }}</option>
+        <option value="cost">{{ t('codex.cost') }}</option>
       </select>
 
       <!-- Domain filter buttons -->
@@ -125,19 +127,15 @@ const displayCards = computed<AzureCard[]>(() => {
       <div class="text-center text-gray-400 dark:text-gray-500">
         <div class="text-4xl mb-2" aria-hidden="true">📚</div>
         <p class="text-sm">
-          {{
-            studyCards.length === 0
-              ? 'No cards in your study deck yet.'
-              : 'No cards match this filter.'
-          }}
+          {{ studyCards.length === 0 ? t('codex.emptyStudyDeck') : t('codex.noFilterMatch') }}
         </p>
-        <p v-if="studyCards.length === 0" class="text-xs mt-1">Play games to collect cards!</p>
+        <p v-if="studyCards.length === 0" class="text-xs mt-1">{{ t('codex.playToCollect') }}</p>
         <button
           v-else
           class="text-xs mt-2 text-blue-600 dark:text-blue-400 hover:underline"
           @click="filterDomain = null"
         >
-          Clear filter
+          {{ t('codex.clearFilter') }}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import GameBoard from '@/components/game/GameBoard.vue'
 import { ScoringEngine } from '@/engine/scoring'
 import { useGameStore } from '@/stores/game'
@@ -10,6 +11,7 @@ import { useSessionResume } from '@/composables/useSessionResume'
 import type { ArchitectureScore, Scenario } from '@/types/game'
 import { loadAllScenarios } from '@/utils/dataLoader'
 
+const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const gameStore = useGameStore()
@@ -92,11 +94,11 @@ async function continueMatch(): Promise<void> {
 function saveForLater(): void {
   if (!gameStore.gameState) return
   sessionStore.saveSession(gameStore.gameState, playerStore.profile?.id)
-  saveMessage.value = 'Your game has been saved on this device for 7 days.'
+  saveMessage.value = t('game.savedFor7Days')
 }
 
 function confirmExit(): void {
-  if (window.confirm('Leave this match? Your current game is saved for later.')) {
+  if (window.confirm(t('game.confirmExit'))) {
     saveForLater()
     void router.push('/')
   }
@@ -111,16 +113,18 @@ onMounted(() => {
   <section aria-labelledby="quick-match-title">
     <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Single player</p>
-        <h1 id="quick-match-title" class="mt-1 text-3xl font-bold">3-Minute Commute Mode</h1>
+        <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">
+          {{ t('game.singlePlayer') }}
+        </p>
+        <h1 id="quick-match-title" class="mt-1 text-3xl font-bold">{{ t('home.quickMatch') }}</h1>
       </div>
-      <RouterLink to="/" class="text-sm font-medium text-blue-700 hover:underline"
-        >Main menu</RouterLink
-      >
+      <RouterLink to="/" class="text-sm font-medium text-blue-700 hover:underline">{{
+        t('game.mainMenu')
+      }}</RouterLink>
     </div>
 
     <p v-if="loading" role="status" class="rounded-lg bg-white p-6 text-gray-600">
-      Loading your scenarios…
+      {{ t('game.loadingScenarios') }}
     </p>
     <div
       v-else-if="errorMessage"
@@ -129,7 +133,7 @@ onMounted(() => {
     >
       {{ errorMessage }}
       <button class="ml-3 font-semibold underline" type="button" @click="startGame">
-        Try again
+        {{ t('game.tryAgain') }}
       </button>
     </div>
     <section
@@ -137,10 +141,12 @@ onMounted(() => {
       aria-live="polite"
       class="rounded-2xl border bg-white p-6 shadow-sm"
     >
-      <p class="text-sm font-semibold uppercase text-green-700">Match complete</p>
-      <h2 class="mt-2 text-2xl font-bold">Your architecture score: {{ totalScore }} / 900</h2>
+      <p class="text-sm font-semibold uppercase text-green-700">{{ t('game.matchComplete') }}</p>
+      <h2 class="mt-2 text-2xl font-bold">
+        {{ t('game.yourArchitectureScore', { score: totalScore }) }}
+      </h2>
       <p class="mt-2 text-gray-600">
-        You completed all three scenarios. Keep practicing to improve your score.
+        {{ t('game.completedAllThree') }}
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <button
@@ -148,16 +154,18 @@ onMounted(() => {
           class="rounded-lg bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800"
           @click="startGame"
         >
-          New Game
+          {{ t('game.newGame') }}
         </button>
-        <RouterLink to="/" class="rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50"
-          >Main Menu</RouterLink
-        >
+        <RouterLink to="/" class="rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50">{{
+          t('game.mainMenuBtn')
+        }}</RouterLink>
       </div>
     </section>
     <template v-else-if="currentScenario">
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <p class="font-semibold" aria-live="polite">Scenario {{ currentIndex + 1 }} of 3</p>
+        <p class="font-semibold" aria-live="polite">
+          {{ t('game.scenarioOf', { current: currentIndex + 1, total: 3 }) }}
+        </p>
         <div class="flex flex-wrap gap-2">
           <button
             v-if="!roundFinished"
@@ -165,14 +173,14 @@ onMounted(() => {
             class="rounded-lg border px-3 py-2 text-sm font-medium hover:bg-white"
             @click="saveForLater"
           >
-            Save for Later
+            {{ t('game.save') }}
           </button>
           <button
             type="button"
             class="rounded-lg border px-3 py-2 text-sm font-medium hover:bg-white"
             @click="confirmExit"
           >
-            Exit Match
+            {{ t('game.exitMatch') }}
           </button>
         </div>
       </div>
@@ -184,13 +192,15 @@ onMounted(() => {
         @match-complete="handleMatchComplete"
       />
       <div v-if="roundFinished" class="mt-4 rounded-lg border bg-white p-5">
-        <p class="font-semibold">Scenario score: {{ scores[scores.length - 1]?.total }} / 300</p>
+        <p class="font-semibold">
+          {{ t('game.scenarioScore', { score: scores[scores.length - 1]?.total }) }}
+        </p>
         <button
           type="button"
           class="mt-3 rounded-lg bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800"
           @click="continueMatch"
         >
-          {{ currentIndex < 2 ? 'Next Scenario' : 'See Results' }}
+          {{ currentIndex < 2 ? t('game.nextScenario') : t('game.seeResults') }}
         </button>
       </div>
     </template>

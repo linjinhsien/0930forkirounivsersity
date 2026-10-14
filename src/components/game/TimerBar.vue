@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 interface Props {
   timeRemaining: number
@@ -13,6 +14,7 @@ const emit = defineEmits<{
   warningTriggered: []
 }>()
 
+const { t } = useI18n()
 const liveAnnouncement = ref('')
 const warningEmitted = ref(false)
 
@@ -43,11 +45,11 @@ watch(
   () => props.timeRemaining,
   (val) => {
     if (val <= 0) {
-      liveAnnouncement.value = 'Time expired!'
+      liveAnnouncement.value = t('game.timeExpired')
       emit('timeExpired')
     } else if (val <= 10 && !warningEmitted.value) {
       warningEmitted.value = true
-      liveAnnouncement.value = '10 seconds remaining!'
+      liveAnnouncement.value = t('game.tenSecondsRemaining')
       emit('warningTriggered')
     }
   }
@@ -60,7 +62,9 @@ watch(
     <div aria-live="polite" class="sr-only">{{ liveAnnouncement }}</div>
 
     <div class="flex justify-between text-sm">
-      <span class="font-medium text-gray-700 dark:text-gray-300">Time Remaining</span>
+      <span class="font-medium text-gray-700 dark:text-gray-300">{{
+        t('game.timeRemaining')
+      }}</span>
       <span :class="timeColorClass" class="font-mono font-bold">{{ minutes }}:{{ seconds }}</span>
     </div>
 

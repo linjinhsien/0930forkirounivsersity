@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCodexStore } from '@/stores/codex'
 import { usePlayerStore } from '@/stores/player'
 import type { AZ900Domain, AzureCard, CodexEntry } from '@/types/game'
@@ -16,7 +17,8 @@ const emit = defineEmits<{
   addToStudyDeck: [cardId: string]
 }>()
 
-// ── Stores ─────────────────────────────────────────────────────────────────
+// ── Stores & i18n ──────────────────────────────────────────────────────────
+const { t } = useI18n()
 const codexStore = useCodexStore()
 const playerStore = usePlayerStore()
 
@@ -26,11 +28,11 @@ const card = ref<AzureCard | null>(null)
 const isLoading = ref<boolean>(true)
 
 // ── Domain display helpers ─────────────────────────────────────────────────
-const domainLabel: Record<AZ900Domain, string> = {
-  'cloud-concepts': 'Cloud Concepts',
-  'azure-services': 'Azure Services',
-  'management-governance': 'Management & Governance',
-}
+const domainLabel = computed<Record<AZ900Domain, string>>(() => ({
+  'cloud-concepts': t('domains.cloud-concepts'),
+  'azure-services': t('domains.azure-services'),
+  'management-governance': t('domains.management-governance'),
+}))
 
 const domainBadgeClass: Record<AZ900Domain, string> = {
   'cloud-concepts': 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200',
@@ -73,7 +75,7 @@ onMounted(async () => {
       class="mb-4 flex items-center gap-1 text-sm text-blue-600 hover:underline dark:text-blue-400"
       @click="emit('back')"
     >
-      ← Back to Library
+      {{ t('codex.backToLibrary') }}
     </button>
 
     <!-- Loading state -->
@@ -83,12 +85,12 @@ onMounted(async () => {
       aria-busy="true"
       aria-live="polite"
     >
-      Loading...
+      {{ t('codex.loading') }}
     </div>
 
     <!-- Not found -->
     <div v-else-if="!entry || !card">
-      <p class="text-gray-500 dark:text-gray-400">Entry not found.</p>
+      <p class="text-gray-500 dark:text-gray-400">{{ t('codex.notFound') }}</p>
     </div>
 
     <!-- Entry content -->
@@ -113,18 +115,18 @@ onMounted(async () => {
         <div class="flex gap-4 text-sm text-gray-600 dark:text-gray-300 shrink-0">
           <div class="text-center">
             <p class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ card.cost }}</p>
-            <p class="text-xs text-gray-500">Cost</p>
+            <p class="text-xs text-gray-500">{{ t('codex.cost') }}</p>
           </div>
           <div class="text-center">
             <p class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ card.power }}</p>
-            <p class="text-xs text-gray-500">Power</p>
+            <p class="text-xs text-gray-500">{{ t('codex.power') }}</p>
           </div>
         </div>
 
         <!-- Power bar -->
         <div class="w-full mt-2">
           <div class="flex justify-between text-xs text-gray-500 mb-1">
-            <span>Power</span>
+            <span>{{ t('codex.power') }}</span>
             <span>{{ card.power }} / 100</span>
           </div>
           <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -144,7 +146,7 @@ onMounted(async () => {
       <!-- ── AZ-900 Exam Definition ── -->
       <section aria-labelledby="exam-def-heading" class="mb-5">
         <h2 id="exam-def-heading" class="font-bold text-lg mb-2 text-gray-900 dark:text-gray-100">
-          AZ-900 Exam Definition
+          {{ t('codex.examDefinition') }}
         </h2>
         <p
           class="text-gray-700 dark:text-gray-300 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-sm leading-relaxed border border-blue-100 dark:border-blue-800"
@@ -156,7 +158,7 @@ onMounted(async () => {
       <!-- ── Use Cases ── -->
       <section aria-labelledby="use-cases-heading" class="mb-5">
         <h3 id="use-cases-heading" class="font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100">
-          Use Cases
+          {{ t('codex.useCases') }}
         </h3>
         <ul class="list-disc list-inside space-y-1">
           <li
@@ -175,7 +177,7 @@ onMounted(async () => {
           id="best-practices-heading"
           class="font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100"
         >
-          Best Practices
+          {{ t('codex.bestPractices') }}
         </h3>
         <ul class="space-y-1">
           <li
@@ -199,7 +201,7 @@ onMounted(async () => {
           id="related-services-heading"
           class="font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100"
         >
-          Related Services
+          {{ t('codex.relatedServices') }}
         </h3>
         <div class="flex flex-wrap gap-2">
           <span
@@ -215,7 +217,7 @@ onMounted(async () => {
       <!-- ── Learning Resources ── -->
       <section v-if="entry.resources.length > 0" aria-labelledby="resources-heading" class="mb-5">
         <h3 id="resources-heading" class="font-semibold mt-4 mb-2 text-gray-900 dark:text-gray-100">
-          Learning Resources
+          {{ t('codex.learningResources') }}
         </h3>
         <ul class="space-y-2">
           <li v-for="r in entry.resources" :key="r.url">
@@ -246,7 +248,7 @@ onMounted(async () => {
           :aria-pressed="isInStudyDeck"
           @click="handleAddToStudyDeck"
         >
-          {{ isInStudyDeck ? '✓ In Study Deck' : '+ Add to Study Deck' }}
+          {{ isInStudyDeck ? t('codex.inStudyDeck') : t('codex.addToStudyDeckBtn') }}
         </button>
       </div>
     </div>

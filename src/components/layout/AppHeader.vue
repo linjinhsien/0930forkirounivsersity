@@ -38,7 +38,7 @@ const navigation = [
         class="font-bold tracking-tight text-blue-900"
         :aria-label="`${t('app.title')} home`"
       >
-        Azure AZ-900 Card Clash
+        {{ t('app.title') }}
       </RouterLink>
       <button
         type="button"
@@ -47,7 +47,7 @@ const navigation = [
         aria-controls="primary-navigation"
         @click="menuOpen = !menuOpen"
       >
-        {{ menuOpen ? 'Close menu' : 'Open menu' }}
+        {{ menuOpen ? t('app.closeMenu') : t('app.openMenu') }}
       </button>
       <div
         id="primary-navigation"
@@ -78,7 +78,7 @@ const navigation = [
           {{ t(item.labelKey) }}
         </RouterLink>
         <span class="border-t border-gray-200 pt-2 text-sm text-gray-600 md:border-0 md:pt-0">
-          {{ playerStore.profile?.displayName ?? 'Azure Learner' }} ·
+          {{ playerStore.profile?.displayName ?? t('app.defaultPlayer') }} ·
           {{ playerStore.profile?.xp ?? 0 }} XP · {{ currentLanguage }}
         </span>
       </div>

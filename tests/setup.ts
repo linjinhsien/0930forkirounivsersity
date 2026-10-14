@@ -7,11 +7,13 @@
 
 import { expect, vi, beforeEach, afterEach } from 'vitest'
 import { config } from '@vue/test-utils'
+import { i18n } from '@/i18n'
 
 /**
  * Vue Test Utils global configuration
  * Configure test environment for all component tests
  */
+config.global.plugins = [i18n]
 config.global.stubs = {
   // Stub out router-link and router-view for component tests
   'router-link': true,
